@@ -1,9 +1,9 @@
 {
   "version": "3.0.0",
-  "last_updated": "2026-01-18T02:43:18.817Z",
-  "last_pr": "#4",
+  "last_updated": "2026-01-18T03:02:51.477Z",
+  "last_pr": "#5",
   "score": {
-    "total": 10,
+    "total": 20,
     "today": 0,
     "streak_days": 0,
     "all_time_high": 0
@@ -19,8 +19,8 @@
       "requires_score": 50,
       "requires_prs": 5,
       "progress": {
-        "score": 10,
-        "prs": 1
+        "score": 20,
+        "prs": 2
       }
     },
     "milestones": {
@@ -53,8 +53,8 @@
   },
   "players": {
     "fabriziosalmi": {
-      "karma": 10,
-      "prs": 1,
+      "karma": 20,
+      "prs": 2,
       "joined": "2026-01-18T02:43:18.817Z"
     }
   },
@@ -83,7 +83,7 @@
   },
   "rules_triggered": {},
   "meta": {
-    "total_prs": 1,
+    "total_prs": 2,
     "total_players": 1,
     "game_started": "2026-01-18T00:00:00Z",
     "pages_enabled": false,
