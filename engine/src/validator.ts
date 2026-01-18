@@ -6,6 +6,27 @@ import { getFileContent } from './parser.js';
 const filter = new Filter();
 
 /**
+ * Extract referral from PR body
+ */
+export function extractReferral(prBody: string): string | null {
+  // Match patterns: "Invited by @username" or "Referred by @username"
+  const patterns = [
+    /invited by @([a-zA-Z0-9-]+)/i,
+    /referred by @([a-zA-Z0-9-]+)/i,
+    /referral: @([a-zA-Z0-9-]+)/i
+  ];
+  
+  for (const pattern of patterns) {
+    const match = prBody.match(pattern);
+    if (match && match[1]) {
+      return match[1];
+    }
+  }
+  
+  return null;
+}
+
+/**
  * Check if a PR matches a rule's trigger conditions
  */
 function matchesTrigger(rule: Rule, pr: PRMetadata): boolean {

@@ -59,10 +59,38 @@ export interface GameState {
     elements: BoardElement[];
   };
   players: Record<string, {
+    total_prs: number;
     prs_merged: number;
-    points_contributed: number;
-    first_seen: string;
+    karma: number;
+    reputation: number;
+    contributions: string[];
   }>;
+  karma: {
+    global: number;
+    threshold_good: number;
+    multiplier_active: number;
+  };
+  reputation: {
+    top_coders: string[];
+    voting_power: Record<string, number>;
+  };
+  referrals?: {
+    chains: Record<string, {
+      inviter: string;
+      invited: string[];
+      chain_depth: number;
+      referral_karma: number;
+      total_contributions: number;
+    }>;
+    stats: {
+      total_invites: number;
+      active_chains: number;
+      deepest_chain: number;
+    };
+  };
+  achievements?: {
+    players: Record<string, string[]>;
+  };
   rules_triggered: Record<string, number>;
   meta: {
     total_prs: number;

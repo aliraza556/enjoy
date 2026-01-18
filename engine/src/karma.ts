@@ -286,3 +286,174 @@ export function getVotingPower(state: GameState, playerHash: string): number {
   const reputation = player.reputation || 0;
   return Math.min(5, Math.floor(reputation / 20));  // Max 5 for non-top-coders
 }
+
+/**
+ * REFERRAL SYSTEM
+ */
+
+export interface ReferralChain {
+  inviter: string;
+  invited: string[];
+  chain_depth: number;
+  referral_karma: number;
+  total_contributions: number;
+}
+
+export function trackReferral(state: GameState, inviter: string, invitee: string): void {
+  if (!state.referrals) {
+    state.referrals = { chains: {}, stats: { total_invites: 0, active_chains: 0, deepest_chain: 0 } };
+  }
+  
+  if (!state.referrals.chains[inviter]) {
+    state.referrals.chains[inviter] = {
+      inviter,
+      invited: [],
+      chain_depth: 1,
+      referral_karma: 0,
+      total_contributions: 0
+    };
+  }
+  
+  const chain = state.referrals.chains[inviter];
+  if (!chain.invited.includes(invitee)) {
+    chain.invited.push(invitee);
+    state.referrals.stats.total_invites++;
+    
+    // Check if invitee was invited by someone else (chain)
+    const inviteeChain = state.referrals.chains[invitee];
+    if (inviteeChain) {
+      const newDepth = inviteeChain.chain_depth + 1;
+      chain.chain_depth = Math.max(chain.chain_depth, newDepth);
+      
+      if (newDepth > state.referrals.stats.deepest_chain) {
+        state.referrals.stats.deepest_chain = newDepth;
+      }
+    }
+  }
+}
+
+export function applyReferralKarma(
+  state: GameState,
+  invitee: string,
+  contributionQuality: number,
+  amplification: number
+): string[] {
+  const achievements: string[] = [];
+  
+  if (!state.referrals?.chains) return achievements;
+  
+  // Find who invited this player
+  for (const [inviter, chain] of Object.entries(state.referrals.chains)) {
+    if (chain.invited.includes(invitee)) {
+      let referralBonus = 0;
+      
+      // Base referral karma based on contribution amplification
+      if (amplification === 1) referralBonus = 2;
+      if (amplification === 2) referralBonus = 5;
+      if (amplification === 3) referralBonus = 15;
+      
+      // Chain bonus: +1 karma per chain level
+      const chainBonus = (chain.chain_depth - 1) * 1;
+      referralBonus += chainBonus;
+      
+      // Apply to inviter
+      chain.referral_karma += referralBonus;
+      chain.total_contributions++;
+      
+      // Update inviter's personal karma
+      if (!state.players[inviter]) {
+        state.players[inviter] = {
+          total_prs: 0,
+          prs_merged: 0,
+          karma: 0,
+          reputation: 0,
+          contributions: []
+        };
+      }
+      state.players[inviter].karma = (state.players[inviter].karma || 0) + referralBonus;
+      
+      // Propagate up the chain (50% to grandparent inviter)
+      propagateChainKarma(state, inviter, Math.floor(referralBonus / 2));
+      
+      // Check for achievements
+      const newAchievements = checkAchievements(state, inviter);
+      achievements.push(...newAchievements);
+      
+      break;
+    }
+  }
+  
+  return achievements;
+}
+
+function propagateChainKarma(state: GameState, player: string, karma: number): void {
+  if (karma <= 0 || !state.referrals?.chains) return;
+  
+  // Find who invited this player
+  for (const [inviter, chain] of Object.entries(state.referrals.chains)) {
+    if (chain.invited.includes(player)) {
+      chain.referral_karma += karma;
+      
+      if (!state.players[inviter]) {
+        state.players[inviter] = {
+          total_prs: 0,
+          prs_merged: 0,
+          karma: 0,
+          reputation: 0,
+          contributions: []
+        };
+      }
+      state.players[inviter].karma = (state.players[inviter].karma || 0) + karma;
+      
+      // Continue propagation (halve each time)
+      propagateChainKarma(state, inviter, Math.floor(karma / 2));
+      break;
+    }
+  }
+}
+
+export function checkAchievements(state: GameState, player: string): string[] {
+  const newAchievements: string[] = [];
+  const chain = state.referrals?.chains?.[player];
+  
+  if (!state.achievements) {
+    state.achievements = { players: {} };
+  }
+  
+  if (!state.achievements.players[player]) {
+    state.achievements.players[player] = [];
+  }
+  
+  const playerAchievements = state.achievements.players[player];
+  
+  if (chain) {
+    const invitedCount = chain.invited.length;
+    const chainDepth = chain.chain_depth;
+    
+    // First Recruit
+    if (invitedCount >= 1 && !playerAchievements.includes('first_recruit')) {
+      playerAchievements.push('first_recruit');
+      newAchievements.push('🌱 First Recruit');
+    }
+    
+    // Community Builder
+    if (invitedCount >= 5 && !playerAchievements.includes('community_builder')) {
+      playerAchievements.push('community_builder');
+      newAchievements.push('🌿 Community Builder');
+    }
+    
+    // Network Effect
+    if (chainDepth >= 3 && !playerAchievements.includes('network_effect')) {
+      playerAchievements.push('network_effect');
+      newAchievements.push('🌳 Network Effect');
+    }
+    
+    // Viral Master
+    if (invitedCount >= 10 && !playerAchievements.includes('viral_master')) {
+      playerAchievements.push('viral_master');
+      newAchievements.push('🌲 Viral Master');
+    }
+  }
+  
+  return newAchievements;
+}

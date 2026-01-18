@@ -103,6 +103,50 @@ Your contribution is analyzed for:
 
 ---
 
+## 🌟 Referral System
+
+**Build chains. Invite players. Earn karma exponentially.**
+
+### How It Works
+
+1. **Invite someone** - Add to your PR description:
+   ```markdown
+   Invited by @username
+   ```
+
+2. **Earn referral karma**:
+   - Your invitee makes x1 contribution → **+2 karma** to you
+   - Your invitee makes x2 contribution → **+5 karma** to you  
+   - Your invitee makes x3 contribution → **+15 karma** to you
+
+3. **Chain bonus**: Each chain level adds **+1 karma** per contribution
+
+4. **Propagation**: Karma flows up the chain at 50% per level
+
+### Example Chain
+
+```
+@alice invites @bob (Level 1)
+  └─ @bob invites @charlie (Level 2)
+      └─ @charlie invites @diana (Level 3)
+```
+
+When @diana makes an **x3 contribution**:
+- @charlie gets **15 + 2 (chain bonus)** = **17 karma** 
+- @bob gets **8 karma** (50% propagation)
+- @alice gets **4 karma** (25% propagation)
+
+### Achievements
+
+- 🌱 **First Recruit** - Invite 1 active player
+- 🌿 **Community Builder** - Invite 5 active players  
+- 🌳 **Network Effect** - Build a 3-level chain
+- 🌲 **Viral Master** - Invite 10+ active players
+
+**Viral growth = Exponential karma!** 🚀
+
+---
+
 ## 🔓 The 100 Levels
 
 ### Phase 1: Foundation (1-20)

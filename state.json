@@ -54,6 +54,17 @@
     "top_coders": [],
     "voting_power": {}
   },
+  "referrals": {
+    "chains": {},
+    "stats": {
+      "total_invites": 0,
+      "active_chains": 0,
+      "deepest_chain": 0
+    }
+  },
+  "achievements": {
+    "players": {}
+  },
   "rules": {
     "active": ["001-first-word"],
     "proposed": [],
