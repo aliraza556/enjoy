@@ -117,44 +117,7 @@
             max-height: 100dvh;
         }
         
-        /* ═══════════════════════════════════════════════════════════════
-           HEADER
-           ═══════════════════════════════════════════════════════════════ */
-        
-        header {
-            text-align: center;
-            flex-shrink: 0;
-        }
-        
-        h1 {
-            font-size: clamp(2.5rem, 10vw, 6rem);
-            font-weight: 300;
-            letter-spacing: -0.03em;
-            color: var(--text);
-            line-height: 1;
-            position: relative;
-            display: inline-block;
-            background: linear-gradient(
-                90deg,
-                var(--text) 0%,
-                var(--text) 40%,
-                rgba(255,255,255,1) 50%,
-                var(--text) 60%,
-                var(--text) 100%
-            );
-            background-size: 200% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 8s ease-in-out infinite;
-        }
-        
-        @keyframes shimmer {
-            0%, 90%, 100% { background-position: 200% center; }
-            45%, 55% { background-position: -200% center; }
-        }
-        
-
+        /* Header removed - more space for the organism */
         
         /* ═══════════════════════════════════════════════════════════════
            ORGANISM - The living canvas
@@ -163,10 +126,10 @@
         .organism {
             position: relative;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             flex: 1;
-            min-height: 200px;
-            max-height: 45vh;
+            min-height: 250px;
+            max-height: 55vh;
             margin: 1.5rem 0;
             border-radius: 1.5rem;
             overflow: hidden;
@@ -535,10 +498,6 @@
     <div class="notification" id="notification"></div>
     
     <div class="container">
-        <header>
-            <h1>enjoy</h1>
-        </header>
-        
         <!-- The Organism -->
         <div class="organism">
             <canvas id="canvas"></canvas>
