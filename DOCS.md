@@ -99,7 +99,38 @@
 | `dynamic-header.yml` | Schedule | Time-based themes |
 
 ---
+## 🛡️ Security System
 
+> Defense in depth: multiple layers protect the repository
+
+### ALLOWLIST Approach
+
+Player contributions are **strictly limited** to specific patterns:
+
+| Pattern | Example | Status |
+|---------|---------|--------|
+| `words/[A-Za-z0-9_-]+.txt` | `words/HELLO.txt` | ✅ Active |
+| `emoji/[A-Za-z0-9_-]+.txt` | `emoji/SMILE.txt` | 🔒 Level 5+ |
+| `ascii/[A-Za-z0-9_-]+.txt` | `ascii/ROBOT.txt` | 🔒 Level 10+ |
+
+### Security Layers
+
+| Layer | Workflow | Protection |
+|-------|----------|------------|
+| 1 | `validate-pr.yml` | File allowlist + security checks |
+| 2 | `auto-merge.yml` | Pre-merge re-verification |
+| 3 | Labels | Only valid PRs get `auto-merge` |
+
+### Blocked Content
+
+- Path traversal (`..`, `//`)
+- Hidden files (`.gitignore`, `.env`)
+- GitHub folder (`.github/*`)
+- Executables (`.sh`, `.py`, `.js`, `.exe`)
+- Config files (`package.json`, `Dockerfile`)
+- Unicode tricks (zero-width characters)
+
+---
 ## 📋 Templates
 
 ### Issue Templates

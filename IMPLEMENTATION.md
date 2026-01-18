@@ -143,11 +143,23 @@ enjoy/
 - **7-day voting period**
 - **Auto-implementation** of approved rules
 
-### 4. Security
-- HTML sanitization (DOMPurify) - TODO: implement
-- CSS validation (CGA palette only) - TODO: implement
-- JS sandboxing (AST validation) - TODO: implement
-- Rate limiting
+### 4. Security (ALLOWLIST System)
+
+**Implemented:**
+- ✅ **ALLOWLIST approach** - Only explicitly permitted file patterns
+- ✅ **Path traversal detection** - Blocks `..` and `//`
+- ✅ **Hidden file blocking** - Blocks `.` prefix and `/.` paths
+- ✅ **GitHub folder protection** - Blocks all `.github/*`
+- ✅ **Executable blocking** - `.sh`, `.py`, `.js`, `.exe`, `.bat`, etc.
+- ✅ **Config file blocking** - `package.json`, `Dockerfile`, etc.
+- ✅ **Unicode trick detection** - Zero-width chars, homoglyphs
+- ✅ **Defense in depth** - Double verification in `auto-merge.yml`
+- ✅ **Security Gate** - Fails job immediately on violations
+
+**TODO (for higher levels):**
+- HTML sanitization (DOMPurify) for level 81+
+- CSS validation (CGA palette only) for level 81+
+- JS sandboxing (AST validation) for level 81+
 - Manual approval gate for level 95
 
 ### 5. Anti-Ban Strategy

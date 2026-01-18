@@ -77,6 +77,41 @@ See [LEVELS_ROADMAP.md](LEVELS_ROADMAP.md) for complete details.
 
 ---
 
+## 🛡️ Security & File Restrictions
+
+### ALLOWLIST System
+
+For security, player contributions are **strictly limited** to specific file patterns:
+
+| Level | Allowed Files | Pattern |
+|-------|--------------|--------|
+| 1+ | Word files | `words/YOURWORD.txt` |
+| 5+ | Emoji files | `emoji/YOUREMOJI.txt` *(coming soon)* |
+| 10+ | ASCII art | `ascii/YOURART.txt` *(coming soon)* |
+
+### Blocked Files (Security)
+
+The following are **always blocked** for non-maintainers:
+
+- 🚫 Hidden files (`.gitignore`, `.env`, etc.)
+- 🚫 GitHub folder (`.github/*`)
+- 🚫 Executable files (`.sh`, `.py`, `.js`, `.exe`, etc.)
+- 🚫 Config files (`package.json`, `Dockerfile`, etc.)
+- 🚫 Path traversal (`../` attempts)
+- 🚫 Auto-generated folders (`art/`, `badges/`, `metrics/`)
+
+### Why?
+
+To prevent:
+- Malicious code injection
+- Workflow modifications
+- Game state manipulation
+- Security vulnerabilities
+
+**If your PR is blocked**, check that you only modified allowed files!
+
+---
+
 ## As a Developer
 
 Want to improve the game engine, add new rules, or contribute to infrastructure?
