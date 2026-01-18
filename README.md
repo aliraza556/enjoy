@@ -1,11 +1,14 @@
 # enjoy 🎮
 
 <!-- 🌅 DYNAMIC HEADER - Changes with time of day (CET) -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/header-current.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/header-current.svg">
-  <img alt="enjoy - the repository that breathes" src="assets/header-current.svg" width="100%">
-</picture>
+<p align="center">
+  <img src="assets/svg/hero-banner.svg" alt="enjoy - the repository that plays back" width="100%">
+</p>
+
+<!-- 🏆 INNOVATION BADGE -->
+<p align="center">
+  <img src="assets/svg/badge-innovative.svg" alt="Most Innovative GitHub Experience 2026" width="300">
+</p>
 
 <!-- 🏥 LIVE STATUS BADGES - Auto-updated by workflows -->
 <p align="center">
@@ -20,11 +23,13 @@
   <img src="https://img.shields.io/badge/🤖_Built_with-Claude_&_Gemini-blueviolet?style=for-the-badge" alt="AI Crafted">
   <img src="https://img.shields.io/badge/🎮_100_Levels-To_Beat-orange?style=for-the-badge" alt="100 Levels">
   <img src="https://img.shields.io/badge/⏱️_Time--Aware-Repo-blue?style=for-the-badge" alt="Time Aware">
+  <img src="https://img.shields.io/badge/🔄_21_Workflows-Autonomous-purple?style=for-the-badge" alt="21 Workflows">
 </p>
 
 <p align="center">
   <a href="https://fabriziosalmi.github.io/enjoy/"><img src="https://img.shields.io/badge/▶_PLAY_NOW-6366f1?style=for-the-badge&logo=github" alt="Play Now"></a>
-  <a href="https://github.com/fabriziosalmi/enjoy/fork"><img src="https://img.shields.io/badge/🍴_FORK_&_PLAY-22c55e?style=for-the-badge" alt="Fork"></a>
+  <a href="https://github.com/fabriziosalmi/enjoy/fork"><img src="https://img.shields.io/badge/🍴_FORK_&_JOIN-22c55e?style=for-the-badge" alt="Fork"></a>
+  <a href="https://github.com/fabriziosalmi/enjoy/issues/7"><img src="https://img.shields.io/badge/📖_START_HERE-f59e0b?style=for-the-badge" alt="Start Here"></a>
 </p>
 
 ---
@@ -43,28 +48,27 @@
 
 ---
 
-## 🎬 How it works (30 seconds)
+## 🎬 How it works
 
-```
-You                          GitHub                         Bot
- │                              │                            │
- ├──► Fork repo ───────────────►│                            │
- │                              │                            │
- ├──► Add "AURORA.txt" ────────►│                            │
- │    (with word inside)        │                            │
- │                              │                            │
- ├──► Open Pull Request ───────►│───► Validates ────────────►│
- │                              │                            │
- │◄─────────────────────────────│◄─── Auto-merge + karma ◄───┤
- │                              │                            │
- 🎉 You're on the leaderboard!
-```
+<p align="center">
+  <img src="assets/svg/how-to-play.svg" alt="How to play in 4 steps" width="100%">
+</p>
 
-**That's it. No coding skills needed. Anyone can play.**
+**No coding skills needed. Anyone can play. 60 seconds to join.**
 
 ---
 
-## 🚀 Start Playing in 60 Seconds
+## ⏰ Time Multipliers (CET)
+
+<p align="center">
+  <img src="assets/svg/time-multipliers.svg" alt="Time-based karma multipliers" width="100%">
+</p>
+
+*Contribute at the right time = more karma!*
+
+---
+
+## 🚀 Start Playing Now
 
 ### Step 1: Fork
 Click the **Fork** button above ↗️
@@ -89,8 +93,28 @@ Bot validates → Auto-merges → You earn karma!
 <td align="center">🤖<br><b>AI-Powered</b><br><small>Bot judges quality</small></td>
 <td align="center">⏰<br><b>Time Bonuses</b><br><small>Karma multipliers</small></td>
 <td align="center">🏅<br><b>100 Levels</b><br><small>Unlock them all</small></td>
+<td align="center">🎨<br><b>Generative Art</b><br><small>Auto-created</small></td>
+<td align="center">💜<br><b>Guardian Angel</b><br><small>We care</small></td>
 </tr>
 </table>
+
+---
+
+## 🌟 What Makes This Unique
+
+> **The world's first repository that plays back.**
+
+| Feature | Description |
+|---------|-------------|
+| 🫁 **Breathing Repo** | Header changes with time of day (CET) |
+| 🎨 **Procedural Art** | New artwork generated every 4 hours |
+| 💜 **Guardian Angel** | Bot checks on inactive players |
+| ⏰ **Time Capsules** | Messages from past to future |
+| 📖 **Auto-Chronicles** | Weekly story written from game state |
+| 🧬 **Entropy Tracking** | Measures order vs chaos |
+| 🏆 **21 Autonomous Workflows** | The repo lives 24/7 |
+
+---
 
 | Your Word | Bot Says | Karma |
 |-----------|----------|-------|
@@ -207,8 +231,10 @@ Total:  [████████░░░░░░░░░░░░] 40%
 |------|-------------|------|
 | 🎤 **Voice** | Speak your word (no Git!) | [voice.html](https://fabriziosalmi.github.io/enjoy/voice.html) |
 | ⏰ **Time Portal** | See all 6 time skins | [time.html](https://fabriziosalmi.github.io/enjoy/time.html) |
-| 🐛 **Bug Hunt** | Report bugs = karma | [Issues](.github/ISSUE_TEMPLATE/) |
-| 💬 **Discuss** | Chat with players | [Discussions](../../discussions) |
+| 🐛 **Bug Hunt** | Report bugs = karma | [Issues](https://github.com/fabriziosalmi/enjoy/issues/new/choose) |
+| 💬 **Discuss** | Chat with players | [Discussions](https://github.com/fabriziosalmi/enjoy/discussions) |
+| 🏆 **Bounties** | Claim karma rewards | [Bounty Board](https://github.com/fabriziosalmi/enjoy/issues/8) |
+| 📊 **Leaderboard** | See top players | [Live Rankings](https://github.com/fabriziosalmi/enjoy/issues/9) |
 
 ---
 
@@ -225,13 +251,16 @@ Total:  [████████░░░░░░░░░░░░] 40%
 ```
 enjoy/
 ├── 📜 100 YAML levels (levels/*.yaml)
-├── 🤖 9 GitHub Actions workflows
-├── 🎨 6 time-based SVG headers
+├── 🤖 21 GitHub Actions workflows
+├── 🎨 Dynamic time-based header
 ├── 🌐 Interactive web UI (index.html)
 ├── 🎤 Voice mode (voice.html)
 ├── ⏰ Time portal (time.html)
 ├── 📊 Live state (state.json)
-└── 🧠 TypeScript engine (engine/)
+├── 🧠 TypeScript engine (engine/)
+├── 🎨 Procedural art gallery (art/)
+├── 📖 Auto-generated chronicles (story/)
+└── 💜 Guardian Angel system (guardian/)
 ```
 
 </details>
@@ -262,6 +291,17 @@ It's a real game. The karma is real. The leaderboard is real. The fun is real. �
 
 ---
 
+## 📣 Spread the Word
+
+<p align="center">
+  <a href="https://twitter.com/intent/tweet?text=I%20just%20discovered%20%40enjoy%20-%20the%20most%20innovative%20GitHub%20experience%20of%202026!%20%F0%9F%8E%AE%0A%0AA%20game%20where%20GitHub%20IS%20the%20game.%20No%20downloads.%20Just%20PRs.%0A%0AJoin%3A%20https%3A%2F%2Fgithub.com%2Ffabriziosalmi%2Fenjoy%0A%0A%23GitHub%20%23opensource"><img src="https://img.shields.io/badge/🐦_Tweet_About_It-1da1f2?style=for-the-badge" alt="Tweet"></a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/fabriziosalmi/enjoy"><img src="https://img.shields.io/badge/💼_Share_on_LinkedIn-0077b5?style=for-the-badge" alt="LinkedIn"></a>
+  <a href="https://news.ycombinator.com/submitlink?u=https://github.com/fabriziosalmi/enjoy&t=enjoy%20-%20The%20Most%20Innovative%20GitHub%20Experience%20of%202026"><img src="https://img.shields.io/badge/🔶_Post_on_HN-f97316?style=for-the-badge" alt="Hacker News"></a>
+  <a href="https://www.reddit.com/submit?url=https://github.com/fabriziosalmi/enjoy&title=enjoy%20-%20A%20game%20where%20GitHub%20IS%20the%20game"><img src="https://img.shields.io/badge/🤖_Share_on_Reddit-ff4500?style=for-the-badge" alt="Reddit"></a>
+</p>
+
+---
+
 <div align="center">
 
 ### 🌟 Ready to play?
@@ -272,7 +312,15 @@ It's a real game. The karma is real. The leaderboard is real. The fun is real. �
 
 ---
 
-*Built with 🤖 by Claude & Gemini | Maintained by [@fabriziosalmi](https://github.com/fabriziosalmi) | Played by you*
+<sub>
+
+**🏆 Most Innovative GitHub Experience 2026**
+
+Built with 🤖 by Claude & Gemini | Maintained by [@fabriziosalmi](https://github.com/fabriziosalmi) | Played by you
+
+21 autonomous workflows • 100 levels • Time-aware karma • Procedural art • Guardian angels
+
+</sub>
 
 **⭐ Star this repo if you think GitHub can be fun!**
 

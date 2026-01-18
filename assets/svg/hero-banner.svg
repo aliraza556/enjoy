@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="50%" style="stop-color:#16213e"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#667eea">
+        <animate attributeName="stop-color" values="#667eea;#f093fb;#667eea" dur="4s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" style="stop-color:#f093fb">
+        <animate attributeName="stop-color" values="#f093fb;#667eea;#f093fb" dur="4s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#764ba2">
+        <animate attributeName="stop-color" values="#764ba2;#667eea;#764ba2" dur="4s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <rect width="600" height="120" fill="url(#bg)" rx="15"/>
+  
+  <!-- Animated particles -->
+  <g opacity="0.6">
+    <circle cx="50" cy="60" r="2" fill="#667eea">
+      <animate attributeName="cy" values="60;20;60" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="150" cy="30" r="1.5" fill="#f093fb">
+      <animate attributeName="cy" values="30;80;30" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="450" cy="90" r="2" fill="#764ba2">
+      <animate attributeName="cy" values="90;40;90" dur="3.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="550" cy="50" r="1.5" fill="#667eea">
+      <animate attributeName="cy" values="50;100;50" dur="2.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Main title -->
+  <text x="300" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="bold" fill="url(#textGrad)" text-anchor="middle" filter="url(#glow)">
+    🎮 enjoy
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="300" y="85" font-family="monospace" font-size="14" fill="#9ca3af" text-anchor="middle">
+    THE REPOSITORY THAT PLAYS BACK
+  </text>
+  
+  <!-- Breathing indicator -->
+  <circle cx="560" cy="30" r="6" fill="#22c55e">
+    <animate attributeName="r" values="4;8;4" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <text x="540" y="34" font-family="monospace" font-size="8" fill="#22c55e" text-anchor="end">LIVE</text>
+</svg>

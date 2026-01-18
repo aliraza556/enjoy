@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f23"/>
+      <stop offset="100%" style="stop-color:#1a1a3e"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8b5cf6"/>
+      <stop offset="50%" style="stop-color:#ec4899"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <rect width="600" height="200" fill="url(#bgGrad)" rx="20"/>
+  
+  <!-- Floating particles -->
+  <g opacity="0.4">
+    <circle cx="50" cy="50" r="2" fill="#8b5cf6">
+      <animate attributeName="cy" values="50;150;50" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="100" cy="120" r="1.5" fill="#ec4899">
+      <animate attributeName="cy" values="120;30;120" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="500" cy="80" r="2" fill="#06b6d4">
+      <animate attributeName="cy" values="80;160;80" dur="7s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="550" cy="150" r="1.5" fill="#8b5cf6">
+      <animate attributeName="cy" values="150;50;150" dur="5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Step 1 -->
+  <g transform="translate(50,60)">
+    <circle cx="30" cy="30" r="25" fill="#1f2937" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="30" y="38" font-family="system-ui" font-size="24" fill="#8b5cf6" text-anchor="middle">1</text>
+    <text x="30" y="80" font-family="system-ui" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Fork</text>
+    <text x="30" y="100" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">Click button</text>
+  </g>
+  
+  <!-- Arrow 1 -->
+  <path d="M 110 90 L 160 90" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <polygon points="160,85 175,90 160,95" fill="#4b5563"/>
+  
+  <!-- Step 2 -->
+  <g transform="translate(175,60)">
+    <circle cx="30" cy="30" r="25" fill="#1f2937" stroke="#ec4899" stroke-width="2"/>
+    <text x="30" y="38" font-family="system-ui" font-size="24" fill="#ec4899" text-anchor="middle">2</text>
+    <text x="30" y="80" font-family="system-ui" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Create</text>
+    <text x="30" y="100" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">WORD.txt</text>
+  </g>
+  
+  <!-- Arrow 2 -->
+  <path d="M 235 90 L 285 90" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <polygon points="285,85 300,90 285,95" fill="#4b5563"/>
+  
+  <!-- Step 3 -->
+  <g transform="translate(300,60)">
+    <circle cx="30" cy="30" r="25" fill="#1f2937" stroke="#06b6d4" stroke-width="2"/>
+    <text x="30" y="38" font-family="system-ui" font-size="24" fill="#06b6d4" text-anchor="middle">3</text>
+    <text x="30" y="80" font-family="system-ui" font-size="14" font-weight="bold" fill="white" text-anchor="middle">PR</text>
+    <text x="30" y="100" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">Answer: Karmiel</text>
+  </g>
+  
+  <!-- Arrow 3 -->
+  <path d="M 360 90 L 410 90" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <polygon points="410,85 425,90 410,95" fill="#4b5563"/>
+  
+  <!-- Step 4 -->
+  <g transform="translate(425,60)">
+    <circle cx="30" cy="30" r="25" fill="#22c55e" filter="url(#glow)">
+      <animate attributeName="r" values="23;28;23" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="30" y="38" font-family="system-ui" font-size="24" fill="white" text-anchor="middle">✓</text>
+    <text x="30" y="80" font-family="system-ui" font-size="14" font-weight="bold" fill="#22c55e" text-anchor="middle">Done!</text>
+    <text x="30" y="100" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">+karma 🎉</text>
+  </g>
+  
+  <!-- Timer -->
+  <text x="300" y="175" font-family="monospace" font-size="12" fill="#6b7280" text-anchor="middle">
+    ⏱️ Total time: ~60 seconds
+  </text>
+</svg>

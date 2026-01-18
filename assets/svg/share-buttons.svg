@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120">
+  <defs>
+    <linearGradient id="twitterGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1da1f2"/>
+      <stop offset="100%" style="stop-color:#0d8ecf"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="500" height="120" rx="15" fill="#0d1117"/>
+  
+  <!-- Share text -->
+  <text x="30" y="35" font-family="system-ui" font-size="14" fill="#9ca3af">SHARE YOUR ACHIEVEMENT</text>
+  
+  <!-- Twitter/X button -->
+  <a href="https://twitter.com/intent/tweet?text=I%20just%20joined%20%40enjoy%20-%20the%20most%20innovative%20GitHub%20experience%20of%202026!%20%F0%9F%8E%AE%0A%0AA%20game%20where%20GitHub%20IS%20the%20game.%20No%20downloads.%20Just%20PRs.%0A%0AJoin%20the%20collective%3A%20https%3A%2F%2Fgithub.com%2Ffabriziosalmi%2Fenjoy%0A%0A%23GitHub%20%23opensource%20%23gaming">
+    <rect x="30" y="50" width="140" height="45" rx="8" fill="url(#twitterGrad)"/>
+    <text x="100" y="80" font-family="system-ui" font-size="14" font-weight="bold" fill="white" text-anchor="middle">🐦 Tweet</text>
+  </a>
+  
+  <!-- LinkedIn button -->
+  <rect x="180" y="50" width="140" height="45" rx="8" fill="#0077b5"/>
+  <text x="250" y="80" font-family="system-ui" font-size="14" font-weight="bold" fill="white" text-anchor="middle">💼 LinkedIn</text>
+  
+  <!-- Copy link button -->
+  <rect x="330" y="50" width="140" height="45" rx="8" fill="#374151"/>
+  <text x="400" y="80" font-family="system-ui" font-size="14" font-weight="bold" fill="white" text-anchor="middle">🔗 Copy Link</text>
+</svg>

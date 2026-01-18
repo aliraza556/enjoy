@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+  <defs>
+    <linearGradient id="karmaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8b5cf6">
+        <animate attributeName="stop-color" values="#8b5cf6;#ec4899;#8b5cf6" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#06b6d4">
+        <animate attributeName="stop-color" values="#06b6d4;#8b5cf6;#06b6d4" dur="3s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <rect width="200" height="60" rx="10" fill="#0d1117"/>
+  
+  <!-- Pulse circle -->
+  <circle cx="30" cy="30" r="15" fill="none" stroke="url(#karmaGrad)" stroke-width="2" filter="url(#glow)">
+    <animate attributeName="r" values="12;18;12" dur="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="30" cy="30" r="8" fill="url(#karmaGrad)">
+    <animate attributeName="r" values="6;10;6" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- KARMA text -->
+  <text x="55" y="25" font-family="monospace" font-size="10" fill="#9ca3af">KARMA</text>
+  <text x="55" y="42" font-family="monospace" font-size="18" font-weight="bold" fill="url(#karmaGrad)">
+    ACTIVE
+    <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite"/>
+  </text>
+</svg>
