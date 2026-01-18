@@ -12,6 +12,10 @@ description: |
   The game deepens.
 
 rules:
+  required_patterns:
+    - "sequence"
+  max_words: 20
+  min_words: 5
   file_type: [".txt", ".json"]
   max_files: 2
   combined_rules:
@@ -26,7 +30,7 @@ validation:
   - type: "multi_rule_compliance"
 
 karma:
-  base: 30
+  base: 50
   bonus_conditions:
     - condition: "all_rules_satisfied"
       bonus: 30

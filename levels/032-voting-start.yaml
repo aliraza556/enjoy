@@ -11,6 +11,10 @@ description: |
   👍 = upvote, 👎 = downvote
 
 rules:
+  required_patterns:
+    - "number"
+  max_words: 13
+  min_words: 3
   file_type: ".txt"
   max_files: 1
   voting:
@@ -26,7 +30,7 @@ validation:
     value: ".txt"
 
 karma:
-  base: 10
+  base: 39
   bonus_conditions:
     - condition: "popular"
       min_upvotes: 5

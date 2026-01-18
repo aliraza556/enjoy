@@ -32,6 +32,10 @@ description: |
   This is infinity.
 
 rules:
+  required_patterns:
+    - "any"
+  max_words: 9999
+  min_words: 1
   file_type: "any"
   max_files: "unlimited"
   transcendence:

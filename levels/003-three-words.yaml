@@ -9,6 +9,9 @@ description: |
   Combine them wisely.
 
 rules:
+  required_patterns:
+    - "text"
+  min_words: 1
   file_type: ".txt"
   max_files: 1
   max_words: 3
@@ -22,7 +25,7 @@ validation:
     max: 3
 
 karma:
-  base: 10
+  base: 7
   bonus_conditions:
     - condition: "exactly_three_words"
       bonus: 5

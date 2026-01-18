@@ -12,6 +12,10 @@ description: |
   Events prepare for consciousness.
 
 rules:
+  required_patterns:
+    - "format"
+  max_words: 47
+  min_words: 9
   file_type: ".trigger"
   max_files: 1
   trigger_constraints:
@@ -26,7 +30,7 @@ validation:
     pattern: "^ON \\w+(:\\w+)? -> \\w+$"
 
 karma:
-  base: 18
+  base: 97
   bonus_conditions:
     - condition: "chained_triggers"
       bonus: 12

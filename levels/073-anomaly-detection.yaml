@@ -11,6 +11,10 @@ description: |
   The game protects itself.
 
 rules:
+  required_patterns:
+    - "rule"
+  max_words: 70
+  min_words: 14
   file_type: ".txt"
   max_files: 1
   anomaly_detection:
@@ -23,7 +27,7 @@ validation:
     value: ".txt"
 
 karma:
-  base: 15
+  base: 163
   bonus_conditions:
     - condition: "creative_anomaly"
       bonus: 50

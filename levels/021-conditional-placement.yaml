@@ -11,6 +11,10 @@ description: |
   "IF night THEN bottom"
 
 rules:
+  required_patterns:
+    - "pattern"
+  max_words: 5
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   conditional_format: "IF {condition} THEN {action}"
@@ -22,7 +26,7 @@ validation:
     pattern: "^IF .+ THEN .+$"
 
 karma:
-  base: 15
+  base: 26
   bonus_conditions:
     - condition: "complex_condition"
       bonus: 10

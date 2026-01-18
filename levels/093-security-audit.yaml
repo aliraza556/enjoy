@@ -11,6 +11,10 @@ description: |
   Only safe content goes to Pages.
 
 rules:
+  required_patterns:
+    - "component"
+  max_words: 188
+  min_words: 46
   file_type: ".audit"
   max_files: 1
   audit:
@@ -27,7 +31,7 @@ validation:
     min: 100
 
 karma:
-  base: 30
+  base: 477
   bonus_conditions:
     - condition: "found_vulnerability"
       bonus: 100

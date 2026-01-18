@@ -11,6 +11,10 @@ description: |
   The players reshape the game.
 
 rules:
+  required_patterns:
+    - "rule"
+  max_words: 83
+  min_words: 16
   file_type: ".proposal"
   max_files: 1
   self_modification:
@@ -26,7 +30,7 @@ validation:
     min: 500
 
 karma:
-  base: 30
+  base: 179
   bonus_conditions:
     - condition: "approved_proposal"
       bonus: 100

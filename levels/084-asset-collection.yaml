@@ -11,6 +11,10 @@ description: |
   The palette expands.
 
 rules:
+  required_patterns:
+    - "component"
+  max_words: 84
+  min_words: 19
   file_type: [".b64", ".json"]
   max_files: 1
   asset_constraints:
@@ -24,7 +28,7 @@ validation:
     max: 5120
 
 karma:
-  base: 18
+  base: 270
   bonus_conditions:
     - condition: "useful_asset"
       bonus: 15

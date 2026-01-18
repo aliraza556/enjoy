@@ -11,6 +11,10 @@ description: |
   The collective creates together.
 
 rules:
+  required_patterns:
+    - "any"
+  max_words: 4599
+  min_words: 1
   file_type: "any"
   max_files: 3
   collaboration:
@@ -24,7 +28,7 @@ validation:
     max_rate: 10  # changes per minute
 
 karma:
-  base: 40
+  base: 700
   bonus_conditions:
     - condition: "collab_session"
       bonus: 40

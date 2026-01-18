@@ -11,6 +11,10 @@ description: |
   Natural selection in code.
 
 rules:
+  required_patterns:
+    - "rule"
+  max_words: 32
+  min_words: 7
   file_type: ".rule"
   max_files: 1
   evolution:
@@ -23,7 +27,7 @@ validation:
     value: ".rule"
 
 karma:
-  base: 20
+  base: 116
   bonus_conditions:
     - condition: "evolved_rule"
       bonus: 20

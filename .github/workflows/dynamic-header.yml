@@ -1,0 +1,117 @@
+name: 🌅 Dynamic Header Update
+
+on:
+  schedule:
+    # Run every hour at minute 5
+    - cron: '5 * * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'assets/headers/*.svg'
+
+permissions:
+  contents: write
+
+jobs:
+  update-header:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Get current time in CET (GMT+1)
+        id: time
+        run: |
+          # Get hour in CET timezone
+          HOUR=$(TZ="Europe/Rome" date +%H)
+          echo "hour=$HOUR" >> $GITHUB_OUTPUT
+          echo "🕐 Current hour in CET: $HOUR"
+          
+          # Determine time period
+          if [ $HOUR -ge 5 ] && [ $HOUR -lt 8 ]; then
+            PERIOD="dawn"
+            EMOJI="🌅"
+            MESSAGE="The void stirs... dawn breaks over the repository."
+          elif [ $HOUR -ge 8 ] && [ $HOUR -lt 12 ]; then
+            PERIOD="morning"
+            EMOJI="☀️"
+            MESSAGE="Fresh energy flows. The best time for contributions!"
+          elif [ $HOUR -ge 12 ] && [ $HOUR -lt 15 ]; then
+            PERIOD="noon"
+            EMOJI="🌞"
+            MESSAGE="Peak activity. Maximum karma potential unlocked."
+          elif [ $HOUR -ge 15 ] && [ $HOUR -lt 18 ]; then
+            PERIOD="afternoon"
+            EMOJI="🌤️"
+            MESSAGE="Golden hour approaches. Wisdom accumulates."
+          elif [ $HOUR -ge 18 ] && [ $HOUR -lt 21 ]; then
+            PERIOD="sunset"
+            EMOJI="🌅"
+            MESSAGE="Sunset ritual. The day's contributions are harvested."
+          else
+            PERIOD="night"
+            EMOJI="🌙"
+            MESSAGE="Night watch. Dreams compile into code."
+          fi
+          
+          echo "period=$PERIOD" >> $GITHUB_OUTPUT
+          echo "emoji=$EMOJI" >> $GITHUB_OUTPUT
+          echo "message=$MESSAGE" >> $GITHUB_OUTPUT
+          echo "$EMOJI Current period: $PERIOD"
+          
+      - name: Update header image
+        run: |
+          PERIOD="${{ steps.time.outputs.period }}"
+          
+          # Copy the appropriate header
+          cp "assets/headers/${PERIOD}.svg" "assets/header-current.svg"
+          
+          echo "✅ Updated header to: $PERIOD"
+          
+      - name: Generate dynamic stats badge
+        run: |
+          HOUR="${{ steps.time.outputs.hour }}"
+          PERIOD="${{ steps.time.outputs.period }}"
+          EMOJI="${{ steps.time.outputs.emoji }}"
+          
+          # Create a simple stats file
+          cat > assets/time-status.json << EOF
+          {
+            "period": "$PERIOD",
+            "emoji": "$EMOJI",
+            "hour_cet": "$HOUR",
+            "updated": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "message": "${{ steps.time.outputs.message }}"
+          }
+          EOF
+          
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet assets/header-current.svg 2>/dev/null; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "📝 No header change needed"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "🔄 Header needs update"
+          fi
+          
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          git add assets/header-current.svg assets/time-status.json
+          
+          PERIOD="${{ steps.time.outputs.period }}"
+          EMOJI="${{ steps.time.outputs.emoji }}"
+          
+          git commit -m "$EMOJI time shift: $PERIOD mode activated" \
+            -m "The repository breathes with the rhythm of time." \
+            -m "Current time zone: CET (GMT+1)"
+            
+          git push
+          
+          echo "✨ Header updated to $PERIOD mode!"

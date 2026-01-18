@@ -12,6 +12,10 @@ description: |
   ╚════╝
 
 rules:
+  required_patterns:
+    - "letter"
+  max_words: 7
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   max_lines: 5
@@ -26,7 +30,7 @@ validation:
     max: 40
 
 karma:
-  base: 15
+  base: 18
   bonus_conditions:
     - condition: "box_pattern"
       bonus: 10

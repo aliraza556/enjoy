@@ -11,6 +11,10 @@ description: |
   Economy of rules emerges.
 
 rules:
+  required_patterns:
+    - "meta"
+  max_words: 41
+  min_words: 8
   file_type: ".market"
   max_files: 1
   marketplace:
@@ -26,7 +30,7 @@ validation:
     patterns: ["^SELL", "^BUY"]
 
 karma:
-  base: 15
+  base: 127
   bonus_conditions:
     - condition: "successful_trade"
       bonus: 25

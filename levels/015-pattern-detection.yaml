@@ -10,6 +10,10 @@ description: |
   "top:" places at top, "center:" at center.
 
 rules:
+  required_patterns:
+    - "text"
+  max_words: 7
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   commit_patterns:
@@ -26,7 +30,7 @@ validation:
     valid: ["top:", "bottom:", "center:", "left:", "right:"]
 
 karma:
-  base: 12
+  base: 19
   bonus_conditions:
     - condition: "center_placement"
       bonus: 5

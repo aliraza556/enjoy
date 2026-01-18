@@ -11,6 +11,10 @@ description: |
   Style definitions accumulate.
 
 rules:
+  required_patterns:
+    - "design"
+  max_words: 61
+  min_words: 13
   file_type: ".css"
   max_files: 1
   css_constraints:
@@ -26,7 +30,7 @@ validation:
     whitelist_properties: true
 
 karma:
-  base: 20
+  base: 224
   bonus_conditions:
     - condition: "creative_styles"
       bonus: 15

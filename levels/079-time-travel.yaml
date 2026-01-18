@@ -11,6 +11,10 @@ description: |
   History becomes accessible.
 
 rules:
+  required_patterns:
+    - "rule"
+  max_words: 95
+  min_words: 19
   file_type: ".time"
   max_files: 1
   time_travel:
@@ -25,7 +29,7 @@ validation:
     patterns: ["^RECALL", "^COMPARE"]
 
 karma:
-  base: 25
+  base: 194
   bonus_conditions:
     - condition: "historical_insight"
       bonus: 30

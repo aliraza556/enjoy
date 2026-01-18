@@ -12,6 +12,10 @@ description: |
   The game governs itself.
 
 rules:
+  required_patterns:
+    - "logic"
+  max_words: 36
+  min_words: 8
   file_type: ".meta"
   max_files: 1
   meta_constraints:
@@ -27,7 +31,7 @@ validation:
     min: 100
 
 karma:
-  base: 30
+  base: 121
   bonus_conditions:
     - condition: "balanced_meta"
       bonus: 20

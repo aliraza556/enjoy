@@ -12,6 +12,10 @@ description: |
   The page responds.
 
 rules:
+  required_patterns:
+    - "any"
+  max_words: 2799
+  min_words: 1
   file_type: [".js", ".html", ".css"]
   max_files: 3
   interactivity:
@@ -27,7 +31,7 @@ validation:
     strict: true
 
 karma:
-  base: 50
+  base: 600
   bonus_conditions:
     - condition: "interaction_created"
       bonus: 50

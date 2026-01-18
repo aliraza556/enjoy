@@ -11,6 +11,10 @@ description: |
   Simple shapes, infinite possibilities.
 
 rules:
+  required_patterns:
+    - "format"
+  max_words: 16
+  min_words: 4
   file_type: ".svg"
   max_files: 1
   svg_constraints:
@@ -27,7 +31,7 @@ validation:
     max_paths: 5
 
 karma:
-  base: 18
+  base: 58
   bonus_conditions:
     - condition: "clean_path"
       bonus: 12

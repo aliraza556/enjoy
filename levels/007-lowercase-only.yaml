@@ -10,6 +10,9 @@ description: |
   quiet. subtle. powerful.
 
 rules:
+  required_patterns:
+    - "word"
+  min_words: 1
   file_type: ".txt"
   max_files: 1
   max_words: 3
@@ -24,7 +27,7 @@ validation:
     pattern: "^[a-z\\s]+$"
 
 karma:
-  base: 10
+  base: 11
   bonus_conditions:
     - condition: "seven_letters"
       bonus: 7

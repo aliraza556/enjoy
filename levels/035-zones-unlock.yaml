@@ -13,6 +13,10 @@ description: |
   West: only numbers
 
 rules:
+  required_patterns:
+    - "number"
+  max_words: 16
+  min_words: 4
   file_type: ".txt"
   max_files: 1
   zones:
@@ -30,7 +34,7 @@ validation:
     dynamic: true
 
 karma:
-  base: 12
+  base: 43
   bonus_conditions:
     - condition: "zone_master"
       bonus: 10

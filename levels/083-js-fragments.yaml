@@ -11,6 +11,10 @@ description: |
   Logic stored for later.
 
 rules:
+  required_patterns:
+    - "system"
+  max_words: 73
+  min_words: 16
   file_type: ".js"
   max_files: 1
   js_constraints:
@@ -27,7 +31,7 @@ validation:
     sandbox: true
 
 karma:
-  base: 25
+  base: 247
   bonus_conditions:
     - condition: "elegant_code"
       bonus: 20

@@ -11,6 +11,10 @@ description: |
   The board breathes in real-time.
 
 rules:
+  required_patterns:
+    - "any"
+  max_words: 6399
+  min_words: 1
   file_type: "any"
   max_files: 3
   real_time:
@@ -23,7 +27,7 @@ validation:
     max_updates: 60  # per minute
 
 karma:
-  base: 40
+  base: 800
   bonus_conditions:
     - condition: "live_update"
       bonus: 30

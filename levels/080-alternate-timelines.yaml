@@ -11,6 +11,10 @@ description: |
   What if scenarios manifest.
 
 rules:
+  required_patterns:
+    - "logic"
+  max_words: 100
+  min_words: 20
   file_type: ".timeline"
   max_files: 1
   timelines:
@@ -25,7 +29,7 @@ validation:
     pattern: "^TIMELINE \\w+$"
 
 karma:
-  base: 30
+  base: 200
   bonus_conditions:
     - condition: "timeline_creator"
       bonus: 40

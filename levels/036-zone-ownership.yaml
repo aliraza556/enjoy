@@ -11,6 +11,10 @@ description: |
   Owner gets 1.5x karma from zone.
 
 rules:
+  required_patterns:
+    - "pattern"
+  max_words: 16
+  min_words: 4
   file_type: ".txt"
   max_files: 1
   ownership:
@@ -27,7 +31,7 @@ validation:
   - type: "zone_available"
 
 karma:
-  base: 15
+  base: 44
   bonus_conditions:
     - condition: "defend_zone"
       bonus: 20

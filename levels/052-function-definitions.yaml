@@ -11,6 +11,10 @@ description: |
   Building blocks for later.
 
 rules:
+  required_patterns:
+    - "data"
+  max_words: 33
+  min_words: 7
   file_type: ".fn"
   max_files: 1
   function_constraints:
@@ -25,7 +29,7 @@ validation:
     pattern: "^fn \\w+\\([^)]*\\) = .+$"
 
 karma:
-  base: 18
+  base: 79
   bonus_conditions:
     - condition: "reusable_function"
       bonus: 12

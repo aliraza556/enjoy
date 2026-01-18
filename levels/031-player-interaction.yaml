@@ -10,6 +10,10 @@ description: |
   Social bonds strengthen the collective.
 
 rules:
+  required_patterns:
+    - "sequence"
+  max_words: 12
+  min_words: 3
   file_type: ".txt"
   max_files: 1
   interaction:
@@ -23,7 +27,7 @@ validation:
     validate_exists: true
 
 karma:
-  base: 15
+  base: 38
   bonus_conditions:
     - condition: "mutual_reference"
       bonus: 20

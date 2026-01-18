@@ -1,8 +1,24 @@
 # Enjoy and contribute! 🎮
 
-[![Play](https://img.shields.io/badge/▶_PLAY_NOW-6366f1?style=for-the-badge)](https://fabriziosalmi.github.io/enjoy/)
-[![Contributors](https://img.shields.io/github/contributors/fabriziosalmi/enjoy?style=for-the-badge&color=22c55e)](https://github.com/fabriziosalmi/enjoy/graphs/contributors)
-[![PRs](https://img.shields.io/github/issues-pr/fabriziosalmi/enjoy?style=for-the-badge&label=Open%20PRs)](https://github.com/fabriziosalmi/enjoy/pulls)
+<!-- 🌅 DYNAMIC HEADER - Changes with time of day (CET) -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/header-current.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/header-current.svg">
+  <img alt="enjoy - the repository that breathes" src="assets/header-current.svg" width="100%">
+</picture>
+
+<!-- Time-aware badges -->
+<p align="center">
+  <a href="https://fabriziosalmi.github.io/enjoy/"><img src="https://img.shields.io/badge/▶_PLAY_NOW-6366f1?style=for-the-badge" alt="Play Now"></a>
+  <a href="https://github.com/fabriziosalmi/enjoy/graphs/contributors"><img src="https://img.shields.io/github/contributors/fabriziosalmi/enjoy?style=for-the-badge&color=22c55e" alt="Contributors"></a>
+  <a href="https://github.com/fabriziosalmi/enjoy/pulls"><img src="https://img.shields.io/github/issues-pr/fabriziosalmi/enjoy?style=for-the-badge&label=Open%20PRs" alt="PRs"></a>
+</p>
+
+<p align="center">
+  <em>🌍 This repo <strong>breathes with time</strong>. Header changes every hour based on CET timezone.</em>
+</p>
+
+---
 
 **This repo is a game. Play it with Pull Requests.**
 
@@ -85,7 +101,24 @@ Goal:   50 points to reach Level 2
 
 ---
 
-## 💡 Tips
+## � Time-Based Experience
+
+**This repo breathes with the rhythm of time (CET timezone).**
+
+| Time | Skin | Mood |
+|------|------|------|
+| 🌅 05:00-08:00 | **Dawn** | The void stirs... new day begins |
+| ☀️ 08:00-12:00 | **Morning** | Fresh energy, prime contribution time |
+| 🌞 12:00-15:00 | **Noon** | Peak activity, maximum karma |
+| 🌤️ 15:00-18:00 | **Afternoon** | Golden hour, wisdom flows |
+| 🌅 18:00-21:00 | **Sunset** | Day's harvest, reflection time |
+| 🌙 21:00-05:00 | **Night** | Dreams compile, night watch |
+
+The header image changes automatically every hour. Each period has its own atmosphere, colors, and message. The repo is alive.
+🕐 **[Interactive Time Portal →](https://fabriziosalmi.github.io/enjoy/time.html)** - See all 6 skins live!
+---
+
+## �💡 Tips
 
 - Words **2-20 characters** are accepted
 - Words **5-10 characters** = bonus points!

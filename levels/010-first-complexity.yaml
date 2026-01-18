@@ -11,6 +11,10 @@ description: |
   Combine a word file with a metadata file.
 
 rules:
+  required_patterns:
+    - "word"
+  max_words: 5
+  min_words: 1
   file_type: [".txt", ".json"]
   max_files: 2
   required_files:
@@ -27,7 +31,7 @@ validation:
     allowed: [".txt", ".json"]
 
 karma:
-  base: 20
+  base: 14
   bonus_conditions:
     - condition: "both_files"
       bonus: 10

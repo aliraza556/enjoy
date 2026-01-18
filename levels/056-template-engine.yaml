@@ -11,6 +11,10 @@ description: |
   Variables filled at render time.
 
 rules:
+  required_patterns:
+    - "format"
+  max_words: 41
+  min_words: 8
   file_type: ".tpl"
   max_files: 1
   template_constraints:
@@ -25,7 +29,7 @@ validation:
     pattern: "\\{\\{\\w+\\}\\}"
 
 karma:
-  base: 15
+  base: 89
   bonus_conditions:
     - condition: "dynamic_content"
       bonus: 12

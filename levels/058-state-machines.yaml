@@ -11,6 +11,10 @@ description: |
   Elements can have states now.
 
 rules:
+  required_patterns:
+    - "data"
+  max_words: 45
+  min_words: 9
   file_type: ".state"
   max_files: 1
   state_machine:
@@ -25,7 +29,7 @@ validation:
     pattern: "^state \\w+ -> \\w+ ON \\w+$"
 
 karma:
-  base: 20
+  base: 94
   bonus_conditions:
     - condition: "complete_machine"
       bonus: 15

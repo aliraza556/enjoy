@@ -10,6 +10,10 @@ description: |
   The game watches back.
 
 rules:
+  required_patterns:
+    - "pattern"
+  max_words: 12
+  min_words: 3
   file_type: ".txt"
   max_files: 1
   state_requirements:
@@ -23,7 +27,7 @@ validation:
     requirements: ["min_players", "min_karma"]
 
 karma:
-  base: 15
+  base: 37
   bonus_conditions:
     - condition: "state_aware"
       bonus: 10

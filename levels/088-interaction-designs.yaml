@@ -14,6 +14,10 @@ description: |
   UX takes form.
 
 rules:
+  required_patterns:
+    - "design"
+  max_words: 130
+  min_words: 31
   file_type: ".interaction"
   max_files: 1
   interaction_constraints:
@@ -28,7 +32,7 @@ validation:
     keyword: "@interaction"
 
 karma:
-  base: 22
+  base: 362
   bonus_conditions:
     - condition: "smooth_interaction"
       bonus: 20

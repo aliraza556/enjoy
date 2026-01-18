@@ -12,6 +12,10 @@ description: |
   - Or: community votes
 
 rules:
+  required_patterns:
+    - "meta"
+  max_words: 28
+  min_words: 6
   file_type: ".rule"
   max_files: 1
   conflict_resolution:
@@ -24,7 +28,7 @@ validation:
   - type: "rule_syntax"
 
 karma:
-  base: 20
+  base: 111
   bonus_conditions:
     - condition: "resolved_conflict"
       bonus: 15

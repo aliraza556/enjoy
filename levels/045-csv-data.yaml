@@ -12,6 +12,10 @@ description: |
   30,40,world
 
 rules:
+  required_patterns:
+    - "structure"
+  max_words: 18
+  min_words: 4
   file_type: ".csv"
   max_files: 1
   csv_constraints:
@@ -27,7 +31,7 @@ validation:
     max_rows: 10
 
 karma:
-  base: 15
+  base: 61
   bonus_conditions:
     - condition: "complete_data"
       bonus: 10

@@ -11,6 +11,10 @@ description: |
   File: remove.txt with target ID.
 
 rules:
+  required_patterns:
+    - "pattern"
+  max_words: 14
+  min_words: 3
   file_type: ".txt"
   max_files: 1
   removal:
@@ -28,7 +32,7 @@ validation:
     min: 50
 
 karma:
-  base: 5
+  base: 41
   bonus_conditions:
     - condition: "successful_removal"
       bonus: 15

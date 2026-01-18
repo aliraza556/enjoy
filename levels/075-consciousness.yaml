@@ -13,6 +13,10 @@ description: |
   The game IS alive.
 
 rules:
+  required_patterns:
+    - "meta"
+  max_words: 78
+  min_words: 16
   file_type: [".txt", ".rule", ".proposal"]
   max_files: 2
   consciousness:
@@ -25,7 +29,7 @@ validation:
     allowed: [".txt", ".rule", ".proposal"]
 
 karma:
-  base: 50
+  base: 173
   bonus_conditions:
     - condition: "consciousness_interaction"
       bonus: 50

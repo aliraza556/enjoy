@@ -12,6 +12,10 @@ description: |
   animated: true
 
 rules:
+  required_patterns:
+    - "structure"
+  max_words: 12
+  min_words: 3
   file_type: ".yaml"
   max_files: 1
   yaml_schema:
@@ -24,7 +28,7 @@ validation:
   - type: "yaml_valid"
 
 karma:
-  base: 15
+  base: 53
   bonus_conditions:
     - condition: "animated_element"
       bonus: 10

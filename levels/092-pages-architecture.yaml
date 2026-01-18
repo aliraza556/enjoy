@@ -12,6 +12,10 @@ description: |
   Blueprint for transcendence.
 
 rules:
+  required_patterns:
+    - "system"
+  max_words: 176
+  min_words: 43
   file_type: ".arch"
   max_files: 1
   architecture:
@@ -26,7 +30,7 @@ validation:
     format: "tree"
 
 karma:
-  base: 25
+  base: 454
   bonus_conditions:
     - condition: "adopted_architecture"
       bonus: 100

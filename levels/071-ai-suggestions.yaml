@@ -11,6 +11,10 @@ description: |
   The game guides willing souls.
 
 rules:
+  required_patterns:
+    - "logic"
+  max_words: 62
+  min_words: 12
   file_type: ".txt"
   max_files: 1
   ai_suggestions:
@@ -22,7 +26,7 @@ validation:
     value: ".txt"
 
 karma:
-  base: 12
+  base: 153
   bonus_conditions:
     - condition: "followed_suggestion"
       bonus: 15

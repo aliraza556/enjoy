@@ -13,6 +13,10 @@ description: |
   Modular building blocks.
 
 rules:
+  required_patterns:
+    - "system"
+  max_words: 107
+  min_words: 25
   file_type: ".component"
   max_files: 1
   component_constraints:
@@ -27,7 +31,7 @@ validation:
     keyword: "@component"
 
 karma:
-  base: 25
+  base: 316
   bonus_conditions:
     - condition: "reused_component"
       bonus: 30

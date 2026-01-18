@@ -11,6 +11,10 @@ description: |
   Use: @STAR @ARROW @STAR
 
 rules:
+  required_patterns:
+    - "data"
+  max_words: 39
+  min_words: 8
   file_type: ".macro"
   max_files: 1
   macro_constraints:
@@ -25,7 +29,7 @@ validation:
     define: "^@define \\w+ = .+$"
 
 karma:
-  base: 18
+  base: 87
   bonus_conditions:
     - condition: "macro_used"
       bonus: 10

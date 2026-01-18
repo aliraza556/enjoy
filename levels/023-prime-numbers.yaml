@@ -10,6 +10,10 @@ description: |
   Primes unlock hidden power.
 
 rules:
+  required_patterns:
+    - "number"
+  max_words: 6
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   filename_format: "prime.txt"
@@ -20,7 +24,7 @@ validation:
     max: 997
 
 karma:
-  base: 15
+  base: 28
   bonus_conditions:
     - condition: "large_prime"
       min: 100

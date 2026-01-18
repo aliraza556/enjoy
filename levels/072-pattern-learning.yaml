@@ -11,6 +11,10 @@ description: |
   The game grows smarter.
 
 rules:
+  required_patterns:
+    - "meta"
+  max_words: 66
+  min_words: 13
   file_type: ".txt"
   max_files: 1
   pattern_learning:
@@ -22,7 +26,7 @@ validation:
     value: ".txt"
 
 karma:
-  base: 15
+  base: 158
   bonus_conditions:
     - condition: "new_pattern_discovered"
       bonus: 30

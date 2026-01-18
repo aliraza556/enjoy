@@ -14,6 +14,10 @@ description: |
   Web Audio API definitions.
 
 rules:
+  required_patterns:
+    - "component"
+  max_words: 153
+  min_words: 37
   file_type: ".sound"
   max_files: 1
   sound_constraints:
@@ -28,7 +32,7 @@ validation:
     keyword: "@sound"
 
 karma:
-  base: 20
+  base: 408
   bonus_conditions:
     - condition: "harmonic_sound"
       bonus: 15

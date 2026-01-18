@@ -13,6 +13,10 @@ description: |
   HALFWAY TO TRANSCENDENCE.
 
 rules:
+  required_patterns:
+    - "format"
+  max_words: 28
+  min_words: 6
   file_type: [".txt", ".json", ".yaml", ".md", ".svg", ".csv"]
   max_files: 3
   metamorphosis:
@@ -24,7 +28,7 @@ validation:
     allowed: [".txt", ".json", ".yaml", ".md", ".svg", ".csv"]
 
 karma:
-  base: 50
+  base: 74
   bonus_conditions:
     - condition: "multi_format"
       bonus: 25

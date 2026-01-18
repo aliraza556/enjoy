@@ -11,6 +11,10 @@ description: |
   Images manifest on the board.
 
 rules:
+  required_patterns:
+    - "data"
+  max_words: 20
+  min_words: 4
   file_type: ".b64"
   max_files: 1
   base64_constraints:
@@ -25,7 +29,7 @@ validation:
     max: 1024
 
 karma:
-  base: 20
+  base: 63
   bonus_conditions:
     - condition: "animated_gif"
       bonus: 15

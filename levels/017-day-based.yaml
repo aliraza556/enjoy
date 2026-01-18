@@ -15,6 +15,10 @@ description: |
   Sunday: rest words
 
 rules:
+  required_patterns:
+    - "letter"
+  max_words: 8
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   day_themes:
@@ -33,7 +37,7 @@ validation:
     dynamic: true
 
 karma:
-  base: 10
+  base: 21
   bonus_conditions:
     - condition: "matches_day_theme"
       bonus: 8

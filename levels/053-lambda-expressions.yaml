@@ -11,6 +11,10 @@ description: |
   Compact, powerful.
 
 rules:
+  required_patterns:
+    - "format"
+  max_words: 35
+  min_words: 7
   file_type: ".lambda"
   max_files: 1
   lambda_constraints:
@@ -24,7 +28,7 @@ validation:
     pattern: "^\\([^)]*\\) => .+$"
 
 karma:
-  base: 15
+  base: 81
   bonus_conditions:
     - condition: "higher_order"
       bonus: 15

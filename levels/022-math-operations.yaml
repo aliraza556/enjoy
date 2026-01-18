@@ -11,6 +11,10 @@ description: |
   "10-7.txt" → position 3
 
 rules:
+  required_patterns:
+    - "sequence"
+  max_words: 5
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   filename_format: "equation.txt"
@@ -24,7 +28,7 @@ validation:
     range: [1, 100]
 
 karma:
-  base: 12
+  base: 27
   bonus_conditions:
     - condition: "prime_result"
       bonus: 15

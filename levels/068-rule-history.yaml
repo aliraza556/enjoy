@@ -11,6 +11,10 @@ description: |
   Data drives decisions.
 
 rules:
+  required_patterns:
+    - "logic"
+  max_words: 49
+  min_words: 10
   file_type: ".analyze"
   max_files: 1
   analysis:
@@ -23,7 +27,7 @@ validation:
     pattern: "^ANALYZE \\w+$"
 
 karma:
-  base: 12
+  base: 137
   bonus_conditions:
     - condition: "insight_generated"
       bonus: 15

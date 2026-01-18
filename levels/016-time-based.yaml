@@ -12,6 +12,10 @@ description: |
   Night (0-6): dark colors
 
 rules:
+  required_patterns:
+    - "word"
+  max_words: 8
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   time_effects:
@@ -25,7 +29,7 @@ validation:
     value: ".txt"
 
 karma:
-  base: 10
+  base: 20
   bonus_conditions:
     - condition: "golden_hour"
       hours: [6, 18]

@@ -10,6 +10,10 @@ description: |
   Format: word|x|y (e.g., "star|50|25")
 
 rules:
+  required_patterns:
+    - "letter"
+  max_words: 2
+  min_words: 1
   file_type: ".txt"
   max_files: 1
   format: "word|x|y"
@@ -25,7 +29,7 @@ validation:
     max: 100
 
 karma:
-  base: 12
+  base: 9
   bonus_conditions:
     - condition: "center_position"
       bonus: 5

@@ -11,6 +11,10 @@ description: |
   Multiple timelines coexist.
 
 rules:
+  required_patterns:
+    - "logic"
+  max_words: 87
+  min_words: 17
   file_type: ".fork"
   max_files: 1
   forking:
@@ -27,7 +31,7 @@ validation:
     min: 300
 
 karma:
-  base: 40
+  base: 184
   bonus_conditions:
     - condition: "active_fork"
       bonus: 50

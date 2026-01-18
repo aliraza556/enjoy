@@ -11,6 +11,10 @@ description: |
   DRAW circle COLOR $color SIZE $size
 
 rules:
+  required_patterns:
+    - "structure"
+  max_words: 43
+  min_words: 8
   file_type: ".var"
   max_files: 1
   variable_constraints:
@@ -25,7 +29,7 @@ validation:
     define: "^\\$\\w+ = .+$"
 
 karma:
-  base: 15
+  base: 92
   bonus_conditions:
     - condition: "computed_variable"
       bonus: 10

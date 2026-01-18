@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>enjoy | Time Portal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Courier New', monospace;
+      min-height: 100vh;
+      transition: background 2s ease;
+      overflow-x: hidden;
+    }
+    
+    /* Time-based themes */
+    body.dawn {
+      background: linear-gradient(180deg, #1a1a2e 0%, #4a3f6b 30%, #e07b53 60%, #ffb88c 100%);
+      --text-primary: #ffb88c;
+      --text-secondary: #e07b53;
+      --accent: #ff6b6b;
+    }
+    
+    body.morning {
+      background: linear-gradient(180deg, #87ceeb 0%, #b4e7f8 50%, #fff9e6 100%);
+      --text-primary: #2d6a4f;
+      --text-secondary: #40916c;
+      --accent: #ffd93d;
+    }
+    
+    body.noon {
+      background: linear-gradient(180deg, #0096c7 0%, #48cae4 40%, #caf0f8 100%);
+      --text-primary: #023e8a;
+      --text-secondary: #0077b6;
+      --accent: #fff;
+    }
+    
+    body.afternoon {
+      background: linear-gradient(180deg, #74c0fc 0%, #ffd8a8 50%, #ffec99 100%);
+      --text-primary: #c2410c;
+      --text-secondary: #e8590c;
+      --accent: #ff922b;
+    }
+    
+    body.sunset {
+      background: linear-gradient(180deg, #2d1b69 0%, #7b2cbf 25%, #e63946 50%, #f77f00 75%, #fcbf49 100%);
+      --text-primary: #fcbf49;
+      --text-secondary: #f77f00;
+      --accent: #e63946;
+    }
+    
+    body.night {
+      background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 50%, #415a77 100%);
+      --text-primary: #e0e1dd;
+      --text-secondary: #778da9;
+      --accent: #e0e1dd;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .time-display {
+      font-size: 5rem;
+      font-weight: bold;
+      color: var(--text-primary);
+      text-shadow: 0 0 30px var(--accent);
+      margin: 2rem 0;
+    }
+    
+    .period-name {
+      font-size: 2rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5em;
+      margin-bottom: 1rem;
+    }
+    
+    .message {
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      opacity: 0.8;
+      margin: 2rem 0;
+      font-style: italic;
+    }
+    
+    .periods {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 3rem 0;
+    }
+    
+    @media (max-width: 600px) {
+      .periods {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .time-display {
+        font-size: 3rem;
+      }
+    }
+    
+    .period-card {
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .period-card:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.2);
+    }
+    
+    .period-card.active {
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 20px var(--accent);
+    }
+    
+    .period-card h3 {
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .period-card p {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+    
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border: 2px solid var(--text-secondary);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      background: var(--text-secondary);
+      color: white;
+    }
+    
+    .celestial {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(0);
+      transition: all 2s ease;
+      z-index: -1;
+    }
+    
+    .sun {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #fff5cc 0%, #ffd93d 50%, #ff922b 100%);
+      box-shadow: 0 0 60px #ffd93d;
+    }
+    
+    .moon {
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #e0e1dd 0%, #778da9 100%);
+      box-shadow: 0 0 40px rgba(224,225,221,0.5);
+    }
+    
+    .timezone-note {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body class="night">
+  <div class="stars" id="stars"></div>
+  <div class="celestial sun" id="sun" style="display:none;"></div>
+  <div class="celestial moon" id="moon" style="display:none;"></div>
+  
+  <div class="container">
+    <div class="period-name" id="period-name">NIGHT</div>
+    <div class="time-display" id="time">00:00</div>
+    <div class="message" id="message">Dreams compile into code...</div>
+    
+    <div class="periods">
+      <div class="period-card" data-period="dawn" onclick="setPeriod('dawn')">
+        <h3>🌅 Dawn</h3>
+        <p>05:00 - 08:00</p>
+      </div>
+      <div class="period-card" data-period="morning" onclick="setPeriod('morning')">
+        <h3>☀️ Morning</h3>
+        <p>08:00 - 12:00</p>
+      </div>
+      <div class="period-card" data-period="noon" onclick="setPeriod('noon')">
+        <h3>🌞 Noon</h3>
+        <p>12:00 - 15:00</p>
+      </div>
+      <div class="period-card" data-period="afternoon" onclick="setPeriod('afternoon')">
+        <h3>🌤️ Afternoon</h3>
+        <p>15:00 - 18:00</p>
+      </div>
+      <div class="period-card" data-period="sunset" onclick="setPeriod('sunset')">
+        <h3>🌅 Sunset</h3>
+        <p>18:00 - 21:00</p>
+      </div>
+      <div class="period-card" data-period="night" onclick="setPeriod('night')">
+        <h3>🌙 Night</h3>
+        <p>21:00 - 05:00</p>
+      </div>
+    </div>
+    
+    <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+      Click any period to preview, or let time guide you.
+    </p>
+    
+    <a href="index.html" class="back-link">← Back to Game</a>
+  </div>
+  
+  <div class="timezone-note">
+    Time Zone: CET (GMT+1) | <span id="local-time"></span>
+  </div>
+
+  <script>
+    const periods = {
+      dawn: { 
+        name: 'DAWN', 
+        message: 'The void stirs... a new day begins in the repository.',
+        emoji: '🌅',
+        showSun: true,
+        sunPos: { top: '80%', left: '50%' }
+      },
+      morning: { 
+        name: 'MORNING', 
+        message: 'Fresh energy flows. The best time for contributions!',
+        emoji: '☀️',
+        showSun: true,
+        sunPos: { top: '30%', left: '70%' }
+      },
+      noon: { 
+        name: 'NOON', 
+        message: 'Peak activity. Maximum karma potential unlocked.',
+        emoji: '🌞',
+        showSun: true,
+        sunPos: { top: '10%', left: '50%' }
+      },
+      afternoon: { 
+        name: 'AFTERNOON', 
+        message: 'Golden hour approaches. Wisdom accumulates.',
+        emoji: '🌤️',
+        showSun: true,
+        sunPos: { top: '40%', left: '80%' }
+      },
+      sunset: { 
+        name: 'SUNSET', 
+        message: 'The day\'s contributions are harvested. Reflect.',
+        emoji: '🌅',
+        showSun: true,
+        sunPos: { top: '70%', left: '50%' }
+      },
+      night: { 
+        name: 'NIGHT', 
+        message: 'Dreams compile into code. The void watches.',
+        emoji: '🌙',
+        showSun: false,
+        moonPos: { top: '20%', left: '70%' }
+      }
+    };
+    
+    function getCETHour() {
+      const now = new Date();
+      const cetOffset = 1; // CET is UTC+1
+      const utcHour = now.getUTCHours();
+      return (utcHour + cetOffset) % 24;
+    }
+    
+    function getCurrentPeriod() {
+      const hour = getCETHour();
+      if (hour >= 5 && hour < 8) return 'dawn';
+      if (hour >= 8 && hour < 12) return 'morning';
+      if (hour >= 12 && hour < 15) return 'noon';
+      if (hour >= 15 && hour < 18) return 'afternoon';
+      if (hour >= 18 && hour < 21) return 'sunset';
+      return 'night';
+    }
+    
+    function setPeriod(period) {
+      const config = periods[period];
+      
+      // Update body class
+      document.body.className = period;
+      
+      // Update text
+      document.getElementById('period-name').textContent = config.name;
+      document.getElementById('message').textContent = config.message;
+      
+      // Update active card
+      document.querySelectorAll('.period-card').forEach(card => {
+        card.classList.toggle('active', card.dataset.period === period);
+      });
+      
+      // Update celestial bodies
+      const sun = document.getElementById('sun');
+      const moon = document.getElementById('moon');
+      
+      if (config.showSun) {
+        sun.style.display = 'block';
+        moon.style.display = 'none';
+        sun.style.top = config.sunPos.top;
+        sun.style.left = config.sunPos.left;
+        sun.style.transform = 'translate(-50%, -50%)';
+      } else {
+        sun.style.display = 'none';
+        moon.style.display = 'block';
+        moon.style.top = config.moonPos.top;
+        moon.style.left = config.moonPos.left;
+        moon.style.transform = 'translate(-50%, -50%)';
+      }
+      
+      // Show/hide stars
+      const starsVisible = period === 'night' || period === 'dawn' || period === 'sunset';
+      document.getElementById('stars').style.opacity = starsVisible ? 1 : 0;
+    }
+    
+    function updateTime() {
+      const now = new Date();
+      const cetOffset = 1;
+      const cetTime = new Date(now.getTime() + (cetOffset * 60 + now.getTimezoneOffset()) * 60000);
+      
+      const hours = cetTime.getHours().toString().padStart(2, '0');
+      const minutes = cetTime.getMinutes().toString().padStart(2, '0');
+      const seconds = cetTime.getSeconds().toString().padStart(2, '0');
+      
+      document.getElementById('time').textContent = `${hours}:${minutes}`;
+      document.getElementById('local-time').textContent = `${hours}:${minutes}:${seconds} CET`;
+    }
+    
+    function createStars() {
+      const container = document.getElementById('stars');
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 60 + '%';
+        star.style.animationDelay = Math.random() * 2 + 's';
+        star.style.width = (Math.random() * 2 + 1) + 'px';
+        star.style.height = star.style.width;
+        container.appendChild(star);
+      }
+    }
+    
+    // Initialize
+    createStars();
+    setPeriod(getCurrentPeriod());
+    updateTime();
+    
+    // Update time every second
+    setInterval(updateTime, 1000);
+    
+    // Check for period change every minute
+    setInterval(() => {
+      const cards = document.querySelectorAll('.period-card.active');
+      const currentPeriod = getCurrentPeriod();
+      const activePeriod = cards[0]?.dataset.period;
+      
+      // Only auto-update if user hasn't manually selected a different period
+      if (activePeriod === getCurrentPeriod() || !activePeriod) {
+        setPeriod(currentPeriod);
+      }
+    }, 60000);
+  </script>
+</body>
+</html>

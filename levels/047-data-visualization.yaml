@@ -14,6 +14,10 @@ description: |
   b,20
 
 rules:
+  required_patterns:
+    - "format"
+  max_words: 22
+  min_words: 5
   file_type: ".csv"
   max_files: 1
   visualization:
@@ -27,7 +31,7 @@ validation:
     pattern: "^#chart:(bar|line|pie|scatter)$"
 
 karma:
-  base: 20
+  base: 66
   bonus_conditions:
     - condition: "complex_chart"
       min_points: 10

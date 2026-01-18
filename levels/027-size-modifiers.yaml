@@ -13,6 +13,10 @@ description: |
   201+ bytes: HUGE
 
 rules:
+  required_patterns:
+    - "pattern"
+  max_words: 9
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   size_effects:
@@ -29,7 +33,7 @@ validation:
     max: 500
 
 karma:
-  base: 10
+  base: 33
   bonus_conditions:
     - condition: "exact_100"
       size: 100

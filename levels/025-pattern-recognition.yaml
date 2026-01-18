@@ -12,6 +12,10 @@ description: |
   Yours must be: emoji (continue the cycle)
 
 rules:
+  required_patterns:
+    - "sequence"
+  max_words: 8
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   pattern_matching:
@@ -25,7 +29,7 @@ validation:
     history: 3
 
 karma:
-  base: 25
+  base: 31
   bonus_conditions:
     - condition: "perfect_pattern"
       bonus: 15

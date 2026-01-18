@@ -10,6 +10,10 @@ description: |
   Creates visual connection on board.
 
 rules:
+  required_patterns:
+    - "pattern"
+  max_words: 19
+  min_words: 4
   file_type: ".txt"
   max_files: 1
   cross_effects:
@@ -23,7 +27,7 @@ validation:
     pattern: "\\w+->\\w+"
 
 karma:
-  base: 15
+  base: 48
   bonus_conditions:
     - condition: "distant_link"
       bonus: 20

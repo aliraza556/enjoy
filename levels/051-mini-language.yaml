@@ -11,6 +11,10 @@ description: |
   Simple commands, powerful results.
 
 rules:
+  required_patterns:
+    - "structure"
+  max_words: 31
+  min_words: 6
   file_type: ".dsl"
   max_files: 1
   dsl_commands:
@@ -27,7 +31,7 @@ validation:
     commands: ["DRAW", "WRITE", "MOVE", "COLOR", "SIZE"]
 
 karma:
-  base: 20
+  base: 76
   bonus_conditions:
     - condition: "complex_script"
       min_commands: 5

@@ -13,6 +13,10 @@ description: |
       grandchild
 
 rules:
+  required_patterns:
+    - "data"
+  max_words: 26
+  min_words: 5
   file_type: ".tree"
   max_files: 1
   tree_constraints:
@@ -27,7 +31,7 @@ validation:
     max_depth: 4
 
 karma:
-  base: 18
+  base: 71
   bonus_conditions:
     - condition: "balanced_tree"
       bonus: 12

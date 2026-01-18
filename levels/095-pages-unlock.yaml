@@ -17,6 +17,10 @@ description: |
   This is what we built together.
 
 rules:
+  required_patterns:
+    - "any"
+  max_words: 999
+  min_words: 1
   file_type: "any"
   max_files: 5
   pages_unlock:
@@ -32,7 +36,7 @@ validation:
     min_total_karma: 1000
 
 karma:
-  base: 100
+  base: 501
   bonus_conditions:
     - condition: "pages_contributor"
       bonus: 100

@@ -11,6 +11,10 @@ description: |
   The game has preferences.
 
 rules:
+  required_patterns:
+    - "logic"
+  max_words: 74
+  min_words: 15
   file_type: ".txt"
   max_files: 1
   quality_prediction:
@@ -22,7 +26,7 @@ validation:
     value: ".txt"
 
 karma:
-  base: 15
+  base: 168
   bonus_conditions:
     - condition: "exceeds_prediction"
       bonus: 25

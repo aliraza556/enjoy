@@ -10,6 +10,10 @@ description: |
   Your contribution modifies their last element.
 
 rules:
+  required_patterns:
+    - "letter"
+  max_words: 10
+  min_words: 3
   file_type: ".txt"
   max_files: 1
   chain_effects:
@@ -23,7 +27,7 @@ validation:
     optional: true
 
 karma:
-  base: 15
+  base: 25
   bonus_conditions:
     - condition: "valid_reference"
       bonus: 10

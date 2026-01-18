@@ -13,6 +13,10 @@ description: |
   Elements can communicate now.
 
 rules:
+  required_patterns:
+    - "structure"
+  max_words: 50
+  min_words: 10
   file_type: ".protocol"
   max_files: 1
   protocol_constraints:
@@ -26,7 +30,7 @@ validation:
     keywords: ["protocol", "send", "expect", "respond"]
 
 karma:
-  base: 22
+  base: 100
   bonus_conditions:
     - condition: "bidirectional"
       bonus: 15

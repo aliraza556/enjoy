@@ -12,6 +12,9 @@ description: |
   Simple. Pure. The seed of everything.
 
 rules:
+  required_patterns:
+    - "word"
+  min_words: 1
   file_type: ".txt"
   max_files: 1
   max_words: 1
@@ -28,7 +31,7 @@ validation:
     pattern: "^[a-zA-Z]+$"
 
 karma:
-  base: 10
+  base: 5
   bonus_conditions: []
 
 unlock_message: "The void accepts your first word. Welcome, soul."

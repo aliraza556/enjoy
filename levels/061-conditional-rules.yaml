@@ -11,6 +11,10 @@ description: |
   The game responds to context.
 
 rules:
+  required_patterns:
+    - "rule"
+  max_words: 20
+  min_words: 5
   file_type: ".rule"
   max_files: 1
   rule_constraints:
@@ -24,7 +28,7 @@ validation:
     pattern: "^RULE \\w+ WHEN .+$"
 
 karma:
-  base: 20
+  base: 101
   bonus_conditions:
     - condition: "complex_condition"
       bonus: 15

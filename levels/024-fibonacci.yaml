@@ -10,6 +10,10 @@ description: |
   Nature's sequence in bytes.
 
 rules:
+  required_patterns:
+    - "pattern"
+  max_words: 7
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   size_constraint: "fibonacci"
@@ -22,7 +26,7 @@ validation:
     max: 610
 
 karma:
-  base: 18
+  base: 29
   bonus_conditions:
     - condition: "golden_ratio"
       size: 89

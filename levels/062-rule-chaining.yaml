@@ -11,6 +11,10 @@ description: |
   Chain reactions begin.
 
 rules:
+  required_patterns:
+    - "logic"
+  max_words: 24
+  min_words: 5
   file_type: ".rule"
   max_files: 1
   chaining:
@@ -26,7 +30,7 @@ validation:
   - type: "no_infinite_loop"
 
 karma:
-  base: 22
+  base: 106
   bonus_conditions:
     - condition: "long_chain"
       min_length: 3

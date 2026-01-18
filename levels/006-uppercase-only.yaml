@@ -10,6 +10,9 @@ description: |
   No lowercase allowed.
 
 rules:
+  required_patterns:
+    - "text"
+  min_words: 1
   file_type: ".txt"
   max_files: 1
   max_words: 3

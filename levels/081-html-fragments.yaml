@@ -11,6 +11,10 @@ description: |
   Building blocks for Pages.
 
 rules:
+  required_patterns:
+    - "component"
+  max_words: 50
+  min_words: 10
   file_type: ".html"
   max_files: 1
   html_constraints:
@@ -26,7 +30,7 @@ validation:
     whitelist: ["div", "span", "p", "a", "img", "ul", "li", "h1", "h2", "h3"]
 
 karma:
-  base: 20
+  base: 201
   bonus_conditions:
     - condition: "semantic_html"
       bonus: 15

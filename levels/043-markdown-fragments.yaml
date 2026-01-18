@@ -10,6 +10,10 @@ description: |
   # Headings allowed (max h3)
 
 rules:
+  required_patterns:
+    - "data"
+  max_words: 14
+  min_words: 3
   file_type: ".md"
   max_files: 1
   max_lines: 10
@@ -27,7 +31,7 @@ validation:
     no_html: true
 
 karma:
-  base: 12
+  base: 56
   bonus_conditions:
     - condition: "styled_text"
       bonus: 8

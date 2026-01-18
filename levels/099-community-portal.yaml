@@ -11,6 +11,10 @@ description: |
   The community has a home.
 
 rules:
+  required_patterns:
+    - "any"
+  max_words: 8199
+  min_words: 1
   file_type: "any"
   max_files: 5
   portal:
@@ -26,7 +30,7 @@ validation:
     enforced: true
 
 karma:
-  base: 50
+  base: 900
   bonus_conditions:
     - condition: "portal_contribution"
       bonus: 50

@@ -11,6 +11,10 @@ description: |
   Evolution through selection.
 
 rules:
+  required_patterns:
+    - "meta"
+  max_words: 91
+  min_words: 18
   file_type: ".merge"
   max_files: 1
   merging:
@@ -25,7 +29,7 @@ validation:
     pattern: "^MERGE \\w+ INTO \\w+$"
 
 karma:
-  base: 35
+  base: 189
   bonus_conditions:
     - condition: "successful_merge"
       bonus: 75

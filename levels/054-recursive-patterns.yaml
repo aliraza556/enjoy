@@ -11,6 +11,10 @@ description: |
   Fractals emerge.
 
 rules:
+  required_patterns:
+    - "structure"
+  max_words: 37
+  min_words: 7
   file_type: ".rec"
   max_files: 1
   recursion:
@@ -24,7 +28,7 @@ validation:
     max_depth: 4
 
 karma:
-  base: 20
+  base: 84
   bonus_conditions:
     - condition: "fractal_pattern"
       bonus: 20

@@ -11,6 +11,10 @@ description: |
   Victor takes the zone.
 
 rules:
+  required_patterns:
+    - "sequence"
+  max_words: 17
+  min_words: 4
   file_type: ".txt"
   max_files: 1
   battles:
@@ -26,7 +30,7 @@ validation:
   - type: "zone_occupied"
 
 karma:
-  base: 10
+  base: 46
   bonus_conditions:
     - condition: "victory"
       bonus: 30

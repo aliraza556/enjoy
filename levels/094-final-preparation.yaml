@@ -11,6 +11,10 @@ description: |
   Community curates the final site.
 
 rules:
+  required_patterns:
+    - "design"
+  max_words: 200
+  min_words: 50
   file_type: ".vote"
   max_files: 1
   voting:
@@ -25,7 +29,7 @@ validation:
     patterns: ["^APPROVE", "^REJECT"]
 
 karma:
-  base: 20
+  base: 500
   bonus_conditions:
     - condition: "contribution_approved"
       bonus: 50

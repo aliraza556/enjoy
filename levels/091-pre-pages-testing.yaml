@@ -11,6 +11,10 @@ description: |
   Final checks before deployment.
 
 rules:
+  required_patterns:
+    - "design"
+  max_words: 165
+  min_words: 40
   file_type: ".preview"
   max_files: 1
   preview:
@@ -25,7 +29,7 @@ validation:
     pattern: "^PREVIEW \\w+$"
 
 karma:
-  base: 15
+  base: 431
   bonus_conditions:
     - condition: "successful_preview"
       bonus: 10

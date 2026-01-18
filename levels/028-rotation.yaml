@@ -10,6 +10,10 @@ description: |
   Time literally rotates your contribution.
 
 rules:
+  required_patterns:
+    - "sequence"
+  max_words: 10
+  min_words: 3
   file_type: ".txt"
   max_files: 1
   rotation:
@@ -21,7 +25,7 @@ validation:
     value: ".txt"
 
 karma:
-  base: 12
+  base: 34
   bonus_conditions:
     - condition: "upside_down"
       rotation: 180

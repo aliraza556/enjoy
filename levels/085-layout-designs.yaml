@@ -13,6 +13,10 @@ description: |
   Community votes on designs.
 
 rules:
+  required_patterns:
+    - "design"
+  max_words: 96
+  min_words: 22
   file_type: ".layout"
   max_files: 1
   layout_constraints:
@@ -26,7 +30,7 @@ validation:
     brackets: true
 
 karma:
-  base: 20
+  base: 293
   bonus_conditions:
     - condition: "adopted_layout"
       bonus: 50

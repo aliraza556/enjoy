@@ -11,6 +11,10 @@ description: |
   Connections form network on board.
 
 rules:
+  required_patterns:
+    - "structure"
+  max_words: 24
+  min_words: 5
   file_type: ".graph"
   max_files: 1
   graph_constraints:
@@ -25,7 +29,7 @@ validation:
     pattern: "^\\w+ -> \\w+$"
 
 karma:
-  base: 15
+  base: 69
   bonus_conditions:
     - condition: "connected_graph"
       bonus: 15

@@ -11,6 +11,10 @@ description: |
   Original author can always modify their own.
 
 rules:
+  required_patterns:
+    - "sequence"
+  max_words: 15
+  min_words: 4
   file_type: ".txt"
   max_files: 1
   modification:
@@ -28,7 +32,7 @@ validation:
     min_karma: 75
 
 karma:
-  base: 10
+  base: 42
   bonus_conditions:
     - condition: "improvement"
       bonus: 15

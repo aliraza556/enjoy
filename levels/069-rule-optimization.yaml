@@ -11,6 +11,10 @@ description: |
   The game helps you play better.
 
 rules:
+  required_patterns:
+    - "meta"
+  max_words: 53
+  min_words: 11
   file_type: ".optimize"
   max_files: 1
   optimization:
@@ -24,7 +28,7 @@ validation:
     pattern: "^OPTIMIZE \\w+$"
 
 karma:
-  base: 15
+  base: 142
   bonus_conditions:
     - condition: "applied_optimization"
       bonus: 20

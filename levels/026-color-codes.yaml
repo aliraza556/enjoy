@@ -11,6 +11,10 @@ description: |
   0000ff.txt → blue text
 
 rules:
+  required_patterns:
+    - "number"
+  max_words: 8
+  min_words: 2
   file_type: ".txt"
   max_files: 1
   filename_format: "hexcolor.txt"
@@ -21,7 +25,7 @@ validation:
     length: 6
 
 karma:
-  base: 12
+  base: 32
   bonus_conditions:
     - condition: "black_or_white"
       colors: ["000000", "ffffff"]

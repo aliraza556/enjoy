@@ -11,6 +11,10 @@ description: |
   Creates super-zone with combined rules.
 
 rules:
+  required_patterns:
+    - "number"
+  max_words: 18
+  min_words: 4
   file_type: ".txt"
   max_files: 1
   merging:
@@ -27,7 +31,7 @@ validation:
   - type: "owner_consent"
 
 karma:
-  base: 25
+  base: 47
   bonus_conditions:
     - condition: "successful_merge"
       bonus: 25
