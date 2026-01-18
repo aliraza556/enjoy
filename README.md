@@ -1,6 +1,6 @@
 # enjoy 🎮
 
-<!-- � LANGUAGE SELECTOR -->
+<!-- 🌍 LANGUAGE SELECTOR -->
 <p align="center">
   <a href="README.md">🇬🇧</a> •
   <a href="README.it.md">🇮🇹</a> •
@@ -10,10 +10,22 @@
   <a href="README.pt.md">🇵🇹</a> •
   <a href="README.ja.md">🇯🇵</a> •
   <a href="README.zh.md">🇨🇳</a> •
-  <a href="TRANSLATIONS.md">➕ Help translate!</a>
+  <a href="README.ar.md">🇸🇦</a> •
+  <a href="README.hi.md">🇮🇳</a> •
+  <a href="README.ko.md">🇰🇷</a> •
+  <a href="README.ru.md">🇷🇺</a> •
+  <a href="README.tr.md">🇹🇷</a> •
+  <a href="README.id.md">🇮🇩</a> •
+  <a href="README.vi.md">🇻🇳</a> •
+  <a href="README.th.md">🇹🇭</a> •
+  <a href="README.pl.md">🇵🇱</a> •
+  <a href="README.nl.md">🇳🇱</a> •
+  <a href="README.uk.md">🇺🇦</a> •
+  <a href="README.bn.md">🇧🇩</a> •
+  <a href="TRANSLATIONS.md">➕</a>
 </p>
 
-<!-- �🌅 DYNAMIC HEADER - Changes with time of day (CET) -->
+<!-- 🌅 DYNAMIC HEADER - Changes with time of day (CET) -->
 <p align="center">
   <img src="assets/svg/hero-banner.svg" alt="enjoy - the repository that plays back" width="100%">
 </p>
