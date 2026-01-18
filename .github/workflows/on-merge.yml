@@ -255,6 +255,21 @@ jobs:
               process.exit(0);
             }
             
+            // ═══════════════════════════════════════════════════════════
+            // TRANSLATION CHECK - Handled by translation-karma.yml
+            // ═══════════════════════════════════════════════════════════
+            // Translation PRs are handled by a dedicated workflow to avoid double-counting
+            const isTranslation = /^(README|QUICKSTART|CONTRIBUTING|MANIFESTO|PLAY)\.[a-z]{2}\.md$/i.test(prTitle) ||
+                                  prTitle.toLowerCase().includes('translation') ||
+                                  prTitle.toLowerCase().includes('translate') ||
+                                  prTitle.match(/🌍|🇪🇸|🇫🇷|🇩🇪|🇮🇹|🇵🇹|🇯🇵|🇨🇳|🇰🇷|🇷🇺/);
+            
+            if (isTranslation) {
+              console.log('🌍 Translation PR detected - karma handled by translation-karma.yml');
+              console.log('Skipping to avoid double-counting karma.');
+              process.exit(0);
+            }
+            
             // Extract word from PR title (format: 'Add word: xyz')
             const wordMatch = prTitle.match(/add\\s+word[:\\s]+([a-zA-Z]+)/i);
             const word = wordMatch ? wordMatch[1] : '';
