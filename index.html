@@ -691,11 +691,6 @@
                     }
                 });
                 
-                // Always have at least some ambient particles
-                while (particles.length < 5) {
-                    particles.push(new Particle('ambient', 5));
-                }
-                
             } catch (e) {
                 console.log('polling...', e.message);
             }
