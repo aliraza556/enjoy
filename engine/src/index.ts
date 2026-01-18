@@ -55,7 +55,8 @@ if (command === 'validate') {
   }
   
   const pr = parsePR(prNumber);
-  applyEffect(pr, result);
+  // applyEffect(pr, result); // Disabled for MVP
+  console.log('Effect application will be enabled in level 10+');
   
 } else {
   console.log('Usage:');

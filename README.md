@@ -387,6 +387,36 @@ The game has no end state. It evolves forever.
 
 ---
 
+## 🏆 Leaderboards
+
+### Top Contributors
+
+| Rank | Player | Karma | Badge |
+|------|--------|-------|-------|
+| - | *No players yet* | - | - |
+
+### Top Recruiters
+
+| Rank | Player | Invites | Chain | Karma | Badge |
+|------|--------|---------|-------|-------|-------|
+| - | *No recruiters yet* | - | - | - | - |
+
+*Be the first to appear here! 🚀*
+
+---
+
+## ⚠️ Level Decay System
+
+**Inactivity has consequences!**
+
+- No activity for **7 days** → Karma starts decaying (-2%/day)
+- No activity for **14 days** → Level drops by 1
+- Never drops below Level 1
+
+**Keep the game alive or watch it fade!**
+
+---
+
 ## 📊 Stats
 
 - **Score:** 0
