@@ -138,5 +138,32 @@
     "game_started": "2026-01-18T00:00:00Z",
     "pages_enabled": false,
     "last_build": null
+  },
+  "engagement": {
+    "karma_log": [],
+    "by_user": {},
+    "milestones": {
+      "stars": {
+        "10": { "reached": false, "bonus": 5 },
+        "25": { "reached": false, "bonus": 10 },
+        "50": { "reached": false, "bonus": 20 },
+        "100": { "reached": false, "bonus": 50 }
+      },
+      "forks": {
+        "5": { "reached": false, "bonus": 10 },
+        "10": { "reached": false, "bonus": 20 },
+        "25": { "reached": false, "bonus": 50 }
+      },
+      "contributors": {
+        "10": { "reached": false, "bonus": 25 },
+        "25": { "reached": false, "bonus": 50 },
+        "50": { "reached": false, "bonus": 100 }
+      }
+    },
+    "weekly_stats": {
+      "last_reset": null,
+      "karma_this_week": 0,
+      "top_contributor": null
+    }
   }
 }

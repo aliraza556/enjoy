@@ -1,0 +1,49 @@
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ❓ Q&A - Seek Wisdom
+        
+        Ask questions, provide answers. Knowledge sharing = karma!
+        +3 karma for questions, +10 karma for helpful answers (based on reactions)
+        
+  - type: dropdown
+    id: category
+    attributes:
+      label: Question Category
+      options:
+        - 🎮 Gameplay & Rules
+        - 📝 Level Creation
+        - 🔧 Technical Help
+        - 🌌 Lore & Universe
+        - 💡 Strategy & Tips
+        - 🎭 Community Events
+        - ❓ Other
+    validations:
+      required: true
+      
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: Be specific! Good questions get better answers.
+      placeholder: "How do I..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: research
+    attributes:
+      label: What I've Tried
+      description: Show your research effort (+2 bonus karma for thorough research)
+      placeholder: "I've looked at GAMEPLAY.md and tried..."
+      
+  - type: input
+    id: guardian
+    attributes:
+      label: Guardian Verification
+      description: Prove you're not a bot
+      placeholder: "The First Guardian is..."
+    validations:
+      required: true

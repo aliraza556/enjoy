@@ -1,0 +1,53 @@
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🗳️ Community Poll
+        
+        Let the collective decide! +5 karma for creating polls.
+        
+  - type: input
+    id: question
+    attributes:
+      label: Poll Question
+      description: What are we deciding?
+      placeholder: "Should we..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: options
+    attributes:
+      label: Options
+      description: List the options (one per line, use emoji reactions in comments)
+      placeholder: |
+        👍 Option A
+        👎 Option B
+        🎉 Option C
+    validations:
+      required: true
+      
+  - type: input
+    id: deadline
+    attributes:
+      label: Voting Deadline
+      description: When does voting end?
+      placeholder: "January 25, 2026"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why is this decision important?
+      
+  - type: input
+    id: guardian
+    attributes:
+      label: Guardian Answer
+      description: Proof of humanity
+      placeholder: "The First Guardian is..."
+    validations:
+      required: true

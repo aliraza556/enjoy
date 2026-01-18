@@ -65,6 +65,25 @@ Goal:   50 points to reach Level 2
 
 ---
 
+## 🌐 GitHub IS the Game
+
+**Every GitHub feature earns karma!**
+
+| Feature | Guide | Actions |
+|---------|-------|---------|
+| 🔀 Pull Requests | [GAMEPLAY.md](GAMEPLAY.md) | Submit levels, fix bugs |
+| 🐛 Issues | [Templates](.github/ISSUE_TEMPLATE/) | Bugs, ideas, prophecies, art |
+| 💬 Discussions | [Forums](../../discussions) | Q&A, polls, show & tell |
+| 📚 Wiki | [WIKI.md](WIKI.md) | Build the encyclopedia |
+| 📋 Projects | [PROJECTS.md](PROJECTS.md) | Join team quests |
+| ⭐ Engagement | [ENGAGEMENT.md](ENGAGEMENT.md) | Stars, forks, shares |
+| 💬 Commits | [COMMITS.md](COMMITS.md) | Message magic & streaks |
+| 📦 Releases | [RELEASES.md](RELEASES.md) | Ship contributions |
+
+**📍 [Complete Hub Guide →](HUB.md)**
+
+---
+
 ## 💡 Tips
 
 - Words 5-10 characters = more points

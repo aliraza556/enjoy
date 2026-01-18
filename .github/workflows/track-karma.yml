@@ -1,0 +1,139 @@
+name: Track Engagement Karma
+
+on:
+  discussion:
+    types: [created, answered]
+  discussion_comment:
+    types: [created]
+  issues:
+    types: [opened, closed]
+  issue_comment:
+    types: [created]
+  watch:
+    types: [started]
+  fork:
+  pull_request_review:
+    types: [submitted]
+  pull_request_review_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  discussions: read
+  issues: read
+
+jobs:
+  track-karma:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Calculate Karma
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            // Load current state
+            let state;
+            try {
+              state = JSON.parse(fs.readFileSync('state.json', 'utf8'));
+            } catch (e) {
+              console.log('Could not load state.json');
+              return;
+            }
+            
+            const event = context.eventName;
+            const action = context.payload.action;
+            const actor = context.actor;
+            
+            // Skip bots
+            if (actor.includes('[bot]') || actor === 'github-actions') {
+              console.log('Skipping bot action');
+              return;
+            }
+            
+            // Karma values
+            const karmaMap = {
+              'discussion.created': 5,
+              'discussion.answered': 10,
+              'discussion_comment.created': 2,
+              'issues.opened': 5,
+              'issues.closed': 3,
+              'issue_comment.created': 2,
+              'watch.started': 1,
+              'fork': 3,
+              'pull_request_review.submitted': 5,
+              'pull_request_review_comment.created': 2
+            };
+            
+            const key = action ? `${event}.${action}` : event;
+            const karma = karmaMap[key] || 0;
+            
+            if (karma === 0) {
+              console.log(`No karma for event: ${key}`);
+              return;
+            }
+            
+            console.log(`Event: ${key}, Actor: ${actor}, Karma: +${karma}`);
+            
+            // Initialize engagement tracking in state if not exists
+            if (!state.engagement) {
+              state.engagement = {
+                karma_log: [],
+                by_user: {}
+              };
+            }
+            
+            // Add to user's engagement karma
+            if (!state.engagement.by_user[actor]) {
+              state.engagement.by_user[actor] = {
+                total: 0,
+                history: []
+              };
+            }
+            
+            state.engagement.by_user[actor].total += karma;
+            state.engagement.by_user[actor].history.push({
+              event: key,
+              karma: karma,
+              timestamp: new Date().toISOString()
+            });
+            
+            // Keep only last 100 events per user
+            if (state.engagement.by_user[actor].history.length > 100) {
+              state.engagement.by_user[actor].history = 
+                state.engagement.by_user[actor].history.slice(-100);
+            }
+            
+            // Add to global log
+            state.engagement.karma_log.push({
+              actor: actor,
+              event: key,
+              karma: karma,
+              timestamp: new Date().toISOString()
+            });
+            
+            // Keep only last 500 global events
+            if (state.engagement.karma_log.length > 500) {
+              state.engagement.karma_log = state.engagement.karma_log.slice(-500);
+            }
+            
+            // Write updated state
+            fs.writeFileSync('state.json', JSON.stringify(state, null, 2));
+            
+            // Set output for commit message
+            core.setOutput('actor', actor);
+            core.setOutput('karma', karma);
+            core.setOutput('event', key);
+        id: karma
+
+      - name: Commit Karma Update
+        if: steps.karma.outputs.karma != ''
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Karma Bot"
+          git add state.json
+          git diff --staged --quiet || git commit -m "🎯 +${{ steps.karma.outputs.karma }} karma to @${{ steps.karma.outputs.actor }} (${{ steps.karma.outputs.event }})"
+          git push || echo "Nothing to push"

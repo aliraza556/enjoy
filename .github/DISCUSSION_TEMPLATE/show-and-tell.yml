@@ -1,0 +1,59 @@
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ✨ Show and Tell
+        
+        Share your achievements, creations, screenshots, or anything cool!
+        +8 karma for sharing, bonus karma based on community reactions.
+        
+  - type: dropdown
+    id: showcase_type
+    attributes:
+      label: What are you sharing?
+      options:
+        - 🏆 Achievement Unlocked
+        - 🖼️ Art Creation
+        - 📸 Screenshot
+        - 🎬 Video/GIF
+        - 📊 Stats/Progress
+        - 🔧 Tool/Script
+        - 💡 Discovery
+        - 🎉 Celebration
+    validations:
+      required: true
+      
+  - type: textarea
+    id: content
+    attributes:
+      label: Your Showcase
+      description: Share your creation! Drag & drop images, paste links.
+      placeholder: "Check out what I made..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: story
+    attributes:
+      label: The Story Behind It
+      description: How did you create this? What inspired you?
+      placeholder: "I was working on level 42 when..."
+      
+  - type: checkboxes
+    id: permissions
+    attributes:
+      label: Permissions
+      options:
+        - label: Others can remix/build upon this work
+        - label: Can be featured in community highlights
+        - label: Can be used in official repo materials
+          
+  - type: input
+    id: guardian
+    attributes:
+      label: Guardian Check
+      description: The eternal verification
+      placeholder: "The First Guardian is..."
+    validations:
+      required: true

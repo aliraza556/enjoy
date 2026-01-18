@@ -1,0 +1,95 @@
+name: Weekly Karma Report
+
+on:
+  schedule:
+    - cron: '0 12 * * 0'  # Every Sunday at noon UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  discussions: write
+
+jobs:
+  weekly-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate Report
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            let state;
+            try {
+              state = JSON.parse(fs.readFileSync('state.json', 'utf8'));
+            } catch (e) {
+              console.log('Could not load state.json');
+              return;
+            }
+            
+            const now = new Date();
+            const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+            
+            // Calculate weekly stats
+            let weeklyKarma = {};
+            let totalWeeklyKarma = 0;
+            
+            if (state.engagement && state.engagement.karma_log) {
+              for (const entry of state.engagement.karma_log) {
+                const entryDate = new Date(entry.timestamp);
+                if (entryDate >= weekAgo) {
+                  if (!weeklyKarma[entry.actor]) {
+                    weeklyKarma[entry.actor] = 0;
+                  }
+                  weeklyKarma[entry.actor] += entry.karma;
+                  totalWeeklyKarma += entry.karma;
+                }
+              }
+            }
+            
+            // Sort by karma
+            const sorted = Object.entries(weeklyKarma)
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 10);
+            
+            // Generate report
+            let report = `# 📊 Weekly Karma Report\n\n`;
+            report += `**Week of ${weekAgo.toISOString().split('T')[0]} to ${now.toISOString().split('T')[0]}**\n\n`;
+            report += `## 🏆 Top Contributors\n\n`;
+            report += `| Rank | Player | Karma |\n`;
+            report += `|------|--------|-------|\n`;
+            
+            const medals = ['🥇', '🥈', '🥉'];
+            sorted.forEach((entry, i) => {
+              const medal = medals[i] || `${i + 1}.`;
+              report += `| ${medal} | @${entry[0]} | +${entry[1]} |\n`;
+            });
+            
+            report += `\n## 📈 Statistics\n\n`;
+            report += `- **Total Karma Earned:** ${totalWeeklyKarma}\n`;
+            report += `- **Active Players:** ${Object.keys(weeklyKarma).length}\n`;
+            report += `- **Average per Player:** ${Object.keys(weeklyKarma).length ? Math.round(totalWeeklyKarma / Object.keys(weeklyKarma).length) : 0}\n`;
+            
+            report += `\n---\n*Keep playing! Every action counts.*\n`;
+            
+            console.log(report);
+            
+            // Save report
+            const reportFile = `reports/weekly-${now.toISOString().split('T')[0]}.md`;
+            fs.mkdirSync('reports', { recursive: true });
+            fs.writeFileSync(reportFile, report);
+            
+            core.setOutput('report', report);
+            core.setOutput('report_file', reportFile);
+        id: report
+
+      - name: Commit Report
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Karma Bot"
+          git add reports/
+          git diff --staged --quiet || git commit -m "📊 Weekly karma report"
+          git push || echo "Nothing to push"
