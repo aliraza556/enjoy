@@ -66,11 +66,32 @@ jobs:
             const modifiedFiles = process.env.PR_FILES_MODIFIED || '';
             const allFiles = `${addedFiles},${modifiedFiles}`.split(',').filter(f => f.trim());
             
-            // Skip for bots
-            if (prAuthor.includes('bot') || prAuthor === 'dependabot[bot]') {
+            // EXPLICIT BOT LIST - These are NEVER counted as players
+            const KNOWN_BOTS = [
+              'github-actions[bot]',
+              'dependabot[bot]',
+              'dependabot',
+              'actions-user',
+              'renovate[bot]',
+              'renovate',
+              'codecov[bot]',
+              'snyk-bot',
+              'imgbot[bot]',
+              'allcontributors[bot]',
+              'copilot[bot]',
+              'github-copilot[bot]'
+            ];
+            
+            // Skip for bots (explicit list + pattern matching)
+            const isBot = KNOWN_BOTS.includes(prAuthor) || 
+                          prAuthor.includes('[bot]') || 
+                          prAuthor.endsWith('-bot') ||
+                          prAuthor.startsWith('bot-');
+            
+            if (isBot) {
               core.setOutput('valid_format', 'true');
               core.setOutput('skip_reason', 'bot_allowed');
-              console.log('🤖 Bot detected, skipping format check');
+              console.log('🤖 Bot detected:', prAuthor, '- skipping format check');
               return;
             }
             

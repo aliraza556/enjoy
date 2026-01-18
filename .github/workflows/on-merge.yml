@@ -234,6 +234,27 @@ jobs:
             const prMerged = new Date(process.env.PR_MERGED);
             const mergeTimeSeconds = Math.floor((prMerged - prCreated) / 1000);
             
+            // ═══════════════════════════════════════════════════════════
+            // BOT DETECTION - Never count bots as players!
+            // ═══════════════════════════════════════════════════════════
+            const KNOWN_BOTS = [
+              'github-actions[bot]', 'dependabot[bot]', 'dependabot',
+              'actions-user', 'renovate[bot]', 'renovate', 'codecov[bot]',
+              'snyk-bot', 'imgbot[bot]', 'allcontributors[bot]',
+              'copilot[bot]', 'github-copilot[bot]'
+            ];
+            
+            const isBot = KNOWN_BOTS.includes(author) || 
+                          author.includes('[bot]') || 
+                          author.endsWith('-bot') ||
+                          author.startsWith('bot-');
+            
+            if (isBot) {
+              console.log('🤖 Bot detected:', author, '- skipping karma calculation');
+              console.log('Bots do not earn karma or appear on leaderboard.');
+              process.exit(0);
+            }
+            
             // Extract word from PR title (format: 'Add word: xyz')
             const wordMatch = prTitle.match(/add\\s+word[:\\s]+([a-zA-Z]+)/i);
             const word = wordMatch ? wordMatch[1] : '';
