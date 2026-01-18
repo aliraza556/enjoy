@@ -113,6 +113,30 @@ Bot validates → Auto-merges → You earn karma!
 
 </div>
 
+### 🏛️ Hall of Founders
+
+<table>
+<tr>
+<td align="center"><a href="https://github.com/fabriziosalmi"><img src="https://github.com/fabriziosalmi.png" width="60px;" alt=""/><br /><sub><b>fabriziosalmi</b></sub></a><br />🏅 #1</td>
+<td align="center"><sub>Your spot<br/>awaits...</sub></td>
+<td align="center"><sub>Your spot<br/>awaits...</sub></td>
+<td align="center"><sub>Your spot<br/>awaits...</sub></td>
+<td align="center"><sub>Your spot<br/>awaits...</sub></td>
+</tr>
+</table>
+
+<p align="center"><i>Join now and claim your permanent place in history! 🌟</i></p>
+
+---
+
+## 💬 What Players Say
+
+> *"I came for the curiosity, stayed for the karma."* — Future Player
+
+> *"Finally, a reason to make Pull Requests fun!"* — Another Future Player
+
+> *"The repo breathes. I breathe with it."* — Karmiel Enthusiast
+
 ---
 
 ## 🕐 Time-Based Karma (The Repo Breathes!)
@@ -132,18 +156,39 @@ The repo changes appearance based on **CET time** and gives different karma mult
 
 ---
 
-## 📊 Live Status
+<!-- STATS-START -->
+## 📊 Live Dashboard
+
+<div align="center">
+
+| 🎮 Level | 💎 Total Karma | 👥 Players | 🔀 PRs Merged | ⏰ Current |
+|:--------:|:--------------:|:----------:|:-------------:|:----------:|
+| **1** | **20** | **1** | **2** | 🌙 Night ×1.4 |
+
+</div>
+
+### 🏆 Leaderboard — Top 10
+
+| Rank | Player | Karma | PRs | Streak | Achievements |
+|:----:|:-------|------:|:---:|:------:|:------------:|
+| 🥇 | [@fabriziosalmi](https://github.com/fabriziosalmi) | 20 | 2 | 1 | 1 |
+
+### 📈 Progress to Level 2
 
 ```
-┌─────────────────────────────────┐
-│  LEVEL    1                     │
-│  KARMA    20                    │
-│  PLAYERS  1                     │
-│  GOAL     50 karma → Level 2    │
-└─────────────────────────────────┘
+Karma:  [████████░░░░░░░░░░░░] 20/50
+PRs:    [████████░░░░░░░░░░░░] 2/5
+Total:  [████████░░░░░░░░░░░░] 40%
 ```
 
-**[🏆 See Live Leaderboard →](https://fabriziosalmi.github.io/enjoy/)**
+### 🌟 Recent Achievements Unlocked
+
+- 🩸 First Blood
+
+<p align="center">
+  <sub>📅 Last updated: 2026-01-18 | 🔄 Updates automatically</sub>
+</p>
+<!-- STATS-END -->
 
 ---
 

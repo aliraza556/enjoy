@@ -1,0 +1,221 @@
+name: Update README Stats
+
+on:
+  push:
+    paths:
+      - 'state.json'
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update README with live stats
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            // Load state
+            let state;
+            try {
+              state = JSON.parse(fs.readFileSync('state.json', 'utf8'));
+            } catch (e) {
+              console.log('Could not load state.json');
+              return;
+            }
+            
+            // Load README
+            let readme = fs.readFileSync('README.md', 'utf8');
+            
+            // ═══════════════════════════════════════════════════════════
+            // CALCULATE STATS
+            // ═══════════════════════════════════════════════════════════
+            const players = state.players || {};
+            const playerList = Object.entries(players)
+              .map(([name, data]) => ({ name, ...data }))
+              .sort((a, b) => (b.karma || 0) - (a.karma || 0));
+            
+            const totalPlayers = playerList.length;
+            const totalKarma = state.score?.total || 0;
+            const currentLevel = state.levels?.current || 1;
+            const totalPRs = playerList.reduce((sum, p) => sum + (p.prs || 0), 0);
+            const lastUpdated = new Date().toISOString().split('T')[0];
+            
+            // Time period detection (CET)
+            const now = new Date();
+            const cetTime = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Rome" }));
+            const hour = cetTime.getHours();
+            let timePeriod = '🌙 Night';
+            let timeMultiplier = '×1.4';
+            if (hour >= 5 && hour < 8) { timePeriod = '🌅 Dawn'; timeMultiplier = '×1.2'; }
+            else if (hour >= 8 && hour < 12) { timePeriod = '☀️ Morning'; timeMultiplier = '×1.3'; }
+            else if (hour >= 12 && hour < 15) { timePeriod = '🌞 Noon'; timeMultiplier = '×1.5'; }
+            else if (hour >= 15 && hour < 18) { timePeriod = '🌤️ Afternoon'; timeMultiplier = '×1.25'; }
+            else if (hour >= 18 && hour < 21) { timePeriod = '🌆 Sunset'; timeMultiplier = '×1.15'; }
+            
+            // ═══════════════════════════════════════════════════════════
+            // BUILD STATS SECTION
+            // ═══════════════════════════════════════════════════════════
+            let statsSection = `<!-- STATS-START -->
+## 📊 Live Dashboard
+
+<div align="center">
+
+| 🎮 Level | 💎 Total Karma | 👥 Players | 🔀 PRs Merged | ⏰ Current |
+|:--------:|:--------------:|:----------:|:-------------:|:----------:|
+| **${currentLevel}** | **${totalKarma.toLocaleString()}** | **${totalPlayers}** | **${totalPRs}** | ${timePeriod} ${timeMultiplier} |
+
+</div>
+
+### 🏆 Leaderboard — Top 10
+
+| Rank | Player | Karma | PRs | Streak | Achievements |
+|:----:|:-------|------:|:---:|:------:|:------------:|
+`;
+            
+            // Add top 10 players
+            const medals = ['🥇', '🥈', '🥉'];
+            const top10 = playerList.slice(0, 10);
+            
+            if (top10.length === 0) {
+              statsSection += `| — | *No players yet* | — | — | — | — |\n`;
+            } else {
+              top10.forEach((player, i) => {
+                const rank = medals[i] || `${i + 1}`;
+                const achievements = (player.achievements || []).length;
+                const streakEmoji = player.streak >= 7 ? '🔥' : player.streak >= 3 ? '⚡' : '';
+                statsSection += `| ${rank} | [@${player.name}](https://github.com/${player.name}) | ${player.karma || 0} | ${player.prs || 0} | ${player.streak || 0}${streakEmoji} | ${achievements} |\n`;
+              });
+            }
+            
+            statsSection += `
+### 📈 Progress to Level ${currentLevel + 1}
+
+\`\`\`
+`;
+            
+            // Progress bar
+            const nextLevel = state.levels?.next_unlock || {};
+            const scoreProgress = Math.min(100, Math.round(((nextLevel.progress?.score || 0) / (nextLevel.requires_score || 50)) * 100));
+            const prsProgress = Math.min(100, Math.round(((nextLevel.progress?.prs || 0) / (nextLevel.requires_prs || 5)) * 100));
+            const overallProgress = Math.round((scoreProgress + prsProgress) / 2);
+            
+            const progressBar = (pct) => {
+              const filled = Math.round(pct / 5);
+              return '█'.repeat(filled) + '░'.repeat(20 - filled);
+            };
+            
+            statsSection += `Karma:  [${progressBar(scoreProgress)}] ${nextLevel.progress?.score || 0}/${nextLevel.requires_score || 50}
+PRs:    [${progressBar(prsProgress)}] ${nextLevel.progress?.prs || 0}/${nextLevel.requires_prs || 5}
+Total:  [${progressBar(overallProgress)}] ${overallProgress}%
+\`\`\`
+
+### 🌟 Recent Achievements Unlocked
+
+`;
+            
+            // Recent achievements
+            const globalAchievements = state.achievements?.unlocked_global || [];
+            const achievementEmojis = {
+              'first_blood': '🩸 First Blood',
+              'streak_3': '⚡ 3-Day Streak',
+              'streak_7': '🔥 Week Warrior',
+              'streak_30': '👑 Monthly Master',
+              'karma_100': '💯 Century',
+              'karma_500': '🌟 Half Millennium',
+              'karma_1000': '🏆 Karma King',
+              'night_owl': '🦉 Night Owl',
+              'early_bird': '🐦 Early Bird',
+              'noon_master': '☀️ Solar Champion'
+            };
+            
+            if (globalAchievements.length === 0) {
+              statsSection += `*No achievements unlocked yet. Be the first!*\n`;
+            } else {
+              globalAchievements.slice(-5).forEach(ach => {
+                statsSection += `- ${achievementEmojis[ach] || ach}\n`;
+              });
+            }
+            
+            statsSection += `
+<p align="center">
+  <sub>📅 Last updated: ${lastUpdated} | 🔄 Updates automatically</sub>
+</p>
+<!-- STATS-END -->`;
+            
+            // ═══════════════════════════════════════════════════════════
+            // REPLACE STATS IN README
+            // ═══════════════════════════════════════════════════════════
+            const statsRegex = /<!-- STATS-START -->[\s\S]*<!-- STATS-END -->/;
+            
+            if (readme.match(statsRegex)) {
+              readme = readme.replace(statsRegex, statsSection);
+            } else {
+              // Insert after "Live Status" section or before "More Ways to Play"
+              const insertPoint = readme.indexOf('## 🔗 More Ways to Play');
+              if (insertPoint !== -1) {
+                readme = readme.slice(0, insertPoint) + statsSection + '\n\n---\n\n' + readme.slice(insertPoint);
+              }
+            }
+            
+            // ═══════════════════════════════════════════════════════════
+            // UPDATE FOUNDER COUNT
+            // ═══════════════════════════════════════════════════════════
+            const founderCount = Math.min(50, totalPlayers);
+            readme = readme.replace(/Current Founders: \d+\/50/, `Current Founders: ${founderCount}/50`);
+            
+            // ═══════════════════════════════════════════════════════════
+            // UPDATE HALL OF FOUNDERS
+            // ═══════════════════════════════════════════════════════════
+            const founders = playerList.slice(0, 50);
+            let hallOfFounders = `### 🏛️ Hall of Founders\n\n<table>\n`;
+            
+            // Create rows of 5 founders each
+            for (let row = 0; row < 10; row++) {
+              hallOfFounders += '<tr>\n';
+              for (let col = 0; col < 5; col++) {
+                const idx = row * 5 + col;
+                if (idx < founders.length) {
+                  const founder = founders[idx];
+                  hallOfFounders += `<td align="center"><a href="https://github.com/${founder.name}"><img src="https://github.com/${founder.name}.png" width="60px;" alt=""/><br /><sub><b>${founder.name}</b></sub></a><br />🏅 #${idx + 1}</td>\n`;
+                } else if (idx < 50) {
+                  hallOfFounders += `<td align="center"><sub>Your spot<br/>awaits...</sub></td>\n`;
+                }
+              }
+              hallOfFounders += '</tr>\n';
+              if ((row + 1) * 5 >= Math.max(founders.length + 5, 10)) break;
+            }
+            
+            hallOfFounders += `</table>\n\n<p align="center"><i>Join now and claim your permanent place in history! 🌟</i></p>`;
+            
+            // Replace Hall of Founders
+            const hallRegex = /### 🏛️ Hall of Founders[\s\S]*?<p align="center"><i>Join now and claim your permanent place in history! 🌟<\/i><\/p>/;
+            if (readme.match(hallRegex)) {
+              readme = readme.replace(hallRegex, hallOfFounders);
+            }
+            
+            // Save README
+            fs.writeFileSync('README.md', readme);
+            console.log('✅ README updated with live stats!');
+            console.log(`   Players: ${totalPlayers}`);
+            console.log(`   Karma: ${totalKarma}`);
+            console.log(`   Level: ${currentLevel}`);
+
+      - name: Commit and Push
+        run: |
+          git config user.name "enjoy-bot"
+          git config user.email "bot@enjoy.game"
+          git add README.md
+          git diff --staged --quiet || git commit -m "📊 Update live stats dashboard"
+          git push || echo "Nothing to push"
