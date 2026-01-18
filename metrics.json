@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-18T10:00:00Z",
+  "generated_at": "2026-01-18T14:38:01Z",
   "game_age_days": 1,
   
   "totals": {
@@ -12,12 +12,12 @@
   },
   
   "growth": {
-    "karma_per_day": 20,
-    "prs_per_day": 2,
-    "players_per_day": 1,
-    "karma_per_pr": 10,
-    "achievement_rate": 1,
-    "growth_emoji": "📈"
+    "karma_per_day": 20.00,
+    "prs_per_day": 2.00,
+    "players_per_day": 1.00,
+    "karma_per_pr": 10.00,
+    "achievement_rate": 1.00,
+    "growth_emoji": "🚀"
   },
   
   "progress": {
@@ -45,7 +45,7 @@
   },
   
   "time": {
-    "current_period": "morning",
+    "current_period": "night",
     "most_active_period": "none"
   },
   
