@@ -466,11 +466,93 @@
         
         /* Responsive */
         @media (max-width: 768px) {
-            .stat { font-size: 0.6rem; }
-            .stat-value { font-size: 1.2rem; }
-            .title { font-size: clamp(2.5rem, 12vw, 6rem); }
-            .event-log, .achievements-hud, .combo { display: none; }
-            .mode-toggle { top: auto; bottom: 4rem; right: 50%; transform: translateX(50%); }
+            /* Hide complex elements on mobile */
+            .event-log, .achievements-hud, .combo, .cursor, .cursor-dot { display: none; }
+            
+            /* Top area - stack vertically */
+            .time-indicator { 
+                top: 0.5rem; 
+                left: 0.5rem; 
+                padding: 0.4rem 0.8rem;
+                font-size: 0.6rem;
+            }
+            .stat-tl { 
+                top: 3rem; 
+                left: 0.5rem; 
+            }
+            
+            /* Mode toggle - top right on mobile */
+            .mode-toggle { 
+                top: 0.5rem; 
+                right: 0.5rem;
+                bottom: auto;
+                transform: none;
+            }
+            
+            /* Bottom left - stats */
+            .stat-bl { 
+                bottom: 1rem; 
+                left: 0.5rem; 
+            }
+            
+            /* Bottom right - hide souls, keep progress ring */
+            .stat-br { 
+                display: none; 
+            }
+            .progress-ring { 
+                bottom: 1rem; 
+                right: 0.5rem; 
+                width: 50px; 
+                height: 50px; 
+            }
+            .progress-ring svg { width: 50px; height: 50px; }
+            .progress-ring-bg, .progress-ring-fill { r: 20; cx: 25; cy: 25; }
+            
+            /* CTA button */
+            .cta { 
+                bottom: 5rem; 
+            }
+            .cta a { 
+                padding: 0.8rem 1.5rem; 
+                font-size: 0.7rem; 
+            }
+            
+            /* Challenge banner */
+            .challenge-banner { 
+                font-size: 0.55rem; 
+                padding: 0.4rem; 
+            }
+            
+            /* Title smaller */
+            .title { 
+                font-size: clamp(2.5rem, 12vw, 6rem); 
+            }
+            
+            /* Stats text smaller */
+            .stat { 
+                font-size: 0.55rem; 
+            }
+            .stat-value { 
+                font-size: 1rem; 
+            }
+        }
+        
+        /* Very small screens */
+        @media (max-width: 380px) {
+            .time-indicator { 
+                padding: 0.3rem 0.5rem; 
+                font-size: 0.5rem; 
+            }
+            .mode-toggle { 
+                padding: 0.2rem; 
+            }
+            .mode-btn { 
+                padding: 0.3rem 0.5rem; 
+                font-size: 0.55rem; 
+            }
+            .cta a { 
+                padding: 0.6rem 1rem; 
+            }
         }
     </style>
 </head>
