@@ -1,0 +1,155 @@
+# ════════════════════════════════════════════════════════════════════════════════
+# 🧹 STALE ISSUES - Auto-close inactive issues to keep the board clean
+# ════════════════════════════════════════════════════════════════════════════════
+# Philosophy: If an issue sits untouched, it's probably not urgent.
+# If the problem persists, it will resurface naturally.
+# A clean board = focused energy = better game.
+# ════════════════════════════════════════════════════════════════════════════════
+
+name: 🧹 Stale Issues Cleanup
+
+on:
+  schedule:
+    # Run daily at 3:00 AM UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (no actual changes)'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🧹 Mark and close stale issues
+        uses: actions/stale@v9
+        with:
+          # ══════════════════════════════════════════════════════════
+          # TIMING
+          # ══════════════════════════════════════════════════════════
+          # Days before marking as stale
+          days-before-stale: 30
+          # Days after stale label before closing
+          days-before-close: 14
+          # Don't auto-close PRs (they have different dynamics)
+          days-before-pr-close: -1
+          
+          # ══════════════════════════════════════════════════════════
+          # LABELS
+          # ══════════════════════════════════════════════════════════
+          stale-issue-label: '💤 stale'
+          stale-pr-label: '💤 stale'
+          close-issue-label: '🚪 auto-closed'
+          
+          # ══════════════════════════════════════════════════════════
+          # EXEMPT LABELS - Never mark these as stale
+          # ══════════════════════════════════════════════════════════
+          exempt-issue-labels: |
+            📌 pinned
+            🔒 security
+            🎯 help wanted
+            💰 bounty
+            🚀 in-progress
+            ⭐ good first issue
+            🐛 confirmed bug
+            📋 roadmap
+          exempt-pr-labels: |
+            📌 pinned
+            🔒 security
+            🚀 in-progress
+          
+          # ══════════════════════════════════════════════════════════
+          # MESSAGES - Friendly, game-themed
+          # ══════════════════════════════════════════════════════════
+          stale-issue-message: |
+            ## 💤 This issue is getting sleepy...
+            
+            This issue hasn't had any activity in **30 days**. 
+            
+            To keep our board focused and energetic, it will be **automatically closed in 14 days** if there's no further activity.
+            
+            ### 🎮 What you can do:
+            - **Comment** if this is still relevant (any comment removes the stale label)
+            - **Close it** if it's no longer needed
+            - **Submit a PR** to fix it and earn karma! ✨
+            
+            > *"A clean board is a happy board"* — The Enjoy Philosophy
+            
+            ---
+            *This is an automated message. The issue will reopen automatically if the problem resurfaces.*
+          
+          stale-pr-message: |
+            ## 💤 This PR needs attention...
+            
+            This pull request hasn't had activity in **30 days**.
+            
+            ### 🎮 What's next?
+            - **Update** your PR if changes are needed
+            - **Comment** if you're still working on it
+            - **Close** if you've moved on (no worries, it happens!)
+            
+            PRs are not auto-closed, but please update us on the status.
+          
+          close-issue-message: |
+            ## 🚪 Auto-closed due to inactivity
+            
+            This issue was automatically closed after **44 days** without activity (30 days stale + 14 days warning).
+            
+            ### 🔄 Not resolved?
+            If this issue is still relevant:
+            1. **Reopen** this issue with a comment explaining the current status
+            2. Or **create a new issue** with updated information
+            
+            Thank you for helping keep our board clean! 🧹✨
+            
+            ---
+            *Remember: Solving issues earns karma! Check [PLAY.md](../PLAY.md) for details.*
+          
+          # ══════════════════════════════════════════════════════════
+          # BEHAVIOR
+          # ══════════════════════════════════════════════════════════
+          # Remove stale label when updated
+          remove-stale-when-updated: true
+          # Only process issues with these labels (empty = all)
+          only-labels: ''
+          # Process this many issues per run (avoid rate limits)
+          operations-per-run: 100
+          # Ascending = oldest first
+          ascending: true
+          # Don't stale issues with assignees (someone's working on it)
+          exempt-all-assignees: true
+          # Include issues created by bots? No.
+          exempt-issue-creators: |
+            github-actions[bot]
+            dependabot[bot]
+            renovate[bot]
+          
+          # Debug mode
+          debug-only: ${{ github.event.inputs.dry_run == 'true' }}
+
+      - name: 📊 Summary
+        run: |
+          echo "## 🧹 Stale Issues Cleanup Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Setting | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Days before stale | 30 |" >> $GITHUB_STEP_SUMMARY
+          echo "| Days before close | 14 (after stale) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Total lifecycle | 44 days |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🛡️ Exempt labels" >> $GITHUB_STEP_SUMMARY
+          echo "- 📌 pinned" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔒 security" >> $GITHUB_STEP_SUMMARY
+          echo "- 🎯 help wanted" >> $GITHUB_STEP_SUMMARY
+          echo "- 💰 bounty" >> $GITHUB_STEP_SUMMARY
+          echo "- 🚀 in-progress" >> $GITHUB_STEP_SUMMARY
+          echo "- ⭐ good first issue" >> $GITHUB_STEP_SUMMARY
+          echo "- 🐛 confirmed bug" >> $GITHUB_STEP_SUMMARY
+          echo "- 📋 roadmap" >> $GITHUB_STEP_SUMMARY
