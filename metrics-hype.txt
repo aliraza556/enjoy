@@ -8,3 +8,4 @@ hype_message=🔥 Only 49 FOUNDER spots left! 1 souls have joined. Karma flowing
 hype_message=🔥 Only 49 FOUNDER spots left! 1 souls have joined. Karma flowing at 132.00/day 🚀
 hype_message=🔥 Only 49 FOUNDER spots left! 1 souls have joined. Karma flowing at 132.00/day 🚀
 hype_message=🔥 Only 49 FOUNDER spots left! 1 souls have joined. Karma flowing at 132/day 🚀
+hype_message=🔥 Only 49 FOUNDER spots left! 1 souls have joined. Karma flowing at 132/day 🚀
