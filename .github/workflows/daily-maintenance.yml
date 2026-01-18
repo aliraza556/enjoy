@@ -17,6 +17,14 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       
+      - name: Backup state.json
+        run: |
+          mkdir -p backups
+          cp state.json "backups/state-$(date +%Y-%m-%d).json"
+          # Keep only last 7 backups
+          ls -t backups/state-*.json | tail -n +8 | xargs rm -f 2>/dev/null || true
+          echo "✅ State backed up"
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -160,6 +168,6 @@ jobs:
       
       - name: Commit changes
         run: |
-          git add state.json README.md archives/ 2>/dev/null || true
+          git add state.json README.md archives/ backups/ 2>/dev/null || true
           git commit -m "🔧 Daily maintenance - $(date +%Y-%m-%d)" || echo "No changes"
           git push || echo "Nothing to push"
