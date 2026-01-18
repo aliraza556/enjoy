@@ -99,7 +99,7 @@ Every translator receives:
 
 > [Tagline translation in {language}]
 
-[![Play Now](assets/svg/badge-innovative.svg)](https://github.com/fabriziosalmi/enjoy)
+[![Play Now](https://img.shields.io/badge/🎮_Play_Now-22c55e?style=for-the-badge)](https://github.com/fabriziosalmi/enjoy)
 
 [Rest of translated README...]
 

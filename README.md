@@ -18,12 +18,7 @@
   <img src="assets/svg/hero-banner.svg" alt="enjoy - the repository that plays back" width="100%">
 </p>
 
-<!-- 🏆 INNOVATION BADGE -->
-<p align="center">
-  <img src="assets/svg/badge-innovative.svg" alt="Most Innovative GitHub Experience 2026" width="300">
-</p>
-
-<!-- 🏥 LIVE STATUS BADGES - Auto-updated by workflows -->
+<!--  LIVE STATUS BADGES - Auto-updated by workflows -->
 <p align="center">
   <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/fabriziosalmi/enjoy/main/badges/health.json&style=flat-square" alt="Health">
   <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/fabriziosalmi/enjoy/main/badges/karma.json&style=flat-square" alt="Karma">
@@ -307,9 +302,9 @@ It's a real game. The karma is real. The leaderboard is real. The fun is real. �
 ## 📣 Spread the Word
 
 <p align="center">
-  <a href="https://twitter.com/intent/tweet?text=I%20just%20discovered%20%40enjoy%20-%20the%20most%20innovative%20GitHub%20experience%20of%202026!%20%F0%9F%8E%AE%0A%0AA%20game%20where%20GitHub%20IS%20the%20game.%20No%20downloads.%20Just%20PRs.%0A%0AJoin%3A%20https%3A%2F%2Fgithub.com%2Ffabriziosalmi%2Fenjoy%0A%0A%23GitHub%20%23opensource"><img src="https://img.shields.io/badge/🐦_Tweet_About_It-1da1f2?style=for-the-badge" alt="Tweet"></a>
+  <a href="https://twitter.com/intent/tweet?text=Found%20this%20weird%20repo%20where%20GitHub%20itself%20is%20the%20game%20%F0%9F%8E%AE%0A%0AYou%20add%20words%20via%20PRs%20and...%20things%20happen.%0A%0Ahttps%3A%2F%2Fgithub.com%2Ffabriziosalmi%2Fenjoy"><img src="https://img.shields.io/badge/🐦_Tweet_About_It-1da1f2?style=for-the-badge" alt="Tweet"></a>
   <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/fabriziosalmi/enjoy"><img src="https://img.shields.io/badge/💼_Share_on_LinkedIn-0077b5?style=for-the-badge" alt="LinkedIn"></a>
-  <a href="https://news.ycombinator.com/submitlink?u=https://github.com/fabriziosalmi/enjoy&t=enjoy%20-%20The%20Most%20Innovative%20GitHub%20Experience%20of%202026"><img src="https://img.shields.io/badge/🔶_Post_on_HN-f97316?style=for-the-badge" alt="Hacker News"></a>
+  <a href="https://news.ycombinator.com/submitlink?u=https://github.com/fabriziosalmi/enjoy&t=enjoy%20-%20A%20game%20where%20the%20repo%20is%20the%20game"><img src="https://img.shields.io/badge/🔶_Post_on_HN-f97316?style=for-the-badge" alt="Hacker News"></a>
   <a href="https://www.reddit.com/submit?url=https://github.com/fabriziosalmi/enjoy&title=enjoy%20-%20A%20game%20where%20GitHub%20IS%20the%20game"><img src="https://img.shields.io/badge/🤖_Share_on_Reddit-ff4500?style=for-the-badge" alt="Reddit"></a>
 </p>
 
@@ -327,11 +322,11 @@ It's a real game. The karma is real. The leaderboard is real. The fun is real. �
 
 <sub>
 
-**🏆 Most Innovative GitHub Experience 2026**
+**🤖 Built by AIs, played by humans, understood by neither**
 
-Built with 🤖 by Claude & Gemini | Maintained by [@fabriziosalmi](https://github.com/fabriziosalmi) | Played by you
+Maintained by [@fabriziosalmi](https://github.com/fabriziosalmi) | Powered by Claude & Gemini | Broken by you
 
-21 autonomous workflows • 100 levels • Time-aware karma • Procedural art • Guardian angels
+22 workflows • 100 levels • 1 existential crisis
 
 ♿ [Accessibility](ACCESSIBILITY.md) • 🌍 [Translations](TRANSLATIONS.md) • 💜 Nobody left behind
 

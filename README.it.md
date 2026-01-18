@@ -5,12 +5,7 @@
   <img src="assets/svg/hero-banner.svg" alt="enjoy - il repository che risponde" width="100%">
 </p>
 
-<!-- 🏆 BADGE INNOVAZIONE -->
-<p align="center">
-  <img src="assets/svg/badge-innovative.svg" alt="Esperienza GitHub Più Innovativa 2026" width="300">
-</p>
-
-<!-- 🏥 BADGE STATO LIVE - Aggiornati automaticamente dai workflow -->
+<!--  BADGE STATO LIVE - Aggiornati automaticamente dai workflow -->
 <p align="center">
   <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/fabriziosalmi/enjoy/main/badges/health.json&style=flat-square" alt="Salute">
   <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/fabriziosalmi/enjoy/main/badges/karma.json&style=flat-square" alt="Karma">
