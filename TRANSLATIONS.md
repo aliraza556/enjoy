@@ -10,7 +10,7 @@
 |----------|--------|------------|------|-----------------|
 | 🇬🇧 English | ✅ Complete | @fabriziosalmi | [README.md](README.md) | - |
 | 🇮🇹 Italiano | ✅ Complete | @fabriziosalmi | [README.it.md](README.it.md) | - |
-| 🇪🇸 Español | 🔜 Needed | - | [README.es.md](README.es.md) | **+75** 🆕 |
+| 🇪🇸 Español | ✅ Complete | @fabriziosalmi | [README.es.md](README.es.md) | +35 update |
 | 🇫🇷 Français | 🔜 Needed | - | [README.fr.md](README.fr.md) | **+75** 🆕 |
 | 🇩🇪 Deutsch | 🔜 Needed | - | [README.de.md](README.de.md) | **+75** 🆕 |
 | 🇵🇹 Português | ✅ Complete | - | [README.pt.md](README.pt.md) | +35 update |
