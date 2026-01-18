@@ -1,0 +1,118 @@
+# Level 2: CSS Unlock
+# Style awakens. The CGA palette becomes accessible.
+
+id: "02"
+name: "Chromatic Surge"
+level: 2
+description: "The CGA palette explodes into life. CSS unlocked. Style the void."
+tagline: "16 colors. Infinite possibilities."
+
+unlock_requirements:
+  score: 500
+  prs: 25
+  players: 12
+
+capabilities:
+  - "add_text_element"
+  - "add_html_element"
+  - "add_css_rules"
+  - "style_elements"
+  - "create_animations"
+
+rules_enabled:
+  - "001-first-word"
+  - "101-html-element"
+  - "201-css-rule"
+  - "202-css-animation"
+  - "203-css-layout"
+
+features:
+  board_type: "live_page"
+  interactive: false
+  pages_enabled: true
+
+allowed_css_properties:
+  # Layout
+  - "display"
+  - "position"
+  - "top"
+  - "left"
+  - "right"
+  - "bottom"
+  - "width"
+  - "height"
+  - "margin"
+  - "padding"
+  # Style
+  - "color"
+  - "background-color"
+  - "border"
+  - "border-radius"
+  - "opacity"
+  # Text
+  - "font-size"
+  - "font-weight"
+  - "text-align"
+  - "text-shadow"
+  - "line-height"
+  # Animation
+  - "animation"
+  - "transition"
+  - "transform"
+
+validation:
+  max_rules_per_pr: 5
+  max_lines_per_rule: 20
+  only_cga_colors: true
+  no_external_urls: true
+  no_imports: true
+  no_data_uris: true
+
+cga_palette:
+  - "#000000"  # Black
+  - "#0000AA"  # Blue
+  - "#00AA00"  # Green
+  - "#00AAAA"  # Cyan
+  - "#AA0000"  # Red
+  - "#AA00AA"  # Magenta
+  - "#AA5500"  # Brown
+  - "#AAAAAA"  # Light Gray
+  - "#555555"  # Dark Gray
+  - "#5555FF"  # Light Blue
+  - "#55FF55"  # Light Green
+  - "#55FFFF"  # Light Cyan
+  - "#FF5555"  # Light Red
+  - "#FF55FF"  # Light Magenta
+  - "#FFFF55"  # Yellow
+  - "#FFFFFF"  # White
+
+celebration:
+  message: "🎨 LEVEL 2 UNLOCKED: CHROMATIC SURGE!"
+  effect: "color_explosion"
+  announcement: |
+    The void fills with color.
+    16 sacred hues from the CGA gods.
+    
+    You can now style the board.
+    Make it glitch. Make it dance. Make it yours.
+    
+    But it's still frozen. Static. Waiting...
+
+achievement: "style_master"
+
+flavor_text: |
+  CSS awakens. The board transforms.
+  Every PR can now add style rules.
+  
+  Respect the palette. The 16 colors are law.
+  Anything else will be rejected.
+  
+  Animations are allowed. Transitions are welcomed.
+  Make the board pulse with life.
+  
+  But you can't interact. Not yet.
+  Keep playing. Interactivity is coming.
+
+next_level:
+  id: "03"
+  teaser: "At 1500 points, the board learns to listen..."

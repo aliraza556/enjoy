@@ -1,0 +1,24 @@
+{
+  "name": "enjoy-engine",
+  "version": "1.0.0",
+  "description": "Rule engine for the enjoy game",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "validate": "node dist/index.js validate",
+    "apply-effect": "node dist/index.js apply",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "bad-words": "^3.0.4",
+    "minimist": "^1.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/minimist": "^1.2.5",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0"
+  }
+}

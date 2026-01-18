@@ -1,0 +1,87 @@
+# Level 010: First Complexity
+# First milestone - two files allowed, patterns emerge
+
+id: "010"
+level: 10
+name: "First Complexity"
+description: "Two words. Two files. The pattern begins to reveal itself."
+tagline: "Duality"
+
+unlock_requirements:
+  score: 500
+  prs: 50
+
+unlock_next:
+  level: 11
+  score: 600
+  prs: 60
+
+capabilities:
+  - "add_single_word"
+  - "add_two_words"
+  - "suggest_relationship"
+
+validation:
+  type: "file_added"
+  extension: ".txt"
+  max_files: 2  # KEY CHANGE: two files now
+  max_lines: 1
+  max_chars: 20
+  pattern: "^[a-zA-Z]+$"
+  no_profanity: true
+  
+  # New: relationship check
+  relationship_required: true
+  # e.g., "FIRE" + "ICE" = opposites (good)
+  #       "CAT" + "DOG" = related (good)
+  #       "RANDOM" + "WORDS" = bad karma
+
+effect:
+  action: "add_to_board"
+  elements: 2
+  # If words are related, they appear connected
+  connection:
+    type: "visual_link"
+    condition: "if_related"
+    style: "line"
+    color: "{{relationship_color}}"
+
+points:
+  base: 20  # 2x because 2 words
+  bonuses:
+    good_relationship: 15
+    opposite_relationship: 25
+    creative_pair: 30
+
+karma_impact:
+  quality_checks:
+    - words_related: true
+    - creative_pairing: true
+    - semantic_coherence: true
+  
+  excellent_contribution:
+    karma_gain: 25
+    amplification: 2  # Good pairs get DOUBLED
+    # If you submit FIRE+ICE, runner adds WATER automatically
+  
+  good_contribution:
+    karma_gain: 15
+    amplification: 1
+  
+  bad_contribution:
+    karma_loss: 20
+    effect: "refuse_with_suggestion"
+
+meta:
+  milestone: true
+  unlocks_pattern_system: true
+  difficulty: "easy"
+  
+flavor_text: |
+  Two words.
+  Do they speak to each other?
+  Do they fight?
+  Do they dance?
+  
+  The void watches their relationship.
+  Choose wisely.

@@ -1,0 +1,237 @@
+/* Base Styles - CGA Arcade Theme */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* CGA 16 Color Palette */
+  --cga-black: #000000;
+  --cga-blue: #0000AA;
+  --cga-green: #00AA00;
+  --cga-cyan: #00AAAA;
+  --cga-red: #AA0000;
+  --cga-magenta: #AA00AA;
+  --cga-brown: #AA5500;
+  --cga-light-gray: #AAAAAA;
+  --cga-dark-gray: #555555;
+  --cga-light-blue: #5555FF;
+  --cga-light-green: #55FF55;
+  --cga-light-cyan: #55FFFF;
+  --cga-light-red: #FF5555;
+  --cga-light-magenta: #FF55FF;
+  --cga-yellow: #FFFF55;
+  --cga-white: #FFFFFF;
+}
+
+body {
+  background: var(--cga-black);
+  color: var(--cga-white);
+  font-family: 'Press Start 2P', monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+#game-container {
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Header Stats */
+#header {
+  background: var(--cga-blue);
+  padding: 15px 20px;
+  border: 4px solid var(--cga-light-blue);
+  margin-bottom: 10px;
+  box-shadow: 0 0 20px rgba(85, 85, 255, 0.5);
+}
+
+#stats {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 10px;
+  font-size: 10px;
+}
+
+.stat {
+  color: var(--cga-yellow);
+  text-shadow: 2px 2px 0 var(--cga-black);
+}
+
+#level-name {
+  font-size: 12px;
+  color: var(--cga-light-cyan);
+  text-align: center;
+  text-shadow: 2px 2px 0 var(--cga-black);
+}
+
+/* Main Board */
+#board {
+  width: 800px;
+  height: 600px;
+  background: var(--cga-black);
+  position: relative;
+  border: 4px solid var(--cga-blue);
+  margin: 0 auto;
+  box-shadow: 
+    0 0 30px rgba(0, 0, 170, 0.6),
+    inset 0 0 60px rgba(0, 0, 170, 0.2);
+  overflow: hidden;
+}
+
+/* Scanline Effect */
+#board::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Canvas Layer */
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Elements Layer */
+#elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* Empty State */
+#empty-state {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 5;
+}
+
+#empty-state.hidden {
+  display: none;
+}
+
+.empty-message {
+  font-size: 14px;
+  color: var(--cga-dark-gray);
+  line-height: 1.8;
+  text-shadow: 2px 2px 0 var(--cga-black);
+}
+
+.blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Level Progress Bar */
+#progress-bar {
+  background: var(--cga-black);
+  border: 4px solid var(--cga-green);
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 10px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: var(--cga-light-green);
+}
+
+.progress-track {
+  width: 100%;
+  height: 20px;
+  background: var(--cga-dark-gray);
+  border: 2px solid var(--cga-light-gray);
+  position: relative;
+  overflow: hidden;
+}
+
+#progress-fill {
+  height: 100%;
+  background: var(--cga-light-green);
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px var(--cga-light-green);
+}
+
+.progress-requirements {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  color: var(--cga-light-gray);
+}
+
+/* Footer */
+#footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 8px;
+  color: var(--cga-dark-gray);
+}
+
+#footer a {
+  color: var(--cga-light-blue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+#footer a:hover {
+  color: var(--cga-yellow);
+}
+
+#footer span:not(.flavor) {
+  margin: 0 10px;
+}
+
+.flavor {
+  color: var(--cga-dark-gray);
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  #board {
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%; /* 4:3 aspect ratio */
+  }
+  
+  #stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* PLAYER CONTRIBUTIONS CSS BELOW */
+/* ================================ */
+
+/* CONTRIBUTIONS_CSS_PLACEHOLDER */

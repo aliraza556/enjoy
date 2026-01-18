@@ -1,0 +1,75 @@
+# Level 001: Hello World
+# The safest possible start - GitHub won't ban us for this
+
+id: "001"
+level: 1
+name: "Hello World"
+description: "Add a single word to the void. The beginning of everything."
+tagline: "One word. Infinite possibilities."
+
+unlock_requirements:
+  score: 0
+  prs: 0
+
+unlock_next:
+  level: 2
+  score: 50
+  prs: 5
+
+capabilities:
+  - "add_single_word"
+
+validation:
+  type: "file_added"
+  extension: ".txt"
+  max_files: 1
+  max_lines: 1
+  max_chars: 20
+  pattern: "^[a-zA-Z]+$"
+  no_profanity: true
+  no_duplicate: true
+
+effect:
+  action: "add_to_board"
+  element:
+    type: "text"
+    content: "{{file_content}}"
+    position: "random"
+    color: "random_cga"
+    size: 16
+
+points:
+  base: 10
+  bonuses:
+    first_pr_ever: 50
+    first_pr_today: 5
+    good_karma: 10  # if player has good karma
+
+karma_impact:
+  # Quality detection
+  quality_checks:
+    - word_length_optimal: [5, 10]  # 5-10 chars = good
+    - not_common_word: true  # "test", "hello" = -karma
+    - creative: true  # unusual words = +karma
+  
+  good_contribution:
+    karma_gain: 10
+    amplification: 1  # no amplification yet at level 1
+  
+  bad_contribution:
+    karma_loss: 5
+    effect: "refuse"
+
+meta:
+  safe_for_github: true
+  spam_resistant: true
+  difficulty: "tutorial"
+  
+flavor_text: |
+  This is how it begins.
+  One word. Just one.
+  
+  Make it count.
+  Make it yours.
+  
+  The void is listening.

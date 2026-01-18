@@ -1,0 +1,71 @@
+{
+  "version": "3.0.0",
+  "last_updated": "2026-01-18T00:00:00Z",
+  "last_pr": null,
+  "score": {
+    "total": 0,
+    "today": 0,
+    "streak_days": 0,
+    "all_time_high": 0
+  },
+  "levels": {
+    "current": 1,
+    "max_level": 100,
+    "unlocked": [1],
+    "next_unlock": {
+      "level_id": 2,
+      "requires_score": 50,
+      "requires_prs": 5,
+      "progress": {
+        "score": 0,
+        "prs": 0
+      }
+    },
+    "milestones": {
+      "10": "First Complexity",
+      "25": "Pattern Recognition", 
+      "50": "Metamorphosis",
+      "75": "Consciousness",
+      "95": "GitHub Pages Unlock",
+      "100": "Transcendence"
+    }
+  },
+  "karma": {
+    "global": 0,
+    "threshold_good": 100,
+    "threshold_excellent": 500,
+    "multiplier_active": 1.0,
+    "recent_quality": []
+  },
+  "board": {
+    "width": 800,
+    "height": 600,
+    "elements": []
+  },
+  "contributions": {
+    "html": [],
+    "css": [],
+    "js": [],
+    "canvas": [],
+    "total": 0
+  },
+  "players": {},
+  "reputation": {
+    "top_coders": [],
+    "voting_power": {}
+  },
+  "rules": {
+    "active": ["001-first-word"],
+    "proposed": [],
+    "voting": [],
+    "archived": []
+  },
+  "rules_triggered": {},
+  "meta": {
+    "total_prs": 0,
+    "total_players": 0,
+    "game_started": "2026-01-18T00:00:00Z",
+    "pages_enabled": false,
+    "last_build": null
+  }
+}

@@ -1,0 +1,74 @@
+# Level 1: HTML Unlock
+# GitHub Pages activates. Players can now contribute HTML elements.
+
+id: "01"
+name: "HTML Awakening"
+level: 1
+description: "The board becomes alive. GitHub Pages awakens. You can now add HTML."
+tagline: "Structure emerges from chaos"
+
+unlock_requirements:
+  score: 100
+  prs: 10
+  players: 5
+
+capabilities:
+  - "add_text_element"
+  - "add_html_element"
+  - "create_divs"
+  - "create_spans"
+  - "add_paragraphs"
+
+rules_enabled:
+  - "001-first-word"
+  - "101-html-element"
+  - "102-html-box"
+  - "103-html-link"
+
+features:
+  board_type: "live_page"
+  interactive: false
+  pages_enabled: true
+
+allowed_html_tags:
+  - "div"
+  - "span"
+  - "p"
+  - "a"
+  - "br"
+  - "strong"
+  - "em"
+
+validation:
+  max_elements_per_pr: 3
+  max_nesting_depth: 3
+  sanitize: true
+  no_scripts: true
+  no_styles: true
+
+celebration:
+  message: "🎉 LEVEL 1 UNLOCKED: HTML AWAKENING!"
+  effect: "pages_activation"
+  announcement: |
+    The board is no longer just an image.
+    It's a living webpage.
+    
+    You can now add HTML elements.
+    Structure. Hierarchy. Meaning.
+    
+    But it's gray. Lifeless. Waiting for color...
+
+achievement: "html_pioneer"
+
+flavor_text: |
+  The screenshot fades. In its place: a webpage.
+  You can see it live at https://[username].github.io/enjoy
+  
+  Your HTML is validated, sanitized, and woven into the fabric.
+  But without CSS, it's just... text.
+  
+  Keep playing. Color is coming.
+
+next_level:
+  id: "02"
+  teaser: "At 500 points, the palette awakens..."

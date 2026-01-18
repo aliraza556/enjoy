@@ -1,0 +1,133 @@
+name: Validate PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: |
+          cd engine
+          npm ci
+      
+      - name: Build engine
+        run: |
+          cd engine
+          npm run build
+      
+      - name: Validate PR
+        id: validate
+        run: |
+          cd engine
+          npm run validate -- --pr-number=${{ github.event.pull_request.number }}
+        continue-on-error: true
+      
+      - name: Read validation result
+        id: result
+        run: |
+          if [ -f engine/validation-result.json ]; then
+            VALID=$(jq -r '.valid' engine/validation-result.json)
+            REASON=$(jq -r '.reason // ""' engine/validation-result.json)
+            RULES=$(jq -r '.matched_rules | join(", ")' engine/validation-result.json)
+            POINTS=$(jq -r '.points' engine/validation-result.json)
+            
+            echo "valid=$VALID" >> $GITHUB_OUTPUT
+            echo "reason=$REASON" >> $GITHUB_OUTPUT
+            echo "rules=$RULES" >> $GITHUB_OUTPUT
+            echo "points=$POINTS" >> $GITHUB_OUTPUT
+          else
+            echo "valid=false" >> $GITHUB_OUTPUT
+            echo "reason=Validation failed to run" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Add labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const valid = '${{ steps.result.outputs.valid }}' === 'true';
+            const rules = '${{ steps.result.outputs.rules }}';
+            
+            // Remove old labels
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+            
+            for (const label of labels) {
+              if (label.name.startsWith('rule-') || label.name === 'auto-merge' || label.name === 'invalid') {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  name: label.name
+                });
+              }
+            }
+            
+            // Add new labels
+            const newLabels = [];
+            if (valid) {
+              newLabels.push('auto-merge');
+              if (rules) {
+                rules.split(', ').forEach(r => newLabels.push(`rule-${r}`));
+              }
+            } else {
+              newLabels.push('invalid');
+            }
+            
+            if (newLabels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: newLabels
+              });
+            }
+      
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const valid = '${{ steps.result.outputs.valid }}' === 'true';
+            const reason = '${{ steps.result.outputs.reason }}';
+            const rules = '${{ steps.result.outputs.rules }}';
+            const points = '${{ steps.result.outputs.points }}';
+            
+            let body;
+            if (valid) {
+              body = `## ✅ Valid Contribution!\n\n`;
+              body += `**Matched Rules:** ${rules}\n`;
+              body += `**Points:** +${points}\n\n`;
+              body += `Your PR will be auto-merged shortly! 🎉\n\n`;
+              body += `---\n_The repo is the game_`;
+            } else {
+              body = `## ❌ Invalid Contribution\n\n`;
+              body += `**Reason:** ${reason}\n\n`;
+              body += `Please check the [rules](https://[USERNAME].github.io/enjoy/rules/) and try again.\n\n`;
+              body += `---\n_The repo is the game_`;
+            }
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });

@@ -1,0 +1,35 @@
+# Level 0: Image Only
+# The beginning. Only static board image. Players add words to the void.
+
+id: "00"
+name: "The Void"
+level: 0
+description: "In the beginning, there was only the image. Words float in darkness."
+tagline: "Add your word to the void"
+
+unlock_requirements:
+  score: 0
+  prs: 0
+  players: 0
+
+capabilities:
+  - "add_text_element"
+
+rules_enabled:
+  - "001-first-word"
+
+features:
+  board_type: "image"
+  interactive: false
+  pages_enabled: false
+
+flavor_text: |
+  The board is a screenshot. Static. Frozen in time.
+  Every 5 minutes, reality updates.
+  Your word appears. Then... nothing.
+  
+  But wait. Keep playing. Something is coming.
+
+next_level:
+  id: "01"
+  teaser: "At 100 points, the board awakens..."

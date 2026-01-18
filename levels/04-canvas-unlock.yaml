@@ -1,0 +1,104 @@
+# Level 4: Canvas Unlock
+# Pixel-level control. Draw. Paint. Create art collaboratively.
+
+id: "04"
+name: "Pixel Dimension"
+level: 4
+description: "The canvas awakens. Draw pixel by pixel. Collaborative art emerges."
+tagline: "Paint the void together"
+
+unlock_requirements:
+  score: 5000
+  prs: 100
+  players: 50
+
+capabilities:
+  - "add_text_element"
+  - "add_html_element"
+  - "add_css_rules"
+  - "add_js_functions"
+  - "draw_on_canvas"
+  - "create_pixel_art"
+
+rules_enabled:
+  - "001-first-word"
+  - "101-html-element"
+  - "201-css-rule"
+  - "301-js-function"
+  - "401-canvas-draw"
+  - "402-canvas-pixel"
+  - "403-canvas-sprite"
+
+features:
+  board_type: "live_page"
+  interactive: true
+  pages_enabled: true
+  canvas_enabled: true
+
+canvas_config:
+  width: 800
+  height: 600
+  context: "2d"
+  max_operations_per_pr: 100
+
+allowed_canvas_apis:
+  - "fillRect"
+  - "strokeRect"
+  - "fillText"
+  - "strokeText"
+  - "beginPath"
+  - "moveTo"
+  - "lineTo"
+  - "arc"
+  - "fill"
+  - "stroke"
+  - "drawImage"  # Only from approved assets
+  - "getImageData"  # Read only
+  - "putImageData"
+
+forbidden_canvas:
+  - "createImageBitmap"  # External images
+  - "toDataURL"  # Security
+  - "toBlob"  # Security
+
+validation:
+  max_draw_calls: 100
+  max_path_points: 1000
+  only_cga_colors: true
+  max_file_size: "50kb"  # For sprite images
+  allowed_image_formats: ["png", "gif"]
+
+celebration:
+  message: "🎨 LEVEL 4 UNLOCKED: PIXEL DIMENSION!"
+  effect: "canvas_materialize"
+  announcement: |
+    The canvas materializes.
+    800x600 pixels. 16 sacred colors.
+    
+    Draw. Paint. Create together.
+    Every PR adds to the collective artwork.
+    
+    Pixel by pixel, the masterpiece emerges.
+    
+    But there's something more. Something final...
+
+achievement: "pixel_master"
+
+flavor_text: |
+  The canvas is yours.
+  Draw paths. Fill shapes. Place sprites.
+  
+  Contributions accumulate. The art grows.
+  Someone draws a tree. Another adds a sun.
+  A third creates a glitch effect.
+  
+  It's collaborative. Chaotic. Beautiful.
+  
+  But one level remains...
+  The mystery level.
+  
+  Keep playing. When you're ready, it will reveal itself.
+
+next_level:
+  id: "05"
+  teaser: "At 10000 points, the mystery unfolds..."

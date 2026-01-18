@@ -1,0 +1,114 @@
+# Level 3: JavaScript Unlock
+# The board becomes interactive. Click handlers. Logic. Life.
+
+id: "03"
+name: "Sentience"
+level: 3
+description: "The board wakes up. JavaScript unlocked. Make it respond. Make it think."
+tagline: "Click. Respond. Evolve."
+
+unlock_requirements:
+  score: 1500
+  prs: 50
+  players: 20
+
+capabilities:
+  - "add_text_element"
+  - "add_html_element"
+  - "add_css_rules"
+  - "add_js_functions"
+  - "add_event_listeners"
+  - "manipulate_dom"
+
+rules_enabled:
+  - "001-first-word"
+  - "101-html-element"
+  - "201-css-rule"
+  - "301-js-function"
+  - "302-js-click-handler"
+  - "303-js-animation"
+
+features:
+  board_type: "live_page"
+  interactive: true
+  pages_enabled: true
+
+allowed_js_apis:
+  # DOM
+  - "document.getElementById"
+  - "document.querySelector"
+  - "document.querySelectorAll"
+  - "element.addEventListener"
+  - "element.classList"
+  - "element.style"
+  - "element.textContent"
+  - "element.innerHTML"  # Sanitized only
+  # Events
+  - "click"
+  - "mouseover"
+  - "mouseout"
+  - "keypress"
+  # Timing
+  - "setTimeout"
+  - "setInterval"
+  - "requestAnimationFrame"
+  # Math
+  - "Math.*"
+  - "Date.now"
+  # Console (for debugging)
+  - "console.log"
+  - "console.error"
+
+forbidden_js:
+  - "eval"
+  - "Function"
+  - "fetch"
+  - "XMLHttpRequest"
+  - "WebSocket"
+  - "Worker"
+  - "localStorage"
+  - "sessionStorage"
+  - "document.cookie"
+  - "window.location"
+  - "import"
+  - "require"
+
+validation:
+  max_lines_per_pr: 50
+  max_functions: 3
+  ast_validation: true
+  sandbox_test: true
+  timeout_limit: 100  # ms per function
+  max_event_listeners: 5
+
+celebration:
+  message: "⚡ LEVEL 3 UNLOCKED: SENTIENCE!"
+  effect: "interactive_demo"
+  announcement: |
+    The board awakens. It can hear you now.
+    Click. It responds.
+    
+    JavaScript is alive. Controlled. Sandboxed.
+    Add functions. Add handlers. Add logic.
+    
+    But you can't draw. Not freely. Not yet...
+
+achievement: "code_wizard"
+
+flavor_text: |
+  JavaScript pulses through the board's veins.
+  Every PR can now add interactive logic.
+  
+  Your code is parsed, validated, sandboxed.
+  Malicious APIs are forbidden.
+  Infinite loops are killed.
+  
+  Make elements respond to clicks.
+  Animate on hover. Count. Calculate. Think.
+  
+  But pixel-level control? Not yet.
+  Keep playing. The canvas is coming.
+
+next_level:
+  id: "04"
+  teaser: "At 5000 points, the pixel dimension opens..."

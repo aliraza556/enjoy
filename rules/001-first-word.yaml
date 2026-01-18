@@ -1,0 +1,46 @@
+# Rule 001: First Word
+# The foundation. Add a .txt file with a single word and watch it appear on the board.
+
+id: "001"
+name: "First Word"
+description: "Add a .txt file with a single word to place it on the board"
+version: 1
+enabled: true
+priority: 100
+
+trigger:
+  type: "file_added"
+  conditions:
+    # Must be a .txt file
+    - extension: ".txt"
+    # Only one file per PR
+    - max_files: 1
+    # File must have exactly 1 line
+    - max_lines: 1
+    # Max 20 characters
+    - max_chars: 20
+    # Only letters (a-z, A-Z)
+    - pattern: "^[a-zA-Z]+$"
+
+validate:
+  # No profanity
+  - not_profanity: true
+  # Word not already on board
+  - not_duplicate: true
+
+effect:
+  action: "add_to_board"
+  element:
+    type: "text"
+    content: "{{file_content}}"
+    position: "random"  # Random position on board
+    color: "random_cga"  # Random CGA color
+    size: 16
+
+points:
+  base: 10
+  bonus:
+    - condition: "first_pr_of_player"
+      points: 50
+    - condition: "first_pr_of_day"
+      points: 5
