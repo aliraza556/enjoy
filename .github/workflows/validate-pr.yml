@@ -48,45 +48,142 @@ jobs:
             console.log('Modified files:', modified);
             console.log('Removed files:', removed);
       
-      - name: 🔐 Verify Proof of Humanity
-        id: humanity
+      - name: � Validate PR Format
+        id: format
         uses: actions/github-script@v7
         with:
           script: |
             const prBody = process.env.PR_BODY || '';
             const prAuthor = process.env.PR_AUTHOR || '';
             
-            // Skip for bots and dependabot
+            // Skip for bots
             if (prAuthor.includes('bot') || prAuthor === 'dependabot[bot]') {
-              core.setOutput('is_human', 'true');
+              core.setOutput('valid_format', 'true');
               core.setOutput('skip_reason', 'bot_allowed');
-              console.log('🤖 Bot detected, skipping humanity check');
+              console.log('🤖 Bot detected, skipping format check');
               return;
             }
             
-            // The Sacred Word - hidden in LORE.md
-            // This changes periodically for extra security
-            const SACRED_ANSWERS = ['karmiel', 'KARMIEL', 'Karmiel'];
+            const errors = [];
+            const warnings = [];
             
-            // Look for the Guardian answer in PR body
+            // ═══════════════════════════════════════════════════════════
+            // CHECK 1: Guardian Question (Proof of Humanity)
+            // ═══════════════════════════════════════════════════════════
+            const SACRED_ANSWERS = ['karmiel', 'KARMIEL', 'Karmiel'];
             const guardianMatch = prBody.match(/What is the name of the First Guardian\?\*?\*?\s*(.+?)(?:\n|---|$)/i);
             
-            let answer = '';
+            let guardianAnswer = '';
             if (guardianMatch && guardianMatch[1]) {
-              answer = guardianMatch[1].trim();
+              guardianAnswer = guardianMatch[1].trim();
             }
             
-            const isHuman = SACRED_ANSWERS.some(s => answer.includes(s));
+            const hasGuardianAnswer = SACRED_ANSWERS.some(s => guardianAnswer.includes(s));
+            if (!hasGuardianAnswer) {
+              errors.push({
+                field: 'Guardian Question',
+                issue: 'Missing or wrong answer',
+                hint: 'Read LORE.md to find the First Guardian name'
+              });
+            }
             
-            core.setOutput('is_human', isHuman ? 'true' : 'false');
-            core.setOutput('answer_given', answer);
+            // ═══════════════════════════════════════════════════════════
+            // CHECK 2: Word Field
+            // ═══════════════════════════════════════════════════════════
+            const wordMatch = prBody.match(/\*\*Word:\*\*\s*(.+?)(?:\n|$)/i);
+            let word = '';
+            if (wordMatch && wordMatch[1]) {
+              word = wordMatch[1].trim();
+            }
             
-            if (isHuman) {
-              console.log('✅ Proof of Humanity verified! Welcome, seeker.');
+            if (!word || word === '' || word.includes('<!--')) {
+              errors.push({
+                field: 'Word',
+                issue: 'Word field is empty',
+                hint: 'Add your creative word after "**Word:**"'
+              });
+            } else if (word.length < 3) {
+              errors.push({
+                field: 'Word',
+                issue: 'Word too short (min 3 chars)',
+                hint: 'Choose a more substantial word'
+              });
+            } else if (word.length > 30) {
+              errors.push({
+                field: 'Word',
+                issue: 'Word too long (max 30 chars)',
+                hint: 'Keep it concise'
+              });
+            }
+            
+            // ═══════════════════════════════════════════════════════════
+            // CHECK 3: Checklist (at least 3 boxes checked)
+            // ═══════════════════════════════════════════════════════════
+            const checkedBoxes = (prBody.match(/- \[x\]/gi) || []).length;
+            const uncheckedBoxes = (prBody.match(/- \[ \]/g) || []).length;
+            const totalBoxes = checkedBoxes + uncheckedBoxes;
+            
+            if (totalBoxes === 0) {
+              errors.push({
+                field: 'Checklist',
+                issue: 'No checklist found',
+                hint: 'Use the PR template with checkboxes'
+              });
+            } else if (checkedBoxes < 3) {
+              errors.push({
+                field: 'Checklist',
+                issue: `Only ${checkedBoxes}/${totalBoxes} boxes checked`,
+                hint: 'Read and check all requirements you meet'
+              });
+            }
+            
+            // ═══════════════════════════════════════════════════════════
+            // CHECK 4: Required sections exist
+            // ═══════════════════════════════════════════════════════════
+            const hasProofSection = prBody.includes('Proof of Humanity') || prBody.includes('First Guardian');
+            const hasWordSection = prBody.includes('**Word:**') || prBody.includes('My Contribution');
+            const hasChecklist = prBody.includes('Checklist') || prBody.includes('- [');
+            
+            if (!hasProofSection) {
+              errors.push({
+                field: 'Template',
+                issue: 'Missing Proof of Humanity section',
+                hint: 'Use the PR template provided'
+              });
+            }
+            
+            if (!hasWordSection) {
+              errors.push({
+                field: 'Template', 
+                issue: 'Missing Word section',
+                hint: 'Use the PR template provided'
+              });
+            }
+            
+            // ═══════════════════════════════════════════════════════════
+            // OUTPUT RESULTS
+            // ═══════════════════════════════════════════════════════════
+            const isValid = errors.length === 0;
+            
+            core.setOutput('valid_format', isValid ? 'true' : 'false');
+            core.setOutput('errors_count', errors.length.toString());
+            core.setOutput('errors_json', JSON.stringify(errors));
+            core.setOutput('word', word);
+            core.setOutput('guardian_answer', guardianAnswer);
+            core.setOutput('checked_boxes', checkedBoxes.toString());
+            
+            if (isValid) {
+              console.log('✅ PR Format is VALID');
+              console.log('📝 Word:', word);
+              console.log('🔐 Guardian:', guardianAnswer);
+              console.log('☑️ Checkboxes:', checkedBoxes);
             } else {
-              console.log('❌ Proof of Humanity FAILED');
-              console.log('Answer given:', answer || '(empty)');
-              console.log('Hint: Read LORE.md to find the First Guardian...');
+              console.log('❌ PR Format is INVALID');
+              console.log('');
+              errors.forEach((e, i) => {
+                console.log(`${i+1}. [${e.field}] ${e.issue}`);
+                console.log(`   💡 ${e.hint}`);
+              });
             }
 
       - name: Setup Node.js
@@ -196,6 +293,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const validFormat = '${{ steps.format.outputs.valid_format }}' === 'true';
             const valid = '${{ steps.result.outputs.valid }}' === 'true';
             const karmaAction = '${{ steps.result.outputs.karma_action }}';
             const karmaAmp = parseInt('${{ steps.result.outputs.karma_amp }}') || 1;
@@ -206,7 +304,8 @@ jobs:
               { name: 'karma-x2', color: 'fbca04', description: 'x2 amplification' },
               { name: 'karma-x3', color: 'b60205', description: 'x3 amplification' },
               { name: 'refused', color: '000000', description: 'Refused by karma' },
-              { name: 'proof-failed', color: '5319e7', description: 'Proof of Humanity failed' }
+              { name: 'format-error', color: '5319e7', description: 'PR format is invalid' },
+              { name: 'needs-fix', color: 'e99695', description: 'Needs changes to pass' }
             ];
             
             for (const label of labelsToCreate) {
@@ -227,7 +326,7 @@ jobs:
               });
               
               for (const label of labels) {
-                if (['auto-merge', 'invalid', 'karma-x2', 'karma-x3', 'refused', 'proof-failed'].includes(label.name)) {
+                if (['auto-merge', 'invalid', 'karma-x2', 'karma-x3', 'refused', 'format-error', 'needs-fix'].includes(label.name)) {
                   await github.rest.issues.removeLabel({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
@@ -238,11 +337,10 @@ jobs:
               }
             } catch (e) {}
             
-            const isHuman = '${{ steps.humanity.outputs.is_human }}' === 'true';
             const newLabels = [];
             
-            if (!isHuman) {
-              newLabels.push('proof-failed');
+            if (!validFormat) {
+              newLabels.push('format-error', 'needs-fix');
             } else if (karmaAction === 'refuse') {
               newLabels.push('refused', 'invalid');
             } else if (valid) {
@@ -250,7 +348,7 @@ jobs:
               if (karmaAmp === 2) newLabels.push('karma-x2');
               if (karmaAmp === 3) newLabels.push('karma-x3');
             } else {
-              newLabels.push('invalid');
+              newLabels.push('invalid', 'needs-fix');
             }
             
             if (newLabels.length > 0) {
@@ -266,7 +364,8 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const isHuman = '${{ steps.humanity.outputs.is_human }}' === 'true';
+            const validFormat = '${{ steps.format.outputs.valid_format }}' === 'true';
+            const errorsJson = '${{ steps.format.outputs.errors_json }}';
             const valid = '${{ steps.result.outputs.valid }}' === 'true';
             const reason = `${{ steps.result.outputs.reason }}`;
             const rules = '${{ steps.result.outputs.rules }}';
@@ -278,15 +377,31 @@ jobs:
             
             let body;
             
-            // FIRST CHECK: Proof of Humanity
-            if (!isHuman) {
-              body = `## 🔐 Proof of Humanity Failed\n\n`;
-              body += `You must prove you've read the sacred texts!\n\n`;
-              body += `### How to pass:\n`;
-              body += `1. Read [LORE.md](../blob/main/LORE.md) carefully\n`;
-              body += `2. Find the name of the **First Guardian**\n`;
-              body += `3. Edit your PR description and add the answer\n\n`;
-              body += `> *"Only those who seek shall find the path."*\n\n`;
+            // FIRST CHECK: PR Format
+            if (!validFormat) {
+              let errors = [];
+              try {
+                errors = JSON.parse(errorsJson);
+              } catch(e) {}
+              
+              body = `## 📋 PR Format Invalid\n\n`;
+              body += `Your PR doesn't follow the required format. Fix these issues:\n\n`;
+              
+              if (errors.length > 0) {
+                body += `| # | Field | Issue | Hint |\n`;
+                body += `|---|-------|-------|------|\n`;
+                errors.forEach((e, i) => {
+                  body += `| ${i+1} | **${e.field}** | ${e.issue} | 💡 ${e.hint} |\n`;
+                });
+                body += `\n`;
+              }
+              
+              body += `### How to fix:\n`;
+              body += `1. Edit your PR description\n`;
+              body += `2. Use the [PR template](../blob/main/.github/PULL_REQUEST_TEMPLATE.md)\n`;
+              body += `3. Fill in ALL required fields\n`;
+              body += `4. Check the boxes for requirements you meet\n\n`;
+              body += `> *"The format is the ritual. The ritual is the game."*\n\n`;
               body += `---\n_Enjoy and contribute!_ ✨`;
             } else if (karmaAction === 'refuse') {
               body = `## ❌ Contribution Refused\n\n`;
@@ -322,9 +437,14 @@ jobs:
               body: body
             });
       
-      - name: Fail if not human
-        if: steps.humanity.outputs.is_human != 'true'
+      - name: Fail if format invalid
+        if: steps.format.outputs.valid_format != 'true'
         run: |
-          echo "🔐 Proof of Humanity check failed!"
-          echo "Please read LORE.md and answer the Guardian question."
+          echo "📋 PR Format validation failed!"
+          echo "Please edit your PR to follow the required format."
+          echo ""
+          echo "Required fields:"
+          echo "  - Guardian Question (Proof of Humanity)"
+          echo "  - Word field"
+          echo "  - Checklist (at least 3 boxes checked)"
           exit 1
