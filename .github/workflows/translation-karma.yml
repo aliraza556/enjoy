@@ -37,12 +37,11 @@ jobs:
       
       - name: 🔍 Analyze Translation
         id: analyze
+        env:
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          # Get PR info
-          AUTHOR="${{ github.event.pull_request.user.login }}"
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          
           echo "author=$AUTHOR" >> $GITHUB_OUTPUT
           echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
           

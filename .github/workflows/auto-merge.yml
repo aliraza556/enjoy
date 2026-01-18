@@ -21,6 +21,97 @@ jobs:
       pull-requests: write
       
     steps:
+      # ═══════════════════════════════════════════════════════════════════════════════
+      # SECURITY: Double-check files before merge (defense in depth)
+      # Never trust labels alone - always verify!
+      # ═══════════════════════════════════════════════════════════════════════════════
+      - name: Security Pre-Check
+        id: security
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            });
+            
+            const ALLOWED_PATTERNS = [
+              /^words\/[A-Za-z0-9_-]+\.txt$/,
+            ];
+            
+            const MAINTAINERS = ['fabriziosalmi'];
+            const prAuthor = context.payload.pull_request.user.login;
+            const isMaintainer = MAINTAINERS.includes(prAuthor);
+            
+            const KNOWN_BOTS = ['github-actions[bot]', 'dependabot[bot]', 'dependabot', 'renovate[bot]', 'codecov[bot]', 'copilot[bot]'];
+            const isBot = KNOWN_BOTS.includes(prAuthor) || prAuthor.includes('[bot]') || prAuthor.endsWith('-bot');
+            
+            if (isMaintainer || isBot) {
+              console.log('✅ Maintainer/Bot bypass - merge allowed');
+              core.setOutput('allowed', 'true');
+              return;
+            }
+            
+            const changedFiles = files
+              .filter(f => f.status !== 'removed')
+              .map(f => f.filename);
+            
+            // Security validation function (mirrors validate-pr.yml)
+            const isSecurityViolation = (file) => {
+              if (file.includes('..') || file.includes('//')) return 'path_traversal';
+              if (file.startsWith('.') || file.includes('/.')) return 'hidden_file';
+              if (file.startsWith('.github/') || file === '.github') return 'github_folder';
+              if (/[\u200B-\u200D\uFEFF\u00A0]/.test(file)) return 'unicode_trick';
+              const lower = file.toLowerCase();
+              if (lower.includes('.git/') || lower === '.git') return 'git_folder';
+              if (lower.includes('node_modules/')) return 'node_modules';
+              if (/\.(sh|bash|py|rb|pl|exe|bat|cmd|ps1|js|mjs|cjs|ts|php|jar|class)$/i.test(file)) return 'executable';
+              if (/^(\.env|\.npmrc|\.yarnrc|package\.json|package-lock\.json|yarn\.lock|Makefile|Dockerfile|docker-compose\.ya?ml)$/i.test(file)) return 'config_file';
+              return null;
+            };
+            
+            const violations = [];
+            const unauthorized = [];
+            
+            for (const file of changedFiles) {
+              const violation = isSecurityViolation(file);
+              if (violation) {
+                violations.push(`${file} (${violation})`);
+              } else if (!ALLOWED_PATTERNS.some(p => p.test(file))) {
+                unauthorized.push(file);
+              }
+            }
+            
+            if (violations.length > 0) {
+              console.log('🔴 SECURITY VIOLATIONS:', violations);
+              core.setOutput('allowed', 'false');
+              core.setOutput('blocked', violations.join(', '));
+              core.setOutput('reason', 'security_violation');
+              return;
+            }
+            
+            if (unauthorized.length > 0) {
+              console.log('🚫 BLOCKED - Unauthorized files:', unauthorized);
+              core.setOutput('allowed', 'false');
+              core.setOutput('blocked', unauthorized.join(', '));
+              core.setOutput('reason', 'not_in_allowlist');
+              return;
+            }
+            
+            console.log('✅ All files allowed:', changedFiles);
+            core.setOutput('allowed', 'true');
+      
+      - name: Block Unauthorized Merge
+        if: steps.security.outputs.allowed != 'true'
+        run: |
+          echo "🚫 MERGE BLOCKED - Security check failed!"
+          echo "Unauthorized files: ${{ steps.security.outputs.blocked }}"
+          echo ""
+          echo "This PR was labeled 'auto-merge' but contains unauthorized files."
+          echo "The label should be removed and the PR reviewed manually."
+          exit 1
+      
       - name: Checkout repository
         uses: actions/checkout@v4
         with:

@@ -79,14 +79,20 @@ jobs:
             const normalizeAndValidate = (filename) => {
               // Block path traversal
               if (filename.includes('..') || filename.includes('//')) return { valid: false, reason: 'path_traversal' };
-              // Block hidden files
+              // Block hidden files (starting with . or containing /.)
               if (filename.startsWith('.') || filename.includes('/.')) return { valid: false, reason: 'hidden_file' };
+              // Block entire .github folder (not just workflows)
+              if (filename.startsWith('.github/') || filename === '.github') return { valid: false, reason: 'github_folder' };
               // Block Unicode tricks (zero-width chars, homoglyphs)
               if (/[\u200B-\u200D\uFEFF\u00A0]/.test(filename)) return { valid: false, reason: 'unicode_trick' };
-              // Block workflow modifications
-              if (filename.includes('.github/workflows')) return { valid: false, reason: 'workflow_modification' };
+              // Block case-insensitive variations of dangerous paths
+              const lower = filename.toLowerCase();
+              if (lower.includes('.git/') || lower === '.git') return { valid: false, reason: 'git_folder' };
+              if (lower.includes('node_modules/')) return { valid: false, reason: 'node_modules' };
               // Block executable extensions
-              if (/\.(sh|bash|py|rb|pl|exe|bat|cmd|ps1|js|mjs|cjs)$/i.test(filename)) return { valid: false, reason: 'executable_file' };
+              if (/\.(sh|bash|py|rb|pl|exe|bat|cmd|ps1|js|mjs|cjs|ts|php|jar|class)$/i.test(filename)) return { valid: false, reason: 'executable_file' };
+              // Block config files that could be dangerous
+              if (/^(\.env|\.npmrc|\.yarnrc|package\.json|package-lock\.json|yarn\.lock|Makefile|Dockerfile|docker-compose\.ya?ml)$/i.test(filename)) return { valid: false, reason: 'config_file' };
               return { valid: true };
             };
             
