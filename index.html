@@ -870,9 +870,8 @@
                 this.brightness = 0.3 + twinkle * (this.maxBrightness - 0.3);
                 this.size = this.baseSize + Math.sin(this.phase * 1.3) * 1;
                 
-                // Subtle drift
-                this.x = this.baseX + Math.sin(this.phase * 0.5) * 3;
-                this.y = this.baseY + Math.cos(this.phase * 0.7) * 2;
+                // Stars stay fixed - no drift, just twinkle in place
+                // Position is set once in constructor/recalculatePosition
             }
             
             // Check if point is inside this star's hitbox
