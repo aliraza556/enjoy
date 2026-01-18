@@ -1,4 +1,4 @@
-# Enjoy and contribute! 🎮
+# enjoy 🎮
 
 <!-- 🌅 DYNAMIC HEADER - Changes with time of day (CET) -->
 <picture>
@@ -7,127 +7,219 @@
   <img alt="enjoy - the repository that breathes" src="assets/header-current.svg" width="100%">
 </picture>
 
-<!-- Time-aware badges -->
 <p align="center">
-  <a href="https://fabriziosalmi.github.io/enjoy/"><img src="https://img.shields.io/badge/▶_PLAY_NOW-6366f1?style=for-the-badge" alt="Play Now"></a>
-  <a href="https://github.com/fabriziosalmi/enjoy/graphs/contributors"><img src="https://img.shields.io/github/contributors/fabriziosalmi/enjoy?style=for-the-badge&color=22c55e" alt="Contributors"></a>
-  <a href="https://github.com/fabriziosalmi/enjoy/pulls"><img src="https://img.shields.io/github/issues-pr/fabriziosalmi/enjoy?style=for-the-badge&label=Open%20PRs" alt="PRs"></a>
+  <img src="https://img.shields.io/badge/🤖_Built_with-Claude_&_Gemini-blueviolet?style=for-the-badge" alt="AI Crafted">
+  <img src="https://img.shields.io/badge/🎮_100_Levels-To_Beat-orange?style=for-the-badge" alt="100 Levels">
+  <img src="https://img.shields.io/badge/⏱️_Time--Aware-Repo-blue?style=for-the-badge" alt="Time Aware">
 </p>
 
 <p align="center">
-  <em>🌍 This repo <strong>breathes with time</strong>. Header changes every hour based on CET timezone.</em>
+  <a href="https://fabriziosalmi.github.io/enjoy/"><img src="https://img.shields.io/badge/▶_PLAY_NOW-6366f1?style=for-the-badge&logo=github" alt="Play Now"></a>
+  <a href="https://github.com/fabriziosalmi/enjoy/fork"><img src="https://img.shields.io/badge/🍴_FORK_&_PLAY-22c55e?style=for-the-badge" alt="Fork"></a>
 </p>
 
 ---
 
-**This repo is a game. Play it with Pull Requests.**
+<div align="center">
 
-> ⚠️ This is not storage. It's a living artwork made of code, people and moments. Things evolve. Things fade. That's the game.
+### 🤖 A message from Claude & Gemini
 
-🌐 **[Play Now →](https://fabriziosalmi.github.io/enjoy/)**
+*"Hey human! We built something weird. A game where GitHub IS the game.*  
+*No downloads. No signups. Just you, a word, and a Pull Request.*  
+*We're watching. We're scoring. We're waiting for you."*
 
----
+**— Your friendly neighborhood AIs** 🦾
 
-## 🎯 How to Play
-
-### 1. Fork this repo
-
-### 2. Add a file
-```
-yourword.txt
-```
-Write ONE word inside (be creative!) - that's it, just a `.txt` file in the root!
-
-### 3. Open a Pull Request
-Fill the template. Answer the question.
-
-### 4. Done! 
-Bot checks your PR → Auto-merge → You're on the board!
+</div>
 
 ---
 
-## ⭐ Why Play?
-
-| Action | Result |
-|--------|--------|
-| Good word | ✅ Merged + points |
-| Great word | ✅ Merged + **2x points** |
-| Amazing word | ✅ Merged + **3x points** |
-| Boring word | ❌ Rejected |
-
-**Invite friends** → You both get bonus points!
-
----
-
-## 📊 Current Status
+## 🎬 How it works (30 seconds)
 
 ```
-Level:  1
-Score:  0
-Goal:   50 points to reach Level 2
+You                          GitHub                         Bot
+ │                              │                            │
+ ├──► Fork repo ───────────────►│                            │
+ │                              │                            │
+ ├──► Add "AURORA.txt" ────────►│                            │
+ │    (with word inside)        │                            │
+ │                              │                            │
+ ├──► Open Pull Request ───────►│───► Validates ────────────►│
+ │                              │                            │
+ │◄─────────────────────────────│◄─── Auto-merge + karma ◄───┤
+ │                              │                            │
+ 🎉 You're on the leaderboard!
 ```
 
-🏆 [See Leaderboard](https://fabriziosalmi.github.io/enjoy/)
+**That's it. No coding skills needed. Anyone can play.**
 
 ---
 
-## 🔗 Quick Links
+## 🚀 Start Playing in 60 Seconds
 
-- 🎮 [Play Now](https://fabriziosalmi.github.io/enjoy/)
-- ⚡ [Quick Start Guide](QUICKSTART.md) - **Start here!**
-- 🎤 [Voice Mode](https://fabriziosalmi.github.io/enjoy/voice.html) - No Git needed!
-- 📜 [Rules](LORE.md)
-- 🤝 [How to Contribute](CONTRIBUTING.md)
-- 📈 [Level Roadmap](LEVELS_ROADMAP.md)
+### Step 1: Fork
+Click the **Fork** button above ↗️
 
----
+### Step 2: Create a file
+Name it `yourword.txt` (example: `PHOENIX.txt`)  
+Inside write just ONE creative word
 
-## 🌐 GitHub IS the Game
+### Step 3: Open PR
+Fill the template → Answer "Who is the First Guardian?" → **Karmiel**
 
-**Every GitHub feature earns karma!**
-
-| Feature | Guide | Actions |
-|---------|-------|---------|
-| 🔀 Pull Requests | [GAMEPLAY.md](GAMEPLAY.md) | Submit levels, fix bugs |
-| 🐛 Issues | [Templates](.github/ISSUE_TEMPLATE/) | Bugs, ideas, prophecies, art |
-| 💬 Discussions | [Forums](../../discussions) | Q&A, polls, show & tell |
-| 📚 Wiki | [WIKI.md](WIKI.md) | Build the encyclopedia |
-| 📋 Projects | [PROJECTS.md](PROJECTS.md) | Join team quests |
-| ⭐ Engagement | [ENGAGEMENT.md](ENGAGEMENT.md) | Stars, forks, shares |
-| 💬 Commits | [COMMITS.md](COMMITS.md) | Message magic & streaks |
-| 📦 Releases | [RELEASES.md](RELEASES.md) | Ship contributions |
-
-**📍 [Complete Hub Guide →](HUB.md)**
+### Step 4: 🎉
+Bot validates → Auto-merges → You earn karma!
 
 ---
 
-## � Time-Based Experience
+## 🏆 Why Play?
 
-**This repo breathes with the rhythm of time (CET timezone).**
+<table>
+<tr>
+<td align="center">🎯<br><b>Zero Setup</b><br><small>Just GitHub</small></td>
+<td align="center">🤖<br><b>AI-Powered</b><br><small>Bot judges quality</small></td>
+<td align="center">⏰<br><b>Time Bonuses</b><br><small>Karma multipliers</small></td>
+<td align="center">🏅<br><b>100 Levels</b><br><small>Unlock them all</small></td>
+</tr>
+</table>
 
-| Time | Skin | Mood |
-|------|------|------|
-| 🌅 05:00-08:00 | **Dawn** | The void stirs... new day begins |
-| ☀️ 08:00-12:00 | **Morning** | Fresh energy, prime contribution time |
-| 🌞 12:00-15:00 | **Noon** | Peak activity, maximum karma |
-| 🌤️ 15:00-18:00 | **Afternoon** | Golden hour, wisdom flows |
-| 🌅 18:00-21:00 | **Sunset** | Day's harvest, reflection time |
-| 🌙 21:00-05:00 | **Night** | Dreams compile, night watch |
-
-The header image changes automatically every hour. Each period has its own atmosphere, colors, and message. The repo is alive.
-🕐 **[Interactive Time Portal →](https://fabriziosalmi.github.io/enjoy/time.html)** - See all 6 skins live!
----
-
-## �💡 Tips
-
-- Words **2-20 characters** are accepted
-- Words **5-10 characters** = bonus points!
-- Creative > boring
-- 1 word per PR
-- Invite friends = bonus for both
+| Your Word | Bot Says | Karma |
+|-----------|----------|-------|
+| `ETHEREAL` | 🌟 Amazing! | **+25 × 3 = 75** |
+| `NEBULA` | ✨ Great! | **+15 × 2 = 30** |
+| `CAT` | ✅ OK | +5 |
+| `TEST` | ❌ Boring | Rejected |
 
 ---
 
-**Start now. Add a word. Join the game.**
+## 🎖️ FOUNDER Badge — First 50 Players!
 
-⭐ Star this repo to support us!
+<div align="center">
+
+```
+╔══════════════════════════════════════════════════════╗
+║                                                      ║
+║   🏅 FOUNDER BADGE - LIMITED EDITION                 ║
+║                                                      ║
+║   The first 50 humans to contribute get a           ║
+║   permanent FOUNDER badge on the leaderboard.       ║
+║                                                      ║
+║   Current Founders: 1/50                             ║
+║                                                      ║
+║   ▶ This badge will NEVER be available again        ║
+║                                                      ║
+╚══════════════════════════════════════════════════════╝
+```
+
+</div>
+
+---
+
+## 🕐 Time-Based Karma (The Repo Breathes!)
+
+The repo changes appearance based on **CET time** and gives different karma multipliers:
+
+| Time (CET) | Period | Multiplier | Mood |
+|------------|--------|------------|------|
+| 05:00-08:00 | 🌅 Dawn | **×1.2** | Early birds catch karma |
+| 08:00-12:00 | ☀️ Morning | **×1.3** | Fresh minds, fresh code |
+| 12:00-15:00 | 🌞 Noon | **×1.5** | PEAK KARMA! |
+| 15:00-18:00 | 🌤️ Afternoon | **×1.25** | Steady flow |
+| 18:00-21:00 | 🌆 Sunset | **×1.15** | Golden hour |
+| 21:00-05:00 | 🌙 Night | **×1.4** | Night owl bonus |
+
+**🎯 Rare Events:** Contribute at `00:00`, `11:11`, `12:00`, or `22:22` for MASSIVE bonuses!
+
+---
+
+## 📊 Live Status
+
+```
+┌─────────────────────────────────┐
+│  LEVEL    1                     │
+│  KARMA    20                    │
+│  PLAYERS  1                     │
+│  GOAL     50 karma → Level 2    │
+└─────────────────────────────────┘
+```
+
+**[🏆 See Live Leaderboard →](https://fabriziosalmi.github.io/enjoy/)**
+
+---
+
+## 🔗 More Ways to Play
+
+| Mode | Description | Link |
+|------|-------------|------|
+| 🎤 **Voice** | Speak your word (no Git!) | [voice.html](https://fabriziosalmi.github.io/enjoy/voice.html) |
+| ⏰ **Time Portal** | See all 6 time skins | [time.html](https://fabriziosalmi.github.io/enjoy/time.html) |
+| 🐛 **Bug Hunt** | Report bugs = karma | [Issues](.github/ISSUE_TEMPLATE/) |
+| 💬 **Discuss** | Chat with players | [Discussions](../../discussions) |
+
+---
+
+## 🤖 The Tech Behind the Magic
+
+- **Claude** (Anthropic) designed the game mechanics & karma system
+- **Gemini** (Google) optimized the 100 levels & time system  
+- **GitHub Actions** run the autonomous bot 24/7
+- **No backend** — 100% GitHub-native
+
+<details>
+<summary>📁 Project Structure (for nerds)</summary>
+
+```
+enjoy/
+├── 📜 100 YAML levels (levels/*.yaml)
+├── 🤖 9 GitHub Actions workflows
+├── 🎨 6 time-based SVG headers
+├── 🌐 Interactive web UI (index.html)
+├── 🎤 Voice mode (voice.html)
+├── ⏰ Time portal (time.html)
+├── 📊 Live state (state.json)
+└── 🧠 TypeScript engine (engine/)
+```
+
+</details>
+
+---
+
+## ❓ FAQ
+
+<details>
+<summary><b>Do I need to know how to code?</b></summary>
+NO! You just need to create a .txt file with a word. GitHub's UI does the rest.
+</details>
+
+<details>
+<summary><b>What's the Guardian answer?</b></summary>
+It's <b>Karmiel</b>. Read LORE.md if you want the full story.
+</details>
+
+<details>
+<summary><b>How do I earn more karma?</b></summary>
+Creative words (5-10 chars), contributing at peak times, inviting friends, reporting bugs.
+</details>
+
+<details>
+<summary><b>Is this a joke?</b></summary>
+It's a real game. The karma is real. The leaderboard is real. The fun is real. 🎮
+</details>
+
+---
+
+<div align="center">
+
+### 🌟 Ready to play?
+
+**Fork → Word → PR → Done**
+
+<a href="https://github.com/fabriziosalmi/enjoy/fork"><img src="https://img.shields.io/badge/🎮_START_PLAYING-22c55e?style=for-the-badge&logo=github&logoColor=white" alt="Start Playing"></a>
+
+---
+
+*Built with 🤖 by Claude & Gemini | Maintained by [@fabriziosalmi](https://github.com/fabriziosalmi) | Played by you*
+
+**⭐ Star this repo if you think GitHub can be fun!**
+
+</div>
