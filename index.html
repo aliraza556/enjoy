@@ -808,24 +808,58 @@
                 this.login = stargazer?.login || 'anonymous';
                 this.avatar = stargazer?.avatar || '';
                 
-                // Position in a gentle arc at the top of screen
-                const spread = Math.min(window.innerWidth * 0.6, 600);
-                const startX = (window.innerWidth - spread) / 2;
-                this.baseX = startX + (spread / Math.max(total, 1)) * index + Math.random() * 20;
-                this.baseY = 40 + Math.random() * 30;
-                this.x = this.baseX;
-                this.y = this.baseY;
+                // Graceful scaling: more stars = smaller, spread across screen
+                // 1-10 stars: top arc, 11-100: wider spread, 100+: constellation mode
+                this.total = total;
+                this.index = index;
+                this.recalculatePosition(total, index);
                 
-                // Twinkle properties
+                // Twinkle properties - scale down with more stars
                 this.phase = Math.random() * Math.PI * 2;
                 this.twinkleSpeed = 0.02 + Math.random() * 0.03;
-                this.baseSize = 3 + Math.random() * 2;
+                const sizeScale = total > 100 ? 0.5 : total > 50 ? 0.7 : total > 20 ? 0.85 : 1;
+                this.baseSize = (2 + Math.random() * 2) * sizeScale;
                 this.size = this.baseSize;
                 this.brightness = 0.4;
-                this.maxBrightness = 0.7 + Math.random() * 0.3;
+                this.maxBrightness = 0.6 + Math.random() * 0.3;
                 
                 // Color: golden yellow
                 this.hue = 45 + Math.random() * 15;
+                
+                // Clickable hitbox
+                this.hitRadius = Math.max(this.baseSize * 3, 15);
+            }
+            
+            recalculatePosition(total, index) {
+                // GRACEFUL SCALING LAYOUT
+                if (total <= 10) {
+                    // Arc at top
+                    const spread = Math.min(window.innerWidth * 0.5, 400);
+                    const startX = (window.innerWidth - spread) / 2;
+                    this.baseX = startX + (spread / Math.max(total, 1)) * index + Math.random() * 15;
+                    this.baseY = 35 + Math.random() * 20;
+                } else if (total <= 50) {
+                    // Two rows
+                    const row = index < total / 2 ? 0 : 1;
+                    const indexInRow = index < total / 2 ? index : index - Math.floor(total / 2);
+                    const countInRow = row === 0 ? Math.floor(total / 2) : Math.ceil(total / 2);
+                    const spread = Math.min(window.innerWidth * 0.7, 700);
+                    const startX = (window.innerWidth - spread) / 2;
+                    this.baseX = startX + (spread / countInRow) * indexInRow + Math.random() * 10;
+                    this.baseY = 30 + row * 35 + Math.random() * 15;
+                } else if (total <= 200) {
+                    // Constellation scatter - top third of screen
+                    this.baseX = 50 + Math.random() * (window.innerWidth - 100);
+                    this.baseY = 20 + Math.random() * (window.innerHeight * 0.25);
+                } else {
+                    // Galaxy mode - full sky scatter with density gradient
+                    const angle = (index / total) * Math.PI * 2 + Math.random() * 0.5;
+                    const distance = 50 + Math.random() * Math.min(window.innerWidth, window.innerHeight) * 0.4;
+                    this.baseX = window.innerWidth / 2 + Math.cos(angle) * distance;
+                    this.baseY = window.innerHeight * 0.3 + Math.sin(angle) * distance * 0.5;
+                }
+                this.x = this.baseX;
+                this.y = this.baseY;
             }
             
             update(time) {
@@ -839,6 +873,13 @@
                 // Subtle drift
                 this.x = this.baseX + Math.sin(this.phase * 0.5) * 3;
                 this.y = this.baseY + Math.cos(this.phase * 0.7) * 2;
+            }
+            
+            // Check if point is inside this star's hitbox
+            containsPoint(px, py) {
+                const dx = px - this.x;
+                const dy = py - this.y;
+                return Math.sqrt(dx * dx + dy * dy) < this.hitRadius;
             }
             
             draw() {
@@ -876,6 +917,45 @@
                 }
             }
         }
+        
+        // Click handler for stars - opens GitHub profile
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            for (const star of repoStars) {
+                if (star.containsPoint(x, y)) {
+                    // Open stargazer's GitHub profile or star page
+                    const url = star.login && star.login !== 'anonymous' 
+                        ? `https://github.com/${star.login}`
+                        : 'https://github.com/fabriziosalmi/enjoy/stargazers';
+                    window.open(url, '_blank');
+                    console.log('⭐ Clicked star:', star.login);
+                    break;
+                }
+            }
+        });
+        
+        // Hover effect for stars - show tooltip
+        let hoveredStar = null;
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            hoveredStar = null;
+            for (const star of repoStars) {
+                if (star.containsPoint(x, y)) {
+                    hoveredStar = star;
+                    canvas.style.cursor = 'pointer';
+                    break;
+                }
+            }
+            if (!hoveredStar) {
+                canvas.style.cursor = 'none';
+            }
+        });
         
         async function loadRepoStats() {
             try {
@@ -925,6 +1005,26 @@
                 star.update(time);
                 star.draw();
             });
+            
+            // Draw tooltip for hovered star
+            if (hoveredStar) {
+                const text = `⭐ ${hoveredStar.login}`;
+                ctx.font = 'bold 12px "Inter", system-ui, sans-serif';
+                const metrics = ctx.measureText(text);
+                const padding = 6;
+                const tooltipX = hoveredStar.x - metrics.width / 2 - padding;
+                const tooltipY = hoveredStar.y + 20;
+                
+                // Tooltip background
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+                ctx.beginPath();
+                ctx.roundRect(tooltipX, tooltipY, metrics.width + padding * 2, 22, 4);
+                ctx.fill();
+                
+                // Tooltip text
+                ctx.fillStyle = '#ffd700';
+                ctx.fillText(text, tooltipX + padding, tooltipY + 15);
+            }
         }
         
         // Load repo stats on init

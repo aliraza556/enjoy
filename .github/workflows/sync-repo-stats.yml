@@ -10,9 +10,9 @@ on:
     types: [started]
   fork:
   
-  # Run on schedule to catch everything
+  # Run on schedule - every 6 hours to save runner minutes!
   schedule:
-    - cron: '*/15 * * * *'  # Every 15 minutes
+    - cron: '0 */6 * * *'  # Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)
   
   # Manual trigger
   workflow_dispatch:
