@@ -166,7 +166,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add guardian/
-          git diff --staged --quiet || git commit -m "💜 Guardian Angel daily check - spreading love"
+          git diff --staged --quiet || git commit -m "💜 Guardian Angel daily check - spreading love [skip ci]"
           git push || true
           
       - name: 📢 Summary

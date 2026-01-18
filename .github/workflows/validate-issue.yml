@@ -251,7 +251,7 @@ jobs:
           git config user.name "enjoy-bot"
           git config user.email "bot@enjoy.game"
           git add state.json
-          git diff --staged --quiet || git commit -m "🎮 Issue karma: +${{ steps.validate.outputs.karma }} for @${{ steps.validate.outputs.author }}"
+          git diff --staged --quiet || git commit -m "🎮 Issue karma: +${{ steps.validate.outputs.karma }} for @${{ steps.validate.outputs.author }} [skip ci]"
           git push || echo "Nothing to push"
 
       - name: Comment on Issue (Valid)

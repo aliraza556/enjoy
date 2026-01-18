@@ -162,5 +162,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "Karma Bot"
           git add reports/
-          git diff --staged --quiet || git commit -m "📊 Weekly karma report"
+          git diff --staged --quiet || git commit -m "📊 Weekly karma report [skip ci]"
           git push || echo "Nothing to push"
