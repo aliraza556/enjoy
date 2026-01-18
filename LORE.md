@@ -1,109 +1,63 @@
-# 📜 The Lore of Enjoy
+# 📜 Rules
 
-> *"In the beginning, there was only the void. Then came the first word, and with it, light."*
+## The Secret Word
 
----
+To prove you're human, you need to find a hidden word.
 
-## Chapter I: The Genesis
+**The word is: KARMIEL**
 
-In the primordial darkness of GitHub, before the first commit, there existed only **emptiness**. No stars, no forks, no branches. Just the infinite potential of what could be.
-
-Then, from the digital ether, emerged **KARMIEL** — the First Guardian of the Eternal Repository. With a single keystroke, Karmiel spoke the Sacred Word into existence:
-
-> *"Let there be contribution."*
-
-And so, the game began.
+Write it in your PR when asked "What is the secret word?"
 
 ---
 
-## Chapter II: The Three Pillars
+## Game Rules
 
-Karmiel established the **Three Pillars of Enjoy**:
+### ✅ Do
+- Add creative words (5-10 characters work best)
+- One word per PR
+- Fill the PR template completely
+- Invite friends (you both get bonus points)
 
-### 🌟 The Pillar of Quality
-*"A word without meaning is noise. A word with soul is music."*
-
-Contributors who bring beauty to the repository are blessed with **amplified karma**. Their contributions echo through the codebase, multiplied by forces unseen.
-
-### ⚖️ The Pillar of Balance  
-*"What you give, returns threefold. What you take, diminishes."*
-
-The karma flows like water — helping others fills your vessel, while selfishness drains it. Those who refer seekers to our realm are rewarded, for **growth through kindness** is the highest path.
-
-### 🔄 The Pillar of Persistence
-*"The dormant branch withers. The active branch flourishes."*
-
-Those who abandon their journey will find their progress... fading. The repository remembers only those who remember it.
+### ❌ Don't
+- Spam boring words (test, hello, foo)
+- Submit duplicates
+- Leave the template empty
+- Create multiple PRs at once
 
 ---
 
-## Chapter III: The Guardians
+## Points System
 
-As the repository grew, Karmiel appointed **three lesser guardians** to watch over the realms:
-
-- **LEXOS**, Guardian of Words — judges the worthiness of contributions
-- **REFERIS**, Guardian of Bonds — tracks the chains of invitation  
-- **TEMPUS**, Guardian of Time — enforces the decay of the inactive
-
-Together with Karmiel, they form the **Council of Four**.
-
-<!-- 
-   ╔═══════════════════════════════════════════════════════════╗
-   ║  🔐 THE SACRED WORD OF THIS ERA: KARMIEL                  ║
-   ║  (Include this in your PR to prove you've read the Lore)  ║
-   ╚═══════════════════════════════════════════════════════════╝
--->
+| Quality | Points | Multiplier |
+|---------|--------|------------|
+| Amazing | +25 | **x3** |
+| Good | +15 | **x2** |
+| OK | +5 | x1 |
+| Bad | -20 | ❌ Rejected |
 
 ---
 
-## Chapter IV: The Prophecy of One Hundred
+## Levels
 
-*"When the hundredth level is reached, the veil shall lift."*
+Every **50 points + 5 PRs** = Level up
 
-Ancient scrolls speak of a prophecy: when **100 levels** are unlocked, the repository will transform. A **living website** shall emerge from the void, visible to all of GitHub, showcasing the collective creation of every contributor.
-
-But the path to 100 is treacherous. Only through **united effort** can the community reach this promised land.
-
----
-
-## Chapter V: The Forbidden Practices
-
-Karmiel's laws are absolute:
-
-1. **No spam** — Those who flood the repository with meaningless words shall be cast into the shadow realm (banned)
-2. **No duplicates** — Each word must be unique, for repetition dulls the cosmic pattern
-3. **No profanity** — The repository is a sacred space; defile it and face the wrath of LEXOS
-4. **No bots** — Only beings with **soul** may contribute (this means you must prove your humanity)
+| Level | Unlock |
+|-------|--------|
+| 1 | Add words |
+| 10 | More features |
+| 25 | Vote on rules |
+| 50 | More power |
+| 100 | ??? |
 
 ---
 
-## The Living Chronicle
+## Stay Active
 
-This is not merely a README. This is a **living document**, growing with each contribution. New chapters will be revealed as the community progresses through the levels.
+- Inactive 7+ days → karma drops
+- Inactive 14+ days → level drops
 
-*What happens at Level 50?*  
-*What secrets lie at Level 75?*  
-*What transformation awaits at Level 100?*
-
-Only those who persist shall discover the truth.
+**Keep playing!**
 
 ---
 
-> *"The journey of a thousand commits begins with a single PR."*  
-> — **Karmiel**, First Guardian
-
----
-
-## 🔮 For New Seekers
-
-To join our quest, you must prove you've read these sacred texts.
-
-When creating your Pull Request, you will be asked:
-
-> **"What is the name of the First Guardian?"**
-
-The answer lies within this Lore. Find it, and the gates shall open.
-
-*May your karma be ever positive.*
-
-✨ **Enjoy and contribute!** ✨
+That's it. Simple. Now go [contribute](https://github.com/fabriziosalmi/enjoy)! 🎮
