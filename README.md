@@ -218,7 +218,7 @@ The repo changes appearance based on **CET time** and gives different karma mult
 
 | 🎮 Level | 💎 Total Karma | 👥 Players | 🔀 PRs Merged | ⏰ Current |
 |:--------:|:--------------:|:----------:|:-------------:|:----------:|
-| **1** | **20** | **1** | **2** | 🌙 Night ×1.4 |
+| **2** | **132** | **1** | **3** | 🌙 Night ×1.4 |
 
 </div>
 
@@ -226,19 +226,20 @@ The repo changes appearance based on **CET time** and gives different karma mult
 
 | Rank | Player | Karma | PRs | Streak | Achievements |
 |:----:|:-------|------:|:---:|:------:|:------------:|
-| 🥇 | [@fabriziosalmi](https://github.com/fabriziosalmi) | 20 | 2 | 1 | 1 |
+| 🥇 | [@fabriziosalmi](https://github.com/fabriziosalmi) | 132 | 3 | 1 | 2 |
 
-### 📈 Progress to Level 2
+### 📈 Progress to Level 3
 
 ```
-Karma:  [████████░░░░░░░░░░░░] 20/50
-PRs:    [████████░░░░░░░░░░░░] 2/5
-Total:  [████████░░░░░░░░░░░░] 40%
+Karma:  [████████████████████] 132/75 ✅
+PRs:    [███████░░░░░░░░░░░░░] 3/8
+Total:  [█████████████░░░░░░░] 65%
 ```
 
 ### 🌟 Recent Achievements Unlocked
 
 - 🩸 First Blood
+- 🏛️ OG (Original Player)
 
 <p align="center">
   <sub>📅 Last updated: 2026-01-18 | 🔄 Updates automatically</sub>

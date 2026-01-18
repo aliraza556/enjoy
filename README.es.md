@@ -218,7 +218,7 @@ El repo cambia de apariencia según la **hora CET** y da diferentes multiplicado
 
 | 🎮 Nivel | 💎 Karma Total | 👥 Jugadores | 🔀 PRs Merged | ⏰ Actual |
 |:--------:|:--------------:|:------------:|:-------------:|:---------:|
-| **1** | **20** | **1** | **2** | 🌙 Noche ×1.4 |
+| **2** | **132** | **1** | **3** | 🌙 Noche ×1.4 |
 
 </div>
 
@@ -226,19 +226,20 @@ El repo cambia de apariencia según la **hora CET** y da diferentes multiplicado
 
 | Puesto | Jugador | Karma | PRs | Racha | Logros |
 |:------:|:--------|------:|:---:|:-----:|:------:|
-| 🥇 | [@fabriziosalmi](https://github.com/fabriziosalmi) | 20 | 2 | 1 | 1 |
+| 🥇 | [@fabriziosalmi](https://github.com/fabriziosalmi) | 132 | 3 | 1 | 2 |
 
-### 📈 Progreso hacia Nivel 2
+### 📈 Progreso hacia Nivel 3
 
 ```
-Karma:  [████████░░░░░░░░░░░░] 20/50
-PRs:    [████████░░░░░░░░░░░░] 2/5
-Total:  [████████░░░░░░░░░░░░] 40%
+Karma:  [████████████████████] 132/75 ✅
+PRs:    [███████░░░░░░░░░░░░░] 3/8
+Total:  [█████████████░░░░░░░] 65%
 ```
 
 ### 🌟 Logros Recientes Desbloqueados
 
 - 🩸 Primera Sangre
+- 🏛️ OG (Jugador Original)
 
 <p align="center">
   <sub>📅 Última actualización: 2026-01-18 | 🔄 Se actualiza automáticamente</sub>
