@@ -1379,13 +1379,8 @@
                 
                 // Level progress
                 const next = data.levels?.next_unlock;
-                if (next) {
-                    const pct = Math.min(100, Math.round(
-                        ((next.progress?.score || 0) / (next.requires_score || 1) * 50) +
-                        ((next.progress?.prs || 0) / (next.requires_prs || 1) * 50)
-                    ));
-                    document.getElementById('levelFill').style.strokeDashoffset = 145 - (145 * pct / 100);
-                }
+                // Level progress (ring removed in v2.3.0, kept for future use)
+                // if (next) { ... }
                 
                 // Update visuals
                 updateAurora(karma);
@@ -1438,7 +1433,7 @@
         }
         
         // Initial load
-        const VERSION = 'v2.4.3';
+        const VERSION = 'v2.4.4';
         console.log('🚀 enjoy', VERSION, '- loading data...');
         loadState().then(() => console.log('✅ State loaded')).catch(e => console.error('❌ State error:', e));
         loadRepoStats().then(() => console.log('✅ Repo stats loaded')).catch(e => console.error('❌ Repo error:', e));
