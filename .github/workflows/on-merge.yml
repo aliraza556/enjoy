@@ -469,7 +469,10 @@ jobs:
           "
       
       - name: Commit and push
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           git add state.json
           git commit -m "📊 State update from PR #${{ github.event.pull_request.number }}" || echo "No changes"
           git push

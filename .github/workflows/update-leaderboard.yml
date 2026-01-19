@@ -100,7 +100,10 @@ jobs:
           cat .github/LEADERBOARD.md
       
       - name: Commit and Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           git add .github/LEADERBOARD.md
           git diff --staged --quiet || git commit -m "📊 Update leaderboard [skip ci]"
           git push || echo "Nothing to push"
