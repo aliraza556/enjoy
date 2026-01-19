@@ -1,5 +1,13 @@
 {
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:headed": "npx playwright test --headed",
+    "serve": "npx serve -p 3000 ."
+  },
   "devDependencies": {
-    "playwright": "^1.57.0"
+    "@playwright/test": "^1.57.0",
+    "playwright": "^1.57.0",
+    "serve": "^14.2.0"
   }
 }

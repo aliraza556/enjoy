@@ -1,0 +1,87 @@
+# 🏷️ UPDATE BADGES WORKFLOW
+# Lightweight workflow to sync badge JSON files with state.json
+# Runs frequently to keep badges fresh
+
+name: 🏷️ Update Badges
+
+on:
+  push:
+    paths:
+      - 'state.json'
+    branches: [main]
+  workflow_run:
+    workflows: ["Update State on Merge"]
+    types:
+      - completed
+  schedule:
+    - cron: '*/30 * * * *'  # Every 30 minutes
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-badges:
+    runs-on: [self-hosted, enjoy-trusted]
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.PAT }}
+
+      - name: 🏷️ Update Badge Files
+        run: |
+          # Read state.json
+          if [ ! -f state.json ]; then
+            echo "❌ state.json not found"
+            exit 0
+          fi
+
+          STATE=$(cat state.json)
+
+          # Extract metrics with defaults
+          KARMA=$(echo "$STATE" | jq -r '.score.total // 0')
+          PLAYERS=$(echo "$STATE" | jq -r '.meta.total_players // 0')
+          LEVEL=$(echo "$STATE" | jq -r '.levels.current // 1')
+
+          # Ensure badges directory exists
+          mkdir -p badges
+
+          # Update karma badge
+          echo "{\"schemaVersion\":1,\"label\":\"karma\",\"message\":\"${KARMA}\",\"color\":\"purple\"}" > badges/karma.json
+
+          # Update players badge
+          echo "{\"schemaVersion\":1,\"label\":\"players\",\"message\":\"${PLAYERS}\",\"color\":\"blue\"}" > badges/players.json
+
+          # Update level badge
+          echo "{\"schemaVersion\":1,\"label\":\"level\",\"message\":\"${LEVEL}/100\",\"color\":\"orange\"}" > badges/level.json
+
+          echo "✅ Badges updated:"
+          echo "   Karma: ${KARMA}"
+          echo "   Players: ${PLAYERS}"
+          echo "   Level: ${LEVEL}"
+
+      - name: 💾 Commit and Push
+        run: |
+          git config user.name "enjoy-bot"
+          git config user.email "bot@enjoy.game"
+          git add badges/*.json
+          if git diff --staged --quiet; then
+            echo "::notice::No badge changes"
+          else
+            git commit -m "🏷️ Sync badges with state [skip ci]"
+            # Retry push up to 3 times
+            for i in 1 2 3; do
+              if git push; then
+                echo "✅ Push successful"
+                break
+              else
+                echo "⚠️ Push attempt $i failed, retrying..."
+                git pull --rebase origin main
+                sleep 2
+              fi
+            done
+          fi

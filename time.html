@@ -12,11 +12,13 @@
     }
     
     body {
-      font-family: 'Courier New', monospace;
+      font-family: 'Space Grotesk', -apple-system, system-ui, sans-serif;
       min-height: 100vh;
       transition: background 2s ease;
       overflow-x: hidden;
     }
+
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@300&display=swap');
     
     /* Time-based themes */
     body.dawn {
@@ -227,7 +229,9 @@
     
     .multiplier-value {
       font-size: 4rem;
-      font-weight: bold;
+      font-weight: 300;
+      font-family: 'JetBrains Mono', monospace;
+      font-feature-settings: 'tnum';
       color: var(--accent);
       text-shadow: 0 0 20px var(--accent);
       animation: pulse 2s ease-in-out infinite;

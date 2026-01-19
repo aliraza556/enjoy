@@ -98,21 +98,26 @@
             transition: background 8s ease, background-image 8s ease;
         }
         
-        /* Custom Cursor */
+        /* Custom Cursor - GPU Accelerated */
         .cursor {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 20px;
             height: 20px;
             border: 1px solid rgba(255,255,255,0.5);
             border-radius: 50%;
             pointer-events: none;
             z-index: 10000;
-            transition: transform 0.1s ease, border-color 0.3s ease;
+            transition: border-color 0.3s ease;
             mix-blend-mode: difference;
+            will-change: transform;
         }
-        
+
         .cursor-dot {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 4px;
             height: 4px;
             background: white;
@@ -120,9 +125,10 @@
             pointer-events: none;
             z-index: 10001;
             mix-blend-mode: difference;
+            will-change: transform;
         }
-        
-        .cursor.active { transform: scale(2); border-color: var(--accent); }
+
+        .cursor.active { transform: scale(2) !important; border-color: var(--accent); }
         
         /* Time Indicator */
         .time-indicator {
@@ -191,6 +197,34 @@
             33% { transform: translate(-50%, -50%) rotate(5deg) scale(1.05); filter: hue-rotate(30deg); }
             66% { transform: translate(-50%, -50%) rotate(-5deg) scale(0.95); filter: hue-rotate(-30deg); }
         }
+
+        /* Sky Layer for Day/Night Transition */
+        .sky-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            transition: opacity 30s ease;
+        }
+
+        /* Star visibility based on time - controlled via CSS variables */
+        :root {
+            --star-opacity: 1;
+        }
+
+        body.time-dawn { --star-opacity: 0.3; }
+        body.time-morning { --star-opacity: 0; }
+        body.time-noon { --star-opacity: 0; }
+        body.time-afternoon { --star-opacity: 0; }
+        body.time-sunset { --star-opacity: 0.5; }
+        body.time-night { --star-opacity: 1; }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .aura, .grain { animation: none !important; }
+            .cursor, .cursor-dot { transition: none !important; }
+            * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+        }
         
         .vignette {
             position: fixed;
@@ -203,26 +237,24 @@
         /* Fullscreen Canvas */
         #canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1; }
         
-        /* Title */
-        .title {
+        /* Brand Watermark - subtle corner placement */
+        .brand-mark {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: clamp(4rem, 15vw, 12rem);
+            bottom: 1.5rem;
+            left: 1.5rem;
+            font-size: 0.7rem;
             font-weight: 300;
-            letter-spacing: -0.02em;
-            opacity: 0.08;
-            transition: opacity 1s ease;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.15;
+            transition: opacity 0.5s ease;
             pointer-events: none;
             user-select: none;
             z-index: 2;
+            color: var(--text-muted);
         }
-        
-        .title.visible { opacity: 0.15; }
-            text-transform: uppercase;
-            font-size: clamp(2rem, 8vw, 6rem);
-        }
+
+        .brand-mark:hover { opacity: 0.25; }
         
         /* Stats */
         .stat {
@@ -236,9 +268,9 @@
         }
         
         .stat:hover { opacity: 1; color: var(--text); }
-        .stat-value { font-size: 1.5rem; color: var(--text); display: block; margin-bottom: 0.2rem; }
+        .stat-value { font-size: 1.5rem; color: var(--text); display: block; margin-bottom: 0.2rem; font-feature-settings: 'tnum'; }
         .stat-tl { top: 2rem; left: 2rem; }
-        .stat-bl { bottom: 2rem; left: 2rem; }
+        .stat-bl { bottom: 3.5rem; left: 2rem; }
         .stat-br { bottom: 6rem; right: 2rem; text-align: right; }
         
         /* CTA */
@@ -343,19 +375,73 @@
         .combo-label { font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; }
         .combo-mult { font-size: 0.8rem; color: var(--accent2); }
         
-        /* Progress Ring */
-        .progress-ring { position: fixed; bottom: 3rem; right: 3rem; width: 60px; height: 60px; z-index: 50; }
-        .progress-ring svg { transform: rotate(-90deg); }
-        .progress-ring-bg { fill: none; stroke: var(--border); stroke-width: 2; }
-        .progress-ring-fill { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 157; stroke-dashoffset: 157; transition: stroke-dashoffset 1s ease; }
-        .progress-ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); }
-        .progress-ring-level { font-size: 1rem; color: var(--text); }
+        /* Level Display - Elegant Arc */
+        .level-display {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 50;
+        }
+        .level-ring {
+            width: 48px;
+            height: 48px;
+            position: relative;
+        }
+        .level-ring svg {
+            transform: rotate(-90deg);
+            width: 48px;
+            height: 48px;
+        }
+        .level-ring-bg {
+            fill: none;
+            stroke: rgba(255,255,255,0.06);
+            stroke-width: 2;
+        }
+        .level-ring-fill {
+            fill: none;
+            stroke: rgba(99, 102, 241, 0.4);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-dasharray: 126;
+            stroke-dashoffset: 126;
+            transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .level-ring-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .level-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 200;
+            letter-spacing: -0.02em;
+            color: var(--text);
+        }
+        .level-label {
+            font-size: 0.5rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-top: 0.15rem;
+            color: var(--text-muted);
+        }
+        .level-display.level-up .level-ring-fill {
+            stroke: var(--accent);
+            filter: drop-shadow(0 0 8px var(--accent));
+        }
         
         /* Audio */
         .audio-toggle {
             position: fixed;
             bottom: 1.5rem;
-            left: 1.5rem;
+            left: 4.5rem;
             width: 36px;
             height: 36px;
             background: rgba(0,0,0,0.4);
@@ -379,43 +465,57 @@
         .audio-toggle.active .icon-on { display: block; }
         
         /* Live */
-        .live { position: fixed; bottom: 1.5rem; right: 1.5rem; display: flex; align-items: center; gap: 0.3rem; font-size: 0.5rem; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; z-index: 100; opacity: 0.5; }
+        .live { position: fixed; bottom: 1.5rem; right: 5rem; display: flex; align-items: center; gap: 0.3rem; font-size: 0.5rem; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; z-index: 100; opacity: 0.5; }
         .live-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; animation: live-pulse 2s ease-in-out infinite; }
         @keyframes live-pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
         
         /* Scale Indicator */
         .scale-indicator { position: fixed; top: 50%; left: 1rem; transform: translateY(-50%); font-size: 0.55rem; color: var(--text-muted); letter-spacing: 0.05em; opacity: 0; transition: opacity 0.5s ease; z-index: 50; writing-mode: vertical-rl; text-orientation: mixed; }
         
-        /* Repo Stats Indicator (top-right corner, very subtle) */
+        /* Repo Stats - Minimal Pills Design */
         .repo-stats {
             position: fixed;
             top: 1rem;
             right: 1rem;
             display: flex;
-            gap: 0.8rem;
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            opacity: 0.4;
-            transition: opacity 0.3s ease;
+            gap: 0.5rem;
             z-index: 50;
+            transition: opacity 0.3s ease;
         }
-        .repo-stats:hover { opacity: 0.8; }
+        .repo-stats:hover { opacity: 1; }
         .repo-stat {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.4rem;
+            padding: 0.3rem 0.7rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 100px;
+            backdrop-filter: blur(8px);
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            font-feature-settings: 'tnum';
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .repo-stat:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.15);
+            color: var(--text);
         }
         .repo-stat svg {
             width: 12px;
             height: 12px;
+            opacity: 0.6;
             fill: currentColor;
         }
-        .repo-stat.stars { color: #f4d03f; }
-        .repo-stat.forks { color: #82e0aa; }
-        .repo-stat.stars svg { animation: twinkle 3s ease-in-out infinite; }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
+        .repo-stat.stars { color: rgba(244, 208, 63, 0.8); }
+        .repo-stat.forks { color: rgba(130, 224, 170, 0.8); }
+        .repo-stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 300;
         }
         
         /* Footer */
@@ -490,31 +590,33 @@
                 left: 0.5rem; 
             }
             
-            /* Bottom right - hide souls, keep progress ring */
-            .stat-br { 
-                display: none; 
+            /* Bottom right - hide souls, keep level display */
+            .stat-br {
+                display: none;
             }
-            .progress-ring { 
-                bottom: 1rem; 
-                right: 0.5rem; 
-                width: 50px; 
-                height: 50px; 
+            .level-display {
+                bottom: 1rem;
+                right: 0.5rem;
             }
-            .progress-ring svg { width: 50px; height: 50px; }
-            .progress-ring-bg, .progress-ring-fill { r: 20; cx: 25; cy: 25; }
-            
+            .level-ring { width: 40px; height: 40px; }
+            .level-ring svg { width: 40px; height: 40px; }
+            .level-number { font-size: 0.85rem; }
+            .level-label { font-size: 0.4rem; }
+
             /* CTA button */
-            .cta { 
-                bottom: 5rem; 
+            .cta {
+                bottom: 5rem;
             }
-            .cta a { 
-                padding: 0.8rem 1.5rem; 
-                font-size: 0.7rem; 
+            .cta a {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.7rem;
             }
-            
-            /* Title smaller */
-            .title { 
-                font-size: clamp(2.5rem, 12vw, 6rem); 
+
+            /* Brand mark */
+            .brand-mark {
+                bottom: 1rem;
+                left: 0.5rem;
+                font-size: 0.6rem;
             }
             
             /* Stats text smaller */
@@ -554,7 +656,7 @@
     
     <canvas id="canvas"></canvas>
     
-    <div class="title glitchable" id="title">enjoy</div>
+    <div class="brand-mark" id="brandMark">enjoy</div>
     
     <div class="stat stat-tl">
         <span class="stat-value" id="statLevel">1</span>
@@ -571,14 +673,16 @@
         souls
     </div>
     
-    <div class="progress-ring" id="progressRing" title="Level progress">
-        <svg width="60" height="60">
-            <circle class="progress-ring-bg" cx="30" cy="30" r="25"/>
-            <circle class="progress-ring-fill" id="progressFill" cx="30" cy="30" r="25"/>
-        </svg>
-        <div class="progress-ring-text">
-            <span class="progress-ring-level" id="progressLevel">1</span>
-            <span style="font-size: 0.5rem">LVL</span>
+    <div class="level-display" id="levelDisplay" title="Level progress">
+        <div class="level-ring">
+            <svg viewBox="0 0 48 48">
+                <circle class="level-ring-bg" cx="24" cy="24" r="20"/>
+                <circle class="level-ring-fill" id="levelFill" cx="24" cy="24" r="20"/>
+            </svg>
+            <div class="level-ring-text">
+                <span class="level-number" id="levelNumber">1</span>
+                <span class="level-label">lvl</span>
+            </div>
         </div>
     </div>
     
@@ -618,15 +722,15 @@
         <span>live</span>
     </div>
     
-    <!-- Repo Stats - Meta gamification -->
+    <!-- Repo Stats - Minimal Pill Design -->
     <div class="repo-stats" id="repoStatsDisplay">
         <a href="https://github.com/fabriziosalmi/enjoy/stargazers" class="repo-stat stars" title="GitHub Stars">
             <svg viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
-            <span id="starCount">0</span>
+            <span class="repo-stat-value" id="starCount">0</span>
         </a>
         <a href="https://github.com/fabriziosalmi/enjoy/network/members" class="repo-stat forks" title="GitHub Forks">
             <svg viewBox="0 0 16 16"><path d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"/></svg>
-            <span id="forkCount">0</span>
+            <span class="repo-stat-value" id="forkCount">0</span>
         </a>
     </div>
     
@@ -689,10 +793,9 @@
             mouse.x = e.clientX;
             mouse.y = e.clientY;
             lastActivity = Date.now();
-            cursor.style.left = e.clientX - 10 + 'px';
-            cursor.style.top = e.clientY - 10 + 'px';
-            cursorDot.style.left = e.clientX - 2 + 'px';
-            cursorDot.style.top = e.clientY - 2 + 'px';
+            // GPU-accelerated cursor positioning
+            cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+            cursorDot.style.transform = `translate(${e.clientX - 2}px, ${e.clientY - 2}px)`;
         });
         
         document.querySelectorAll('a, button').forEach(el => {
@@ -789,8 +892,8 @@
         
         function initParticles() {
             particles = [];
-            // Only a few subtle ambient particles - not fake players!
-            const count = 8;
+            // Subtle ambient particles - count based on device capability
+            const count = SCALE_CONFIG.ambientParticles;
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle('ambient', 0, false));
             }
@@ -1088,11 +1191,55 @@
             console.log('⭐ Created', repoStars.length, 'star visuals');
         }
         
+        // ═══════════════════════════════════════════════════════════
+        // 🌅 SKY STATE - Day/Night transition for star visibility
+        // ═══════════════════════════════════════════════════════════
+        function getSkyState() {
+            const hour = getCETTime().getHours();
+            const minute = getCETTime().getMinutes();
+            const timeDecimal = hour + minute / 60;
+
+            // Linear interpolation helper
+            const lerp = (a, b, t) => a + (b - a) * Math.max(0, Math.min(1, t));
+
+            if (hour >= 21 || hour < 5) {
+                // Night: full star visibility
+                return { starOpacity: 1.0, skyType: 'night' };
+            }
+            if (hour >= 5 && hour < 8) {
+                // Dawn: stars fade out gradually
+                const progress = (timeDecimal - 5) / 3;
+                return { starOpacity: lerp(1.0, 0, progress), skyType: 'dawn' };
+            }
+            if (hour >= 8 && hour < 18) {
+                // Day: no stars
+                return { starOpacity: 0, skyType: 'day' };
+            }
+            if (hour >= 18 && hour < 21) {
+                // Sunset: stars fade in gradually
+                const progress = (timeDecimal - 18) / 3;
+                return { starOpacity: lerp(0, 1.0, progress), skyType: 'sunset' };
+            }
+            return { starOpacity: 1.0, skyType: 'night' };
+        }
+
+        let currentStarOpacity = 1.0;
+
         function drawRepoStars(time) {
+            // Get sky state and apply star opacity
+            const skyState = getSkyState();
+            // Smooth transition for star opacity
+            currentStarOpacity += (skyState.starOpacity - currentStarOpacity) * 0.01;
+
+            ctx.save();
+            ctx.globalAlpha = currentStarOpacity;
+
             repoStars.forEach(star => {
                 star.update(time);
                 star.draw();
             });
+
+            ctx.restore();
             
             // Draw tooltip for hovered star
             if (hoveredStar) {
@@ -1121,15 +1268,58 @@
         setInterval(loadRepoStats, 5 * 60 * 1000);
         
         // ═══════════════════════════════════════════════════════════
-        // SCALING CONFIGURATION - Adjust for viral growth
+        // 📱 DEVICE CAPABILITY DETECTION
+        // ═══════════════════════════════════════════════════════════
+        function detectDeviceTier() {
+            // Check for low-power indicators
+            const isLowPower = navigator.hardwareConcurrency <= 2 ||
+                               window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+                               /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+
+            const isHighPower = navigator.hardwareConcurrency >= 8 &&
+                                window.devicePixelRatio <= 2 &&
+                                !/Mobile/i.test(navigator.userAgent);
+
+            if (isLowPower) return 'low';
+            if (isHighPower) return 'high';
+            return 'medium';
+        }
+
+        const DEVICE_TIER = detectDeviceTier();
+        console.log('📱 Device tier:', DEVICE_TIER);
+
+        // Quality presets based on device capability
+        const QUALITY_PRESETS = {
+            high:   { maxParticles: 200, maxStars: 5000, connections: true,  maxConnections: 150, connectionDistance: 180, ambientParticles: 12 },
+            medium: { maxParticles: 100, maxStars: 1000, connections: true,  maxConnections: 80,  connectionDistance: 150, ambientParticles: 8 },
+            low:    { maxParticles: 30,  maxStars: 200,  connections: false, maxConnections: 0,   connectionDistance: 100, ambientParticles: 4 }
+        };
+
+        const QUALITY = QUALITY_PRESETS[DEVICE_TIER];
+
+        // ═══════════════════════════════════════════════════════════
+        // SCALING CONFIGURATION - Dynamic based on device
         // ═══════════════════════════════════════════════════════════
         const SCALE_CONFIG = {
-            maxVisiblePlayers: 50,      // Max player particles to render
-            maxConnections: 100,        // Max connection lines
-            connectionDistance: 150,    // Reduce from 200 for performance
-            ambientParticles: 8,        // Background particles
-            topPlayersMode: 'karma',    // 'karma' or 'recent'
+            maxVisiblePlayers: QUALITY.maxParticles,
+            maxConnections: QUALITY.maxConnections,
+            connectionDistance: QUALITY.connectionDistance,
+            ambientParticles: QUALITY.ambientParticles,
+            topPlayersMode: 'karma',
+            enableConnections: QUALITY.connections
         };
+
+        // Battery-aware quality adjustment
+        if (navigator.getBattery) {
+            navigator.getBattery().then(battery => {
+                if (battery.level < 0.2 && !battery.charging) {
+                    console.log('🔋 Low battery - reducing quality');
+                    SCALE_CONFIG.maxVisiblePlayers = Math.min(SCALE_CONFIG.maxVisiblePlayers, 30);
+                    SCALE_CONFIG.maxConnections = 0;
+                    SCALE_CONFIG.enableConnections = false;
+                }
+            }).catch(() => {});
+        }
         
         function syncPlayersToParticles(players) {
             if (!players) return;
@@ -1175,15 +1365,25 @@
         }
         
         function drawConnections() {
+            // Skip connections if disabled (low-power mode)
+            if (!SCALE_CONFIG.enableConnections) return;
+
             const playerParticles = particles.filter(p => p.isPlayer);
             let connectionCount = 0;
-            
-            for (let i = 0; i < playerParticles.length && connectionCount < SCALE_CONFIG.maxConnections; i++) {
+
+            // Use spatial optimization for large particle counts
+            const maxI = Math.min(playerParticles.length, 50); // Limit iterations
+
+            for (let i = 0; i < maxI && connectionCount < SCALE_CONFIG.maxConnections; i++) {
                 for (let j = i + 1; j < playerParticles.length && connectionCount < SCALE_CONFIG.maxConnections; j++) {
                     const dx = playerParticles[i].x - playerParticles[j].x;
                     const dy = playerParticles[i].y - playerParticles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < SCALE_CONFIG.connectionDistance) {
+                    // Skip sqrt for performance - compare squared distances
+                    const distSq = dx * dx + dy * dy;
+                    const maxDistSq = SCALE_CONFIG.connectionDistance * SCALE_CONFIG.connectionDistance;
+
+                    if (distSq < maxDistSq) {
+                        const dist = Math.sqrt(distSq);
                         const alpha = (1 - dist / SCALE_CONFIG.connectionDistance) * 0.15;
                         ctx.beginPath();
                         ctx.moveTo(playerParticles[i].x, playerParticles[i].y);
@@ -1207,9 +1407,7 @@
             drawConnections();
             particles.forEach(p => { p.update(time); p.draw(); });
             
-            const titleEl = document.getElementById('title');
-            if (Date.now() - lastActivity > 3000) titleEl.classList.add('visible');
-            else titleEl.classList.remove('visible');
+            // Brand mark visibility removed - always subtle in corner
             
             requestAnimationFrame(animate);
         }
@@ -1386,13 +1584,33 @@
             while (log.children.length > 10) log.removeChild(log.lastChild);
         }
         
-        // Achievements HUD
-        function updateAchievementsHUD(unlockedIds = []) {
+        // Achievements HUD - Diff-based updates for performance
+        let achievementsInitialized = false;
+        let lastUnlockedIds = [];
+
+        function initAchievementsHUD() {
+            if (achievementsInitialized) return;
             const hud = document.getElementById('achievementsHud');
-            hud.innerHTML = ACHIEVEMENTS.map(ach => {
-                const unlocked = unlockedIds.includes(ach.id);
-                return `<div class="ach-icon ${unlocked ? 'unlocked' : ''}" title="${ach.name}">${ach.emoji}</div>`;
-            }).join('');
+            hud.innerHTML = ACHIEVEMENTS.map(ach =>
+                `<div class="ach-icon" data-ach="${ach.id}" title="${ach.name}">${ach.emoji}</div>`
+            ).join('');
+            achievementsInitialized = true;
+        }
+
+        function updateAchievementsHUD(unlockedIds = []) {
+            initAchievementsHUD();
+            const hud = document.getElementById('achievementsHud');
+
+            // Only update changed achievements (diff-based)
+            unlockedIds.forEach(id => {
+                if (!lastUnlockedIds.includes(id)) {
+                    const el = hud.querySelector(`[data-ach="${id}"]`);
+                    if (el && !el.classList.contains('unlocked')) {
+                        el.classList.add('unlocked');
+                    }
+                }
+            });
+            lastUnlockedIds = [...unlockedIds];
         }
         
         // Popups
@@ -1493,14 +1711,15 @@
                 lastState = data; state = data;
                 
                 document.getElementById('statLevel').textContent = data.levels?.current || 1;
-                document.getElementById('statScore').textContent = data.score?.total || 0;
+                document.getElementById('statScore').textContent = (data.score?.total || 0).toLocaleString();
                 document.getElementById('statSouls').textContent = Object.keys(data.players || {}).length;
-                document.getElementById('progressLevel').textContent = data.levels?.current || 1;
-                
+                document.getElementById('levelNumber').textContent = data.levels?.current || 1;
+
                 const next = data.levels?.next_unlock;
                 if (next) {
                     const pct = Math.min(100, Math.round(((next.progress?.score || 0) / next.requires_score * 50) + ((next.progress?.prs || 0) / next.requires_prs * 50)));
-                    document.getElementById('progressFill').style.strokeDashoffset = 157 - (157 * pct / 100);
+                    // Level ring circumference = 2 * π * 20 ≈ 126
+                    document.getElementById('levelFill').style.strokeDashoffset = 126 - (126 * pct / 100);
                 }
                 
                 const maxStreak = Math.max(0, ...Object.values(data.players || {}).map(p => p.streak || 0));
@@ -1535,7 +1754,7 @@
             } else konamiIndex = 0;
         });
         
-        document.getElementById('title').addEventListener('click', () => { logEvent('system', 'The void stares back...'); });
+        document.getElementById('brandMark')?.addEventListener('click', () => { logEvent('system', 'The void stares back...'); });
         
         document.addEventListener('dblclick', (e) => {
             for (let i = 0; i < 10; i++) {
