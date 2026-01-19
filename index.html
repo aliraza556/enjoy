@@ -275,45 +275,6 @@
         }
 
         /* ═══════════════════════════════════════════════════════════
-           STARGAZERS LAYER - Real GitHub stargazers with links
-           ═══════════════════════════════════════════════════════════ */
-
-        .stargazers-layer {
-            position: fixed;
-            left: 0;
-            right: 0;
-            top: 0;
-            height: 55%;
-            pointer-events: none;
-            z-index: 6;
-            transition: all 8s ease;
-        }
-
-        /* Day mode: stargazers become sparkles on the sea (50-75% from top) */
-        .stargazers-layer.on-sea {
-            top: 50%;
-            bottom: auto;
-            height: 25%;
-        }
-
-        .stargazers-layer .sky-star {
-            pointer-events: auto;
-        }
-
-        /* Sparkles on sea during day - golden reflections */
-        .stargazers-layer.on-sea .sky-star {
-            animation: sea-sparkle 1.5s ease-in-out infinite;
-        }
-        .stargazers-layer.on-sea .sky-star:hover {
-            transform: scale(2) !important;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 180, 0, 0.6) !important;
-        }
-        @keyframes sea-sparkle {
-            0%, 100% { opacity: 0.5; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-        
-        /* ═══════════════════════════════════════════════════════════
            CELESTIAL BODY - Sun/Moon based on time
            ═══════════════════════════════════════════════════════════ */
         
@@ -328,6 +289,10 @@
         }
 
         /* Atmospheric glow - subtle radial halo */
+        .celestial {
+            --glow-intensity: 1;
+            transition: opacity 2s ease;
+        }
         .celestial::before {
             content: '';
             position: absolute;
@@ -338,7 +303,7 @@
             height: 300%;
             border-radius: 50%;
             background: radial-gradient(circle, var(--celestial-glow) 0%, transparent 70%);
-            opacity: 0.6;
+            opacity: calc(0.6 * var(--glow-intensity));
             pointer-events: none;
             transition: opacity 3s ease, background 3s ease;
         }
@@ -357,28 +322,28 @@
             z-index: 1;
         }
 
-        /* Moon - soft silver, warmer near horizon */
+        /* Moon - soft silver, flat with subtle top-left highlight */
         body.time-night .celestial::before {
             background: radial-gradient(circle, rgba(200, 210, 230, 0.15) 0%, transparent 60%);
-            opacity: 0.8;
+            opacity: calc(0.8 * var(--glow-intensity));
         }
         body.time-night .celestial-body {
-            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f0f0f5 30%, #d8d8e0 100%);
+            background: linear-gradient(135deg, #f8f8ff 0%, #e8e8f0 30%, #d0d0dd 100%);
             box-shadow:
                 0 0 20px rgba(255, 255, 255, 0.5),
                 0 0 50px rgba(200, 210, 230, 0.3),
                 0 0 100px rgba(180, 190, 220, 0.15);
         }
 
-        /* Dawn - Sun rising, orange/peach */
+        /* Dawn - Sun rising, orange/peach - flat with subtle top-left highlight */
         body.time-dawn .celestial::before {
             background: radial-gradient(circle, rgba(255, 140, 60, 0.35) 0%, rgba(255, 100, 40, 0.15) 40%, transparent 70%);
-            opacity: 1;
+            opacity: var(--glow-intensity);
             width: 400%;
             height: 400%;
         }
         body.time-dawn .celestial-body {
-            background: radial-gradient(circle at 45% 45%, #ffaa55 0%, #ff8833 45%, #ee6622 80%, #cc4411 100%);
+            background: linear-gradient(135deg, #ffbb66 0%, #ff8833 25%, #ee6622 100%);
             box-shadow:
                 0 0 25px rgba(255, 150, 70, 0.9),
                 0 0 50px rgba(255, 120, 50, 0.6),
@@ -389,27 +354,27 @@
         /* Morning - Sun climbing, warm yellow/gold */
         body.time-morning .celestial::before {
             background: radial-gradient(circle, rgba(255, 220, 120, 0.25) 0%, rgba(255, 200, 100, 0.1) 40%, transparent 65%);
-            opacity: 1;
+            opacity: var(--glow-intensity);
             width: 300%;
             height: 300%;
         }
         body.time-morning .celestial-body {
-            background: radial-gradient(circle at 45% 45%, #ffee99 0%, #ffdd66 45%, #ffcc44 80%, #eebb33 100%);
+            background: linear-gradient(135deg, #ffee88 0%, #ffdd55 30%, #ffcc44 100%);
             box-shadow:
                 0 0 30px rgba(255, 230, 120, 0.8),
                 0 0 60px rgba(255, 210, 90, 0.5),
                 0 0 120px rgba(255, 190, 70, 0.25);
         }
 
-        /* Noon - Sun at zenith, bright white/cream */
+        /* Noon - Sun at zenith, bright cream/yellow */
         body.time-noon .celestial::before {
             background: radial-gradient(circle, rgba(255, 255, 240, 0.3) 0%, rgba(255, 250, 220, 0.12) 40%, transparent 60%);
-            opacity: 1;
+            opacity: var(--glow-intensity);
             width: 280%;
             height: 280%;
         }
         body.time-noon .celestial-body {
-            background: radial-gradient(circle at 48% 48%, #fffffa 0%, #fffde8 40%, #ffee99 85%, #ffdd77 100%);
+            background: linear-gradient(135deg, #fffde0 0%, #ffee88 35%, #ffdd66 100%);
             box-shadow:
                 0 0 35px rgba(255, 255, 250, 0.9),
                 0 0 70px rgba(255, 250, 220, 0.6),
@@ -419,12 +384,12 @@
         /* Afternoon - Sun descending, golden/amber */
         body.time-afternoon .celestial::before {
             background: radial-gradient(circle, rgba(255, 200, 100, 0.25) 0%, rgba(255, 170, 70, 0.1) 40%, transparent 65%);
-            opacity: 1;
+            opacity: var(--glow-intensity);
             width: 320%;
             height: 320%;
         }
         body.time-afternoon .celestial-body {
-            background: radial-gradient(circle at 45% 45%, #ffdd77 0%, #ffcc55 45%, #ffbb44 80%, #eeaa33 100%);
+            background: linear-gradient(135deg, #ffee77 0%, #ffcc44 30%, #ffbb33 100%);
             box-shadow:
                 0 0 30px rgba(255, 210, 100, 0.75),
                 0 0 60px rgba(255, 180, 70, 0.45),
@@ -434,12 +399,12 @@
         /* Sunset - Sun setting, deep red/crimson */
         body.time-sunset .celestial::before {
             background: radial-gradient(circle, rgba(255, 60, 20, 0.4) 0%, rgba(200, 40, 10, 0.2) 35%, rgba(150, 20, 0, 0.1) 55%, transparent 75%);
-            opacity: 1;
+            opacity: var(--glow-intensity);
             width: 500%;
             height: 500%;
         }
         body.time-sunset .celestial-body {
-            background: radial-gradient(circle at 45% 45%, #ff5522 0%, #dd3311 40%, #bb1100 75%, #880000 100%);
+            background: linear-gradient(135deg, #ff6633 0%, #dd3311 35%, #aa1100 100%);
             box-shadow:
                 0 0 25px rgba(255, 70, 20, 1),
                 0 0 50px rgba(230, 50, 10, 0.7),
@@ -448,9 +413,17 @@
                 0 0 280px rgba(100, 20, 0, 0.15);
         }
 
-        /* Celestial behind mountains when low */
+        /* Celestial fully hidden when behind landscape */
         .celestial.behind-landscape {
-            z-index: 2;
+            z-index: 1;
+            opacity: 0 !important;
+        }
+        .celestial.behind-landscape::before {
+            opacity: 0;
+        }
+        .celestial.behind-landscape .celestial-body {
+            box-shadow: none;
+            opacity: 0;
         }
         
         /* ═══════════════════════════════════════════════════════════
@@ -474,10 +447,10 @@
         }
         
         body.time-night {
-            --sea-deep: #020205;
-            --sea-mid: #050510;
-            --sea-light: #0a0a18;
-            --sea-shore: #151525;
+            --sea-deep: #0a1520;
+            --sea-mid: #0f1f2d;
+            --sea-light: #152838;
+            --sea-shore: #1a3040;
             --mountain-far: #040408;
             --mountain-mid: #080810;
             --terrace-color: #0c0c12;
@@ -488,10 +461,10 @@
         }
         
         body.time-dawn {
-            --sea-deep: #2d1b30;
-            --sea-mid: #4a2540;
-            --sea-light: #7a4060;
-            --sea-shore: #b07090;
+            --sea-deep: #1a2a40;
+            --sea-mid: #253850;
+            --sea-light: #354860;
+            --sea-shore: #506080;
             --mountain-far: #352535;
             --mountain-mid: #453545;
             --terrace-color: #3a2a35;
@@ -544,10 +517,10 @@
         }
         
         body.time-sunset {
-            --sea-deep: #301030;
-            --sea-mid: #502040;
-            --sea-light: #803040;
-            --sea-shore: #b05050;
+            --sea-deep: #152535;
+            --sea-mid: #1f3545;
+            --sea-light: #2a4555;
+            --sea-shore: #3a5565;
             --mountain-far: #402530;
             --mountain-mid: #503540;
             --terrace-color: #452530;
@@ -752,16 +725,9 @@
            SOUL LIGHTS - Players as fireflies on the hillside
            ═══════════════════════════════════════════════════════════ */
         
+        /* DISABLED: Players now shown as orange stars in sky */
         .souls-layer {
-            position: fixed;
-            bottom: 10%;
-            left: 30%;
-            right: 0;
-            height: 40%;
-            pointer-events: none;
-            z-index: 12;
-            opacity: var(--firefly-opacity);
-            transition: opacity 5s ease;
+            display: none;
         }
         .soul-light {
             position: absolute;
@@ -1132,10 +1098,8 @@
     <div class="aurora-layer" id="auroraLayer"></div>
     
     <!-- Stars Layer (anonymous stars) -->
+    <!-- Stars Layer - unified: background + stargazers (yellow) + players (orange) -->
     <div class="stars-layer" id="starsLayer"></div>
-
-    <!-- Stargazers Layer (real GitHub stargazers with links) -->
-    <div class="stargazers-layer" id="stargazersLayer"></div>
 
     <!-- Celestial Body -->
     <div class="celestial" id="celestial">
@@ -1346,26 +1310,41 @@
             const x = 5 + progress * 90;
 
             // Y position: parabolic arc
-            // At edges (progress 0 or 1): y = 75% (low, behind mountains)
+            // At edges (progress 0 or 1): y = 52% (at sea horizon)
             // At center (progress 0.5): y = 8% (high in sky)
-            const yLow = 75;
+            const yLow = 52;
             const yHigh = 8;
             const y = yLow - Math.sin(progress * Math.PI) * (yLow - yHigh);
 
             // Scale: bigger near horizon, smaller at zenith
-            // progress 0 or 1 → scale 1.8 (big)
-            // progress 0.5 → scale 0.85 (small)
-            // Using: 1 - sin gives us 1 at edges, 0 at center
             const horizonProximity = 1 - Math.sin(progress * Math.PI);
             const scale = 0.85 + horizonProximity * 0.95;
 
-            // Is the celestial body low enough to be behind the landscape?
-            const behindLandscape = y > 55;
+            // Is the celestial body behind the landscape? (right side = mountain)
+            // Left side rises from sea, right side sets behind mountain
+            const behindLandscape = (x > 75 && y > 45) || (x < 25 && y > 50);
 
-            return { x, y, scale, isSun, progress, behindLandscape };
+            // Calculate opacity: fade in when rising, fade out when setting
+            // Fully visible between progress 0.08 and 0.92
+            let opacity = 1;
+            if (progress < 0.08) {
+                opacity = progress / 0.08; // fade in
+            } else if (progress > 0.92) {
+                opacity = (1 - progress) / 0.08; // fade out
+            }
+
+            // Glow intensity: reduce near edges
+            let glowIntensity = 1;
+            if (progress < 0.15) {
+                glowIntensity = progress / 0.15;
+            } else if (progress > 0.85) {
+                glowIntensity = (1 - progress) / 0.15;
+            }
+
+            return { x, y, scale, isSun, progress, behindLandscape, opacity, glowIntensity };
         }
 
-        // Calculate stars/sparkles opacity based on time
+        // Calculate stars opacity based on time (invisible during day, but still clickable)
         function getStarsOpacity() {
             const now = getCETTime();
             const hour = now.getHours();
@@ -1375,27 +1354,30 @@
             // Night (21:00 - 4:00): full stars
             if (time >= 21 || time < 4) return { opacity: 1, isStars: true };
 
-            // Early dawn (4:00 - 6:00): stars fading out
-            if (time >= 4 && time < 6) {
-                const fade = (time - 4) / 2; // 0 to 1
-                return { opacity: 1 - fade * 0.7, isStars: true };
+            // Early dawn (4:00 - 6:30): stars fading out completely
+            if (time >= 4 && time < 6.5) {
+                const fade = (time - 4) / 2.5; // 0 to 1
+                return { opacity: Math.max(0, 1 - fade), isStars: true };
             }
 
-            // Day (6:00 - 18:00): sea sparkles
-            if (time >= 6 && time < 18) {
-                // Sparkles intensity peaks at noon
-                const distFromNoon = Math.abs(time - 12);
-                const intensity = Math.max(0.15, 0.5 - distFromNoon * 0.05);
-                return { opacity: intensity, isStars: false };
+            // Day (6:30 - 17:00): invisible (opacity 0) but still clickable
+            if (time >= 6.5 && time < 17) {
+                return { opacity: 0, isStars: true };
             }
 
-            // Sunset (18:00 - 21:00): stars fading in
+            // Pre-sunset (17:00 - 18:00): stars starting to appear gradually
+            if (time >= 17 && time < 18) {
+                const fade = (time - 17) / 1; // 0 to 1
+                return { opacity: fade * 0.3, isStars: true };
+            }
+
+            // Sunset (18:00 - 21:00): stars fading in fully
             if (time >= 18 && time < 21) {
                 const fade = (time - 18) / 3; // 0 to 1
-                return { opacity: 0.2 + fade * 0.8, isStars: true };
+                return { opacity: 0.3 + fade * 0.7, isStars: true };
             }
 
-            return { opacity: 0.3, isStars: true };
+            return { opacity: 0, isStars: true };
         }
 
         function getCurrentTimePeriod() {
@@ -1431,6 +1413,12 @@
             celestial.style.top = celestialPos.y + '%';
             celestialBody.style.transform = `scale(${celestialPos.scale})`;
 
+            // Apply opacity fade for rising/setting
+            celestial.style.opacity = celestialPos.opacity;
+
+            // Apply glow intensity via CSS variable
+            celestial.style.setProperty('--glow-intensity', celestialPos.glowIntensity);
+
             // Toggle behind-landscape class
             if (celestialPos.behindLandscape) {
                 celestial.classList.add('behind-landscape');
@@ -1438,26 +1426,11 @@
                 celestial.classList.remove('behind-landscape');
             }
 
-            // Update stars/sparkles opacity and position
+            // Update stars opacity based on time
             const starsInfo = getStarsOpacity();
             const starsLayer = document.querySelector('.stars-layer');
-            const stargazersLayer = document.querySelector('.stargazers-layer');
-
             if (starsLayer) {
                 starsLayer.style.opacity = starsInfo.opacity;
-            }
-
-            // Toggle stargazers position: sky at night, sea during day
-            if (stargazersLayer) {
-                if (starsInfo.isStars) {
-                    // Night: stargazers in sky (full brightness)
-                    stargazersLayer.classList.remove('on-sea');
-                    stargazersLayer.style.opacity = starsInfo.opacity;
-                } else {
-                    // Day: stargazers become golden sparkles on sea (always visible)
-                    stargazersLayer.classList.add('on-sea');
-                    stargazersLayer.style.opacity = 1;
-                }
             }
 
             // Update audio tone
@@ -1477,11 +1450,10 @@
 
         let starTooltip = null;
 
-        function createStars(count, stargazers = []) {
-            const starsContainer = document.getElementById('starsLayer');
-            const stargazersContainer = document.getElementById('stargazersLayer');
-            starsContainer.innerHTML = '';
-            stargazersContainer.innerHTML = '';
+        // Create unified star system: background + stargazers (yellow) + players (orange)
+        function createStars(count, stargazers = [], players = []) {
+            const container = document.getElementById('starsLayer');
+            container.innerHTML = '';
 
             // Create tooltip if needed
             if (!starTooltip) {
@@ -1489,127 +1461,170 @@
                 starTooltip.id = 'starTooltip';
                 starTooltip.style.cssText = `
                     position: fixed;
-                    padding: 6px 12px;
-                    background: rgba(0, 0, 0, 0.85);
-                    border: 1px solid rgba(255, 215, 0, 0.4);
-                    border-radius: 6px;
-                    color: #ffd700;
-                    font-size: 12px;
+                    padding: 6px 10px;
+                    background: rgba(0, 0, 0, 0.9);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 4px;
+                    color: #fff;
+                    font-size: 11px;
                     font-family: 'JetBrains Mono', monospace;
                     pointer-events: none;
                     z-index: 1000;
                     opacity: 0;
                     transition: opacity 0.2s ease;
-                    backdrop-filter: blur(8px);
                 `;
                 document.body.appendChild(starTooltip);
             }
 
-            // Create anonymous stars (in sky layer)
-            const anonymousCount = Math.max(0, count - stargazers.length);
-            for (let i = 0; i < anonymousCount; i++) {
+            // 1. Background stars (white, tiny, many) - top 48% only
+            for (let i = 0; i < count; i++) {
                 const star = document.createElement('div');
-                const seed = (i + 1000) * 6997;
+                const seed = (i + 500) * 7993;
+                const x = ((seed * 13 + i * 37) % 96) + 2;
+                const y = ((seed * 17 + i * 29) % 45) + 2;
+                const size = 0.8 + (seed % 10) / 15;
+                const duration = 4 + (i % 8);
+                const delay = (i * 0.3) % 7;
 
-                const x = ((seed * 13 + i * 31) % 95) + 2;
-                const y = ((seed * 17 + i * 23) % 50) + 3;
-                const baseSize = 1 + (seed % 6) / 6;
-                const duration = 3 + (i % 7);
-                const delay = (i * 0.4) % 6;
-
-                star.className = 'sky-star';
+                star.className = 'bg-star';
                 star.style.cssText = `
                     position: absolute;
                     left: ${x}%;
                     top: ${y}%;
-                    width: ${baseSize}px;
-                    height: ${baseSize}px;
-                    background: hsl(0, 0%, 85%);
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: rgba(255, 255, 255, 0.8);
                     border-radius: 50%;
-                    box-shadow: 0 0 ${baseSize * 2}px rgba(255, 255, 255, 0.3);
                     animation: twinkle ${duration}s ease-in-out infinite;
                     animation-delay: ${delay}s;
                 `;
-                starsContainer.appendChild(star);
+                container.appendChild(star);
             }
 
-            // Create stargazers (in separate layer - sky at night, sea during day)
+            // 2. Stargazer stars (YELLOW with cross sparkle effect) - top 48% only
             stargazers.forEach((gazer, i) => {
                 if (!gazer?.login) return;
-
                 const star = document.createElement('div');
-                const seed = i * 7919;
-
-                // Position: X limited to sea area (10-50%), Y spread across layer
-                const x = 10 + ((seed * 13 + i * 47) % 40);
-                const y = 20 + ((seed * 19 + i * 31) % 60);
-                const baseSize = 6 + (seed % 4);
+                const seed = i * 8191;
+                const x = 5 + ((seed * 11 + i * 43) % 90);
+                const y = 3 + ((seed * 19 + i * 37) % 43);
+                const size = 2 + (seed % 3);
                 const duration = 2 + (i % 4);
-                const delay = (i * 0.5) % 3;
+                const delay = (i * 0.6) % 4;
 
-                star.className = 'sky-star real-star';
+                star.className = 'star-gazer';
                 star.dataset.login = gazer.login;
-                star.dataset.baseSize = baseSize;
                 star.style.cssText = `
                     position: absolute;
                     left: ${x}%;
                     top: ${y}%;
-                    width: ${baseSize}px;
-                    height: ${baseSize}px;
-                    background: radial-gradient(circle, #fff 0%, #ffd700 50%, #ffaa00 100%);
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: #ffdd44;
                     border-radius: 50%;
-                    box-shadow: 0 0 ${baseSize * 4}px rgba(255, 215, 0, 0.8), 0 0 ${baseSize * 8}px rgba(255, 180, 0, 0.4);
-                    animation: twinkle ${duration}s ease-in-out infinite;
+                    box-shadow:
+                        0 0 ${size}px #ffdd44,
+                        0 -${size * 2}px ${size}px rgba(255, 220, 60, 0.4),
+                        0 ${size * 2}px ${size}px rgba(255, 220, 60, 0.4),
+                        -${size * 2}px 0 ${size}px rgba(255, 220, 60, 0.4),
+                        ${size * 2}px 0 ${size}px rgba(255, 220, 60, 0.4);
+                    animation: star-cross ${duration}s ease-in-out infinite;
                     animation-delay: ${delay}s;
                     cursor: pointer;
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    pointer-events: auto;
+                    transition: transform 0.2s ease;
                 `;
-
-                // Click -> open GitHub profile
-                star.addEventListener('click', () => {
-                    window.open(`https://github.com/${gazer.login}`, '_blank');
-                    console.log('⭐ Visited stargazer:', gazer.login);
-                });
-
-                // Hover effects
+                star.addEventListener('click', () => window.open(`https://github.com/${gazer.login}`, '_blank'));
                 star.addEventListener('mouseenter', (e) => {
-                    star.style.transform = 'scale(2.5)';
-                    star.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.9), 0 0 40px rgba(255, 215, 0, 0.5)';
-                    star.style.filter = 'none';
-                    starTooltip.textContent = `⭐ ${gazer.login}`;
+                    star.style.transform = 'scale(2)';
+                    starTooltip.innerHTML = `⭐ ${gazer.login}`;
                     starTooltip.style.opacity = '1';
-                    starTooltip.style.left = e.clientX + 15 + 'px';
-                    starTooltip.style.top = e.clientY + 10 + 'px';
+                    starTooltip.style.left = e.clientX + 12 + 'px';
+                    starTooltip.style.top = e.clientY + 8 + 'px';
                 });
-
                 star.addEventListener('mouseleave', () => {
                     star.style.transform = '';
-                    star.style.boxShadow = `0 0 ${baseSize * 3}px rgba(255, 215, 0, 0.6), 0 0 ${baseSize * 6}px rgba(255, 215, 0, 0.25)`;
                     starTooltip.style.opacity = '0';
                 });
-
                 star.addEventListener('mousemove', (e) => {
-                    starTooltip.style.left = e.clientX + 15 + 'px';
-                    starTooltip.style.top = e.clientY + 10 + 'px';
+                    starTooltip.style.left = e.clientX + 12 + 'px';
+                    starTooltip.style.top = e.clientY + 8 + 'px';
                 });
-
-                stargazersContainer.appendChild(star);
+                container.appendChild(star);
             });
 
-            // Add twinkle keyframes if not exists
-            if (!document.getElementById('twinkle-style')) {
+            // 3. Player stars (ORANGE, size based on karma) - top 48% only
+            players.forEach((player, i) => {
+                if (!player?.username) return;
+                const star = document.createElement('div');
+                const seed = (i + 100) * 6571;
+                const x = 5 + ((seed * 17 + i * 53) % 90);
+                const y = 3 + ((seed * 13 + i * 41) % 43);
+                // Size: 2-4px based on karma (log scale, capped)
+                const karma = player.karma || 0;
+                const size = Math.min(4, 2 + Math.log10(Math.max(1, karma)) * 0.5);
+                const duration = 2.5 + (i % 5);
+                const delay = (i * 0.4) % 5;
+
+                star.className = 'star-player';
+                star.dataset.username = player.username;
+                star.style.cssText = `
+                    position: absolute;
+                    left: ${x}%;
+                    top: ${y}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: #ff8833;
+                    border-radius: 50%;
+                    box-shadow:
+                        0 0 ${size}px #ff8833,
+                        0 -${size * 2}px ${size}px rgba(255, 140, 50, 0.35),
+                        0 ${size * 2}px ${size}px rgba(255, 140, 50, 0.35),
+                        -${size * 2}px 0 ${size}px rgba(255, 140, 50, 0.35),
+                        ${size * 2}px 0 ${size}px rgba(255, 140, 50, 0.35);
+                    animation: star-cross ${duration}s ease-in-out infinite;
+                    animation-delay: ${delay}s;
+                    cursor: pointer;
+                    pointer-events: auto;
+                    transition: transform 0.2s ease;
+                `;
+                star.addEventListener('click', () => window.open(`https://github.com/${player.username}`, '_blank'));
+                star.addEventListener('mouseenter', (e) => {
+                    star.style.transform = 'scale(2)';
+                    starTooltip.innerHTML = `🎮 ${player.username} (${karma} karma)`;
+                    starTooltip.style.opacity = '1';
+                    starTooltip.style.left = e.clientX + 12 + 'px';
+                    starTooltip.style.top = e.clientY + 8 + 'px';
+                });
+                star.addEventListener('mouseleave', () => {
+                    star.style.transform = '';
+                    starTooltip.style.opacity = '0';
+                });
+                star.addEventListener('mousemove', (e) => {
+                    starTooltip.style.left = e.clientX + 12 + 'px';
+                    starTooltip.style.top = e.clientY + 8 + 'px';
+                });
+                container.appendChild(star);
+            });
+
+            // Add star animations if not exists
+            if (!document.getElementById('star-style')) {
                 const style = document.createElement('style');
-                style.id = 'twinkle-style';
+                style.id = 'star-style';
                 style.textContent = `
                     @keyframes twinkle {
-                        0%, 100% { opacity: 0.4; }
-                        50% { opacity: 1; }
+                        0%, 100% { opacity: 0.3; }
+                        50% { opacity: 0.9; }
+                    }
+                    @keyframes star-cross {
+                        0%, 100% { opacity: 0.4; box-shadow: inherit; }
+                        50% { opacity: 1; filter: brightness(1.3); }
                     }
                 `;
                 document.head.appendChild(style);
             }
 
-            console.log('⭐ Created', anonymousCount, 'anonymous stars +', stargazers.length, 'stargazers');
+            console.log('⭐ Created', count, 'bg stars,', stargazers.length, 'stargazers (yellow),', players.length, 'players (orange)');
         }
         
         // ═══════════════════════════════════════════════════════════════
@@ -1925,7 +1940,8 @@
                 
                 // Update visuals
                 updateAurora(karma);
-                createSoulLights(players);
+                // createSoulLights(players); // REMOVED: players now shown as orange stars in sky
+                updateStars(); // Update stars with player data (includes players as orange stars)
 
                 console.log('🎮 State loaded: Level', level, '| Karma', karma, '| Players', playerCount);
                 
@@ -1936,22 +1952,32 @@
         
         async function loadRepoStats() {
             try {
-                // Use raw GitHub URL to ensure it works on GitHub Pages
                 const res = await fetch('https://raw.githubusercontent.com/fabriziosalmi/enjoy/main/repo-stats.json?' + Date.now());
                 if (res.ok) {
                     repoStats = await res.json();
                     // Update HUD counters
                     document.getElementById('starCount').textContent = (repoStats.stars || 0).toLocaleString();
                     document.getElementById('forkCount').textContent = (repoStats.forks || 0).toLocaleString();
-                    // Stars/sparkles in sky scale with repo stars
-                    const skyStarCount = Math.min(150, 30 + (repoStats.stars || 0) * 3);
-                    createStars(skyStarCount, repoStats.recent_stargazers || []);
+                    // Update stars with all data
+                    updateStars();
                     console.log('⭐ Loaded repo stats:', repoStats.stars, 'stars,', repoStats.forks, 'forks');
                 }
             } catch (e) {
                 console.log('Repo stats error:', e.message);
-                createStars(40, []);
+                updateStars();
             }
+        }
+
+        // Unified star update with all data sources
+        function updateStars() {
+            const bgCount = Math.min(100, 30 + (repoStats.stars || 0) * 2);
+            const stargazers = repoStats.recent_stargazers || [];
+            // Convert players object to array with karma
+            const players = state?.players ? Object.entries(state.players).map(([username, data]) => ({
+                username,
+                karma: data.karma || 0
+            })) : [];
+            createStars(bgCount, stargazers, players);
         }
         
         // Initial load
