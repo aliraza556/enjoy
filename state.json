@@ -166,7 +166,8 @@
     "total_players": 2,
     "game_started": "2026-01-18T00:00:00Z",
     "pages_enabled": false,
-    "last_build": null
+    "last_build": null,
+    "last_refresh": "2026-01-19T02:13:28Z"
   },
   "time_system": {
     "current_period": "sunset",
