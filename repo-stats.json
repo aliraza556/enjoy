@@ -1,32 +1,37 @@
 {
-  "updated": "2026-01-19T16:03:43.457Z",
-  "stars": 4,
+  "updated": "2026-01-19T17:43:20.225Z",
+  "stars": 5,
   "forks": 2,
   "watchers": 0,
   "open_issues": 7,
-  "discussions": 3,
-  "size_kb": 8941,
+  "discussions": 11,
+  "size_kb": 9083,
   "default_branch": "main",
   "recent_stargazers": [
     {
       "login": "testman42",
       "avatar": "https://avatars.githubusercontent.com/u/2620967?v=4",
-      "starred_at": "2026-01-19T16:03:43.457Z"
+      "starred_at": "2026-01-19T17:43:20.225Z"
     },
     {
       "login": "tentoumushii",
       "avatar": "https://avatars.githubusercontent.com/u/169354375?v=4",
-      "starred_at": "2026-01-19T16:03:43.457Z"
+      "starred_at": "2026-01-19T17:43:20.225Z"
     },
     {
       "login": "giordan83",
       "avatar": "https://avatars.githubusercontent.com/u/1755593?v=4",
-      "starred_at": "2026-01-19T16:03:43.457Z"
+      "starred_at": "2026-01-19T17:43:20.225Z"
     },
     {
       "login": "tkersey",
       "avatar": "https://avatars.githubusercontent.com/u/217?v=4",
-      "starred_at": "2026-01-19T16:03:43.457Z"
+      "starred_at": "2026-01-19T17:43:20.225Z"
+    },
+    {
+      "login": "DoddiC",
+      "avatar": "https://avatars.githubusercontent.com/u/45871604?v=4",
+      "starred_at": "2026-01-19T17:43:20.225Z"
     }
   ],
   "recent_forks": [
@@ -45,7 +50,7 @@
     {
       "login": "fabriziosalmi",
       "avatar": "https://avatars.githubusercontent.com/u/1569108?v=4",
-      "contributions": 169
+      "contributions": 182
     },
     {
       "login": "JoKneeMo",
@@ -54,9 +59,9 @@
     }
   ],
   "energy": {
-    "twinkle_intensity": 0.04,
+    "twinkle_intensity": 0.05,
     "growth_rate": 0.04,
-    "activity": 0.5,
+    "activity": 0.9,
     "community": 2
   }
 }
