@@ -232,8 +232,9 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const prBody = process.env.PR_BODY || '';
-            const prAuthor = process.env.PR_AUTHOR || '';
+            // Read PR body directly from context to avoid multiline env var issues
+            const prBody = context.payload.pull_request.body || '';
+            const prAuthor = context.payload.pull_request.user.login || '';
             const addedFiles = process.env.PR_FILES_ADDED || '';
             const modifiedFiles = process.env.PR_FILES_MODIFIED || '';
             const allFiles = `${addedFiles},${modifiedFiles}`.split(',').filter(f => f.trim());

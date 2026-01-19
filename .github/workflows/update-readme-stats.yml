@@ -47,14 +47,14 @@ jobs:
             // UPDATE BADGES (keep them in sync with README stats)
             // ═══════════════════════════════════════════════════════════
             const karma = state.score?.total || 0;
-            const players = state.meta?.total_players || 0;
+            const playerCount = state.meta?.total_players || 0;
             const level = state.levels?.current || 1;
 
             fs.mkdirSync('badges', { recursive: true });
             fs.writeFileSync('badges/karma.json', JSON.stringify({schemaVersion:1,label:"karma",message:String(karma),color:"purple"}));
-            fs.writeFileSync('badges/players.json', JSON.stringify({schemaVersion:1,label:"players",message:String(players),color:"blue"}));
+            fs.writeFileSync('badges/players.json', JSON.stringify({schemaVersion:1,label:"players",message:String(playerCount),color:"blue"}));
             fs.writeFileSync('badges/level.json', JSON.stringify({schemaVersion:1,label:"level",message:`${level}/100`,color:"orange"}));
-            console.log('🏷️ Badges synced: karma=' + karma + ', players=' + players + ', level=' + level);
+            console.log('🏷️ Badges synced: karma=' + karma + ', players=' + playerCount + ', level=' + level);
             
             // Load README
             let readme = fs.readFileSync('README.md', 'utf8');
