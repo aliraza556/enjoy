@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-01-19T08:46:58Z",
+  "generated_at": "2026-01-19T09:16:41Z",
   "game_age_days": 1,
   
   "totals": {
-    "karma": 218,
+    "karma": 278,
     "players": 2,
-    "prs": 5,
+    "prs": 6,
     "level": 3,
     "achievements": 4,
-    "hearts_earned": 218
+    "hearts_earned": 278
   },
   
   "growth": {
-    "karma_per_day": 218.00,
-    "prs_per_day": 5.00,
+    "karma_per_day": 278.00,
+    "prs_per_day": 6.00,
     "players_per_day": 2.00,
-    "karma_per_pr": 43.60,
+    "karma_per_pr": 46.33,
     "achievement_rate": 4.00,
     "growth_emoji": "🚀"
   },
@@ -30,8 +30,8 @@
   },
   
   "community": {
-    "love_index": 109,
-    "avg_karma_per_player": 109,
+    "love_index": 139,
+    "avg_karma_per_player": 139,
     "max_streak": 1,
     "top_player": "fabriziosalmi",
     "top_karma": 198,
@@ -55,7 +55,7 @@
   },
   
   "hype_stats": {
-    "total_love_points": 218,
+    "total_love_points": 278,
     "founder_spots_remaining": 48,
     "karma_until_amplification": 0,
     "days_alive": 1
