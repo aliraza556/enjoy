@@ -308,6 +308,12 @@
         "event": "watch.started",
         "karma": 1,
         "timestamp": "2026-01-18T21:16:03.007Z"
+      },
+      {
+        "actor": "aliraza556",
+        "event": "issue_comment.created",
+        "karma": 2,
+        "timestamp": "2026-01-19T02:37:54.723Z"
       }
     ],
     "by_user": {
@@ -413,6 +419,16 @@
             "event": "watch.started",
             "karma": 1,
             "timestamp": "2026-01-18T21:16:03.007Z"
+          }
+        ]
+      },
+      "aliraza556": {
+        "total": 2,
+        "history": [
+          {
+            "event": "issue_comment.created",
+            "karma": 2,
+            "timestamp": "2026-01-19T02:37:54.722Z"
           }
         ]
       }
