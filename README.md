@@ -43,7 +43,7 @@
   <img src="https://img.shields.io/badge/🤖_Built_with-Claude_&_Gemini-blueviolet?style=for-the-badge" alt="AI Crafted">
   <img src="https://img.shields.io/badge/🎮_100_Levels-To_Beat-orange?style=for-the-badge" alt="100 Levels">
   <img src="https://img.shields.io/badge/⏱️_Time--Aware-Repo-blue?style=for-the-badge" alt="Time Aware">
-  <img src="https://img.shields.io/badge/🔄_21_Workflows-Autonomous-purple?style=for-the-badge" alt="21 Workflows">
+  <img src="https://img.shields.io/badge/🔄_25_Workflows-Autonomous-purple?style=for-the-badge" alt="25 Workflows">
 </p>
 
 <p align="center">
@@ -207,12 +207,12 @@ The repo changes appearance based on **CET time** and gives different karma mult
 
 | Time (CET) | Period | Multiplier | Mood |
 |------------|--------|------------|------|
-| 05:00-08:00 | 🌅 Dawn | **×1.2** | Early birds catch karma |
-| 08:00-12:00 | ☀️ Morning | **×1.3** | Fresh minds, fresh code |
-| 12:00-15:00 | 🌞 Noon | **×1.5** | PEAK KARMA! |
-| 15:00-18:00 | 🌤️ Afternoon | **×1.25** | Steady flow |
-| 18:00-21:00 | 🌆 Sunset | **×1.15** | Golden hour |
-| 21:00-05:00 | 🌙 Night | **×1.4** | Night owl bonus |
+| 05:00-07:59 | 🌅 Dawn | **×1.2** | Early birds catch karma |
+| 08:00-11:59 | ☀️ Morning | **×1.3** | Fresh minds, fresh code |
+| 12:00-14:59 | 🌞 Noon | **×1.5** | PEAK KARMA! |
+| 15:00-17:59 | 🌤️ Afternoon | **×1.25** | Steady flow |
+| 18:00-20:59 | 🌆 Sunset | **×1.15** | Golden hour |
+| 21:00-04:59 | 🌙 Night | **×1.4** | Night owl bonus |
 
 **🎯 Rare Events:** Contribute at `00:00`, `11:11`, `12:00`, or `22:22` for MASSIVE bonuses!
 
@@ -348,7 +348,7 @@ It's a real game. The karma is real. The leaderboard is real. The fun is real. �
 
 Maintained by [@fabriziosalmi](https://github.com/fabriziosalmi) | Powered by Claude & Gemini | Broken by you
 
-22 workflows • 100 levels • 1 existential crisis
+25 workflows • 100 levels • 1 existential crisis
 
 ♿ [Accessibility](ACCESSIBILITY.md) • 🌍 [Translations](TRANSLATIONS.md) • 💜 Nobody left behind
 

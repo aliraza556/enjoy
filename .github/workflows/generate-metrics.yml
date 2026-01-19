@@ -12,6 +12,11 @@ on:
     paths: [state.json]
   workflow_dispatch:
 
+# Prevent concurrent metric updates that could conflict with git pushes
+concurrency:
+  group: enjoy-metrics
+  cancel-in-progress: true
+
 jobs:
   generate-metrics:
     runs-on: [self-hosted, enjoy-trusted]
@@ -199,8 +204,15 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add metrics.json metrics-hype.txt
-          git diff --staged --quiet || git commit -m "📊 Update community metrics [skip ci]"
-          git push || true
+          if git diff --staged --quiet; then
+            echo "::notice::No changes to commit"
+          else
+            git commit -m "📊 Update community metrics [skip ci]"
+            if ! git push; then
+              echo "::warning::Push failed - may require manual sync or retry"
+              exit 1
+            fi
+          fi
           
       - name: 📢 Summary
         run: |

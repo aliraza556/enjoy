@@ -9,13 +9,18 @@ on:
   watch:
     types: [started]
   fork:
-  
+
   # Run on schedule - every 6 hours to save runner minutes!
   schedule:
     - cron: '0 */6 * * *'  # Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)
-  
+
   # Manual trigger
   workflow_dispatch:
+
+# Prevent concurrent stats updates that could cause git conflicts
+concurrency:
+  group: enjoy-repo-stats
+  cancel-in-progress: true
 
 jobs:
   sync-stats:

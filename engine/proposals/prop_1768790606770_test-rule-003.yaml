@@ -1,0 +1,17 @@
+id: prop_1768790606770_test-rule-003
+proposed_by: player1
+proposed_at: '2026-01-19T02:43:26.770Z'
+rule_file: rules/test-rule-003-test-rule-3.yaml
+rule_content:
+  id: test-rule-003
+  name: Test Rule 3
+  description: A test rule for unit testing
+  version: 1
+  enabled: true
+  priority: 50
+votes_for: {}
+votes_against: {}
+total_for: 0
+total_against: 0
+status: voting
+voting_ends: '2026-01-26T02:43:26.770Z'

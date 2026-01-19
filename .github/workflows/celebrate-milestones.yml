@@ -10,6 +10,11 @@ on:
     paths: [state.json]
   workflow_dispatch:
 
+# Prevent concurrent celebrations that could cause git conflicts
+concurrency:
+  group: enjoy-celebrations
+  cancel-in-progress: false
+
 jobs:
   check-milestones:
     runs-on: [self-hosted, enjoy-trusted]

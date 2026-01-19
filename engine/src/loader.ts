@@ -94,17 +94,38 @@ export function loadState(): GameState {
 }
 
 /**
- * Save game state with validation
+ * Save game state with validation and atomic write
+ * Uses write-to-temp-then-rename pattern to prevent corruption
  */
 export function saveState(state: GameState): void {
+  const statePath = './state.json';
+  const tempPath = './state.json.tmp';
+
   try {
     if (!validateState(state)) {
       logError('saveState', new Error('Attempted to save invalid state'));
       throw new Error('Attempted to save invalid state');
     }
 
-    fs.writeFileSync('./state.json', JSON.stringify(state, null, 2));
+    const content = JSON.stringify(state, null, 2);
+
+    // Write to temporary file first
+    fs.writeFileSync(tempPath, content);
+
+    // Validate the temp file is valid JSON before committing
+    const verification = JSON.parse(fs.readFileSync(tempPath, 'utf8'));
+    if (!validateState(verification)) {
+      fs.unlinkSync(tempPath);
+      throw new Error('Verification failed: temp file contains invalid state');
+    }
+
+    // Atomic rename (prevents corruption if crash during write)
+    fs.renameSync(tempPath, statePath);
   } catch (e) {
+    // Clean up temp file if it exists
+    if (fs.existsSync(tempPath)) {
+      try { fs.unlinkSync(tempPath); } catch { /* ignore cleanup errors */ }
+    }
     logError('saveState', e);
     throw e;
   }

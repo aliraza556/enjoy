@@ -2,28 +2,39 @@ import Filter from 'bad-words';
 import { Rule, PRMetadata, ValidationResult } from './types.js';
 import { loadState } from './loader.js';
 import { getFileContent } from './parser.js';
-import { hashAuthor, safeRegex, safeRegexTest } from './utils.js';
+import { hashAuthor, safeRegex, safeRegexTest, isSelfReferral, normalizeForComparison } from './utils.js';
 
 const filter = new Filter();
 
 /**
  * Extract referral from PR body
+ * @param prBody - The PR body text
+ * @param author - The PR author (optional, used to prevent self-referral)
+ * @returns The referrer username or null
  */
-export function extractReferral(prBody: string): string | null {
+export function extractReferral(prBody: string, author?: string): string | null {
   // Match patterns: "Invited by @username" or "Referred by @username"
   const patterns = [
     /invited by @([a-zA-Z0-9-]+)/i,
     /referred by @([a-zA-Z0-9-]+)/i,
     /referral: @([a-zA-Z0-9-]+)/i
   ];
-  
+
   for (const pattern of patterns) {
     const match = prBody.match(pattern);
     if (match && match[1]) {
-      return match[1];
+      const referrer = match[1];
+
+      // SECURITY: Prevent self-referral exploit
+      if (author && isSelfReferral(referrer, author)) {
+        console.warn(`Self-referral attempt blocked: ${author}`);
+        return null;
+      }
+
+      return referrer;
     }
   }
-  
+
   return null;
 }
 
@@ -113,8 +124,9 @@ function validateContent(rule: Rule, pr: PRMetadata): { valid: boolean; reason?:
     }
     
     if (validation.not_duplicate) {
+      const normalizedContent = normalizeForComparison(content);
       const exists = state.board.elements.some((el) =>
-        el.content?.toLowerCase() === content.toLowerCase()
+        normalizeForComparison(el.content || '') === normalizedContent
       );
       if (exists) {
         return { valid: false, reason: 'Word already exists on board' };

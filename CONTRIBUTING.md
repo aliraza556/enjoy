@@ -24,8 +24,8 @@ Your PR will be automatically validated. If it passes, it will be auto-merged! �
 **Requirements:**
 - ✅ File must be named `yourword.txt` (any name ending in `.txt`)
 - ✅ File must contain exactly ONE word
-- ✅ Word must be 2-20 characters (letters only)
-- ✅ **5-10 characters = bonus points!**
+- ✅ Word must be 3-30 characters (letters only)
+- ✅ **5-10 characters = optimal karma bonus!**
 - ✅ No profanity
 - ✅ Word must not already exist on the board
 

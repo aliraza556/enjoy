@@ -269,7 +269,19 @@ jobs:
               console.log('Skipping to avoid double-counting karma.');
               process.exit(0);
             }
-            
+
+            // ═══════════════════════════════════════════════════════════
+            // AUTO-MERGE CHECK - Already handled by auto-merge.yml
+            // ═══════════════════════════════════════════════════════════
+            const prLabels = '${{ join(github.event.pull_request.labels.*.name, ',') }}';
+            const wasAutoMerged = prLabels.includes('auto-merge');
+
+            if (wasAutoMerged) {
+              console.log('⏭️ Auto-merged PR detected - karma already calculated by auto-merge.yml');
+              console.log('Skipping to avoid double-counting karma.');
+              process.exit(0);
+            }
+
             // Extract word from PR title (format: 'Add word: xyz')
             const wordMatch = prTitle.match(/add\\s+word[:\\s]+([a-zA-Z]+)/i);
             const word = wordMatch ? wordMatch[1] : '';
@@ -299,8 +311,24 @@ jobs:
             // ═══════════════════════════════════════════════════════════
             const period = getCurrentPeriod();
             const timeMultiplier = period.mult;
-            const rareEvents = checkRareTimeEvents();
+            let rareEvents = checkRareTimeEvents();
             const timeGreeting = getTimeGreeting(author, period);
+
+            // ═══════════════════════════════════════════════════════════
+            // RARE EVENT COOLDOWN - Prevent farming (max 1 per 24h per player)
+            // ═══════════════════════════════════════════════════════════
+            if (rareEvents.length > 0) {
+              const lastRareEvent = player.last_rare_event ? new Date(player.last_rare_event).getTime() : 0;
+              const hoursSinceLastEvent = (Date.now() - lastRareEvent) / (1000 * 3600);
+
+              if (hoursSinceLastEvent < 24) {
+                console.log('⏳ Rare event cooldown active (' + Math.round(24 - hoursSinceLastEvent) + 'h remaining) - bonus skipped');
+                rareEvents = []; // Clear bonus to prevent farming
+              } else {
+                player.last_rare_event = new Date().toISOString();
+                console.log('🎉 Rare event bonus applied! Next available in 24h.');
+              }
+            }
             
             // Track time stats for achievements
             player.time_stats = player.time_stats || {};
@@ -330,7 +358,13 @@ jobs:
             }
             
             // Calculate karma with ALL multipliers (base * streak * challenge * time)
-            let totalKarma = Math.round(baseKarma * streakMultiplier * challengeMultiplier * timeMultiplier);
+            // BALANCE: Cap combined multiplier at 4x to prevent extreme stacking exploits
+            const combinedMultiplier = streakMultiplier * challengeMultiplier * timeMultiplier;
+            const cappedMultiplier = Math.min(4.0, combinedMultiplier);
+            if (combinedMultiplier > 4.0) {
+              console.log('⚖️ Multiplier capped: ' + combinedMultiplier.toFixed(2) + 'x → 4.0x');
+            }
+            let totalKarma = Math.round(baseKarma * cappedMultiplier);
             
             // Add rare time event bonuses
             for (const event of rareEvents) {
@@ -422,7 +456,7 @@ jobs:
               const needsScore = next.progress.score >= next.requires_score;
               const needsPrs = next.progress.prs >= next.requires_prs;
               
-              if (needsScore || needsPrs) {
+              if (needsScore && needsPrs) {
                 console.log('🎉 LEVEL UP! Unlocking level', next.level_id);
                 state.levels.current = next.level_id;
                 state.levels.unlocked.push(next.level_id);
@@ -469,10 +503,14 @@ jobs:
           "
       
       - name: Commit and push
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           git add state.json
-          git commit -m "📊 State update from PR #${{ github.event.pull_request.number }}" || echo "No changes"
-          git push
+          if git diff --staged --quiet; then
+            echo "::notice::No changes to commit"
+          else
+            git commit -m "📊 State update from PR #${{ github.event.pull_request.number }} [skip ci]"
+            if ! git push; then
+              echo "::warning::Push failed - may require manual sync or retry"
+              exit 1
+            fi
+          fi

@@ -1,0 +1,17 @@
+id: prop_1768790624961_test-rule-001
+proposed_by: player1
+proposed_at: '2026-01-19T02:43:44.961Z'
+rule_file: rules/test-rule-001-test-rule.yaml
+rule_content:
+  id: test-rule-001
+  name: Test Rule
+  description: A test rule for unit testing
+  version: 1
+  enabled: true
+  priority: 50
+votes_for: {}
+votes_against: {}
+total_for: 0
+total_against: 0
+status: voting
+voting_ends: '2026-01-26T02:43:44.961Z'

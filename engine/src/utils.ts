@@ -1,5 +1,57 @@
 import { createHash } from 'crypto';
 import path from 'path';
+import { Player } from './types.js';
+
+/**
+ * Create a default player object with all required fields
+ */
+export function createDefaultPlayer(joinDate?: string): Player {
+  return {
+    karma: 0,
+    prs: 0,
+    total_prs: 0,
+    prs_merged: 0,
+    reputation: 0,
+    streak: 0,
+    achievements: [],
+    contributions: [],
+    joined: joinDate || new Date().toISOString()
+  };
+}
+
+/**
+ * Normalize string for comparison (handles Unicode, case, zero-width chars)
+ * Used for duplicate detection and anti-abuse
+ */
+export function normalizeForComparison(str: string): string {
+  return str
+    .normalize('NFD')                           // Decompose Unicode
+    .replace(/[\u0300-\u036f]/g, '')            // Remove diacritics
+    .replace(/[\u200B-\u200D\uFEFF\u00A0]/g, '') // Remove zero-width chars
+    .trim()
+    .toLowerCase();
+}
+
+/**
+ * Validate player name to prevent prototype pollution and other attacks
+ */
+export function validatePlayerName(name: string): boolean {
+  if (!name || typeof name !== 'string') return false;
+  if (name.length > 100) return false;
+  if (name.includes('\n') || name.includes('\0')) return false;
+  // Block prototype pollution vectors
+  if (['__proto__', 'constructor', 'prototype', 'toString', 'valueOf'].includes(name)) return false;
+  // Only allow safe characters
+  return /^[a-zA-Z0-9_-]+$/.test(name);
+}
+
+/**
+ * Check for self-referral (case-insensitive)
+ */
+export function isSelfReferral(user1: string, user2: string): boolean {
+  if (!user1 || !user2) return false;
+  return user1.trim().toLowerCase() === user2.trim().toLowerCase();
+}
 
 /**
  * Hash author name using SHA-256 for privacy

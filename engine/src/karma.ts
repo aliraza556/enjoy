@@ -1,12 +1,12 @@
 import { GameState, PRMetadata } from './types.js';
-import { hashAuthor } from './utils.js';
+import { hashAuthor, normalizeForComparison, createDefaultPlayer, isSelfReferral } from './utils.js';
 
 /**
  * KARMA SYSTEM
- * 
+ *
  * Good contributions → karma up → amplification (runner fa 2-3x)
  * Bad contributions → karma down → refuse
- * 
+ *
  * Karma is GLOBAL (community) + PER-PLAYER
  */
 
@@ -57,9 +57,10 @@ export function analyzeContributionQuality(pr: PRMetadata, content: string, stat
     reasons.push('Suspicious pattern');
   }
   
-  // CHECK 4: Duplicate check (already penalized in validator but affects karma)
-  const isDuplicate = state.board.elements.some(el => 
-    el.content?.toLowerCase() === content.toLowerCase()
+  // CHECK 4: Duplicate check with Unicode normalization (prevents bypass via diacritics)
+  const normalizedContent = normalizeForComparison(content);
+  const isDuplicate = state.board.elements.some(el =>
+    normalizeForComparison(el.content || '') === normalizedContent
   );
   if (isDuplicate) {
     score -= 30;
@@ -150,7 +151,7 @@ export function applyKarma(state: GameState, pr: PRMetadata, analysis: KarmaAnal
   
   const player = state.players[playerHash];
   
-  // Karma changes
+  // Karma changes (clamped to non-negative to prevent sorting issues)
   if (analysis.is_excellent) {
     player.karma = (player.karma || 0) + 25;
     state.karma.global += 25;
@@ -158,8 +159,8 @@ export function applyKarma(state: GameState, pr: PRMetadata, analysis: KarmaAnal
     player.karma = (player.karma || 0) + 10;
     state.karma.global += 10;
   } else if (analysis.is_bad) {
-    player.karma = (player.karma || 0) - 20;
-    state.karma.global -= 5;  // Less impact on global
+    player.karma = Math.max(0, (player.karma || 0) - 20);  // Never go negative
+    state.karma.global = Math.max(0, state.karma.global - 5);
   }
   
   // Reputation (slower to change, affects voting power)
@@ -299,11 +300,68 @@ export interface ReferralChain {
   total_contributions: number;
 }
 
-export function trackReferral(state: GameState, inviter: string, invitee: string): void {
+/**
+ * Check for circular referral chains (A invites B, B invites C, C invites A)
+ * Protected against infinite loops with visited set and orphan detection
+ */
+function hasCircularReferral(chains: Record<string, ReferralChain>, inviter: string, invitee: string): boolean {
+  const visited = new Set<string>();
+  let current = inviter;
+  const maxIterations = 100; // Safety limit
+  let iterations = 0;
+
+  while (current && !visited.has(current) && iterations < maxIterations) {
+    visited.add(current);
+    iterations++;
+
+    // Find who invited current (go up the chain)
+    let foundInviter = false;
+    const previousCurrent = current;
+
+    for (const [inv, chain] of Object.entries(chains)) {
+      if (chain.invited.includes(current)) {
+        current = inv;
+        foundInviter = true;
+        break;
+      }
+    }
+
+    // If no one invited current, they're at the top of the chain
+    if (!foundInviter) {
+      break;
+    }
+
+    // If current didn't change, something is wrong - break to prevent infinite loop
+    if (current === previousCurrent) {
+      break;
+    }
+
+    // If we reached invitee going up the chain, it's circular
+    if (current === invitee) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+export function trackReferral(state: GameState, inviter: string, invitee: string): boolean {
   if (!state.referrals) {
     state.referrals = { chains: {}, stats: { total_invites: 0, active_chains: 0, deepest_chain: 0 } };
   }
-  
+
+  // SECURITY: Prevent self-referral
+  if (isSelfReferral(inviter, invitee)) {
+    console.warn(`Self-referral blocked: ${inviter}`);
+    return false;
+  }
+
+  // SECURITY: Prevent circular referral chains
+  if (hasCircularReferral(state.referrals.chains, inviter, invitee)) {
+    console.warn(`Circular referral blocked: ${inviter} -> ${invitee}`);
+    return false;
+  }
+
   if (!state.referrals.chains[inviter]) {
     state.referrals.chains[inviter] = {
       inviter,
@@ -313,23 +371,25 @@ export function trackReferral(state: GameState, inviter: string, invitee: string
       total_contributions: 0
     };
   }
-  
+
   const chain = state.referrals.chains[inviter];
   if (!chain.invited.includes(invitee)) {
     chain.invited.push(invitee);
     state.referrals.stats.total_invites++;
-    
+
     // Check if invitee was invited by someone else (chain)
     const inviteeChain = state.referrals.chains[invitee];
     if (inviteeChain) {
       const newDepth = inviteeChain.chain_depth + 1;
       chain.chain_depth = Math.max(chain.chain_depth, newDepth);
-      
+
       if (newDepth > state.referrals.stats.deepest_chain) {
         state.referrals.stats.deepest_chain = newDepth;
       }
     }
   }
+
+  return true;
 }
 
 export function applyReferralKarma(

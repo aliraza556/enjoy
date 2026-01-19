@@ -515,8 +515,10 @@ export function processContribution(
     result.challenge_completed = true;
   }
   
-  // 3. Calculate total karma
-  result.total_karma = Math.round(baseKarma * result.streak_multiplier * result.challenge_multiplier);
+  // 3. Calculate total karma (cap combined multiplier at 4x for balance)
+  const combinedMultiplier = result.streak_multiplier * result.challenge_multiplier;
+  const cappedMultiplier = Math.min(4.0, combinedMultiplier);
+  result.total_karma = Math.round(baseKarma * cappedMultiplier);
   
   // 4. Check mystery box
   const totalContribs = (player.prs || 0) + (player.issues || 0) + 1;

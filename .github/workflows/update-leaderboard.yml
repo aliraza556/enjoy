@@ -9,6 +9,11 @@ on:
       - 'state.json'
       - 'words/**'
 
+# Prevent concurrent leaderboard updates that could conflict with state changes
+concurrency:
+  group: enjoy-game-state
+  cancel-in-progress: false
+
 permissions:
   contents: write
   issues: write
@@ -100,13 +105,17 @@ jobs:
           cat .github/LEADERBOARD.md
       
       - name: Commit and Push
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           git add .github/LEADERBOARD.md
-          git diff --staged --quiet || git commit -m "📊 Update leaderboard [skip ci]"
-          git push || echo "Nothing to push"
+          if git diff --staged --quiet; then
+            echo "::notice::No changes to commit"
+          else
+            git commit -m "📊 Update leaderboard [skip ci]"
+            if ! git push; then
+              echo "::warning::Push failed - may require manual sync or retry"
+              exit 1
+            fi
+          fi
       
       - name: Update Issue
         env:
